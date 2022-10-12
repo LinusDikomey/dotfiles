@@ -1,0 +1,21 @@
+theme = "edge_neon"
+
+[editor]
+line-number = "relative"
+
+[keys.normal]
+m = "move_char_left"
+n = "move_line_down"
+e = "move_line_up"
+i = "move_char_right"
+
+l = "insert_mode"
+L = "prepend_to_line"
+h = "search_next"
+H = "search_prev"
+
+[keys.select]
+m = "extend_char_left"
+n = "extend_line_down"
+e = "extend_line_up"
+i = "extend_char_right"

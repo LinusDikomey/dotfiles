@@ -1,0 +1,1 @@
+/home/linus/.fzf/shell/key-bindings.fish
