@@ -15,3 +15,19 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
 }
+
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.eye = {
+  install_info = {
+    url = "~/dev/tree-sitter-eye", -- local path or git repo
+    files = {"src/parser.c", "src/scanner.c"},
+    -- optional entries:
+    branch = "master", -- default branch in case of git repo if different from master
+    generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+    requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+  },
+  filetype = "eye", -- if filetype does not match the parser name
+}
+
+local ft_to_parser = require"nvim-treesitter.parsers".filetype_to_parsername
+ft_to_parser.eye = "eye"

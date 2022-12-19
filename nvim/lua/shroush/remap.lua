@@ -19,6 +19,8 @@ local M = {
     i = bind('i'),
 }
 
+M.n('<C-t>', ":TSCaptureUnderCursor<CR>")
+
 -- remap for colemak dh
 M.n('m', 'h')
 M.n('n', 'j')
