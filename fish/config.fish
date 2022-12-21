@@ -39,5 +39,4 @@ set -x --universal SSH_AUTH_SOCK $XDG_RUNTIME_DIR"/ssh-agent.socket"
 
 alias ls=exa
 alias hx=helix
-alias llvm-config-13=/usr/lib/llvm13/bin/llvm-config
 alias cat=bat
