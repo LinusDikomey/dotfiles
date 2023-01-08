@@ -79,3 +79,16 @@ M.n('<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 -- M.n('<leader>e', '<cmd>lnext<CR>zz')
 
 M.n('<leader>c', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+M.n('<leader>d', ':TroubleToggle<CR>')
+
+-- clear search
+M.n('<leader>/', ':noh<CR>')
+
+-- splits
+M.n('sh', ':split<CR>')
+M.n('sv', ':vsplit<CR>')
+M.n('sm', '<C-w>h')
+M.n('sn', '<C-w>j')
+M.n('se', '<C-w>k')
+M.n('si', '<C-w>l')

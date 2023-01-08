@@ -22,8 +22,15 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
   -- sign_icons = { }
 -- })
 
+local cmp_sources = lsp.defaults.cmp_sources()
+
+for _, source in pairs(cmp_sources) do
+    -- source.keyword_length = 1
+end
+
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings,
+  sources = cmp_sources
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -38,6 +45,25 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+
+  -- also allow code action/quick fix in insert mode
+  vim.keymap.set("i", "<F4>", function() vim.lsp.buf.code_action() end, opts)
 end)
 
 lsp.setup()
+
+
+vim.diagnostic.config({
+    virtual_text = true,
+})
+
+require'lspconfig'.sumneko_lua.setup {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+}
+
