@@ -19,8 +19,6 @@ local M = {
     i = bind('i'),
 }
 
-M.n('<C-t>', ":TSCaptureUnderCursor<CR>")
-
 -- remap for colemak dh
 M.n('m', 'h')
 M.n('n', 'j')
@@ -92,3 +90,8 @@ M.n('sm', '<C-w>h')
 M.n('sn', '<C-w>j')
 M.n('se', '<C-w>k')
 M.n('si', '<C-w>l')
+
+
+-- previous/next location
+M.n('<C-t>', '<C-i>')
+M.n('<C-g>', '<C-o>')

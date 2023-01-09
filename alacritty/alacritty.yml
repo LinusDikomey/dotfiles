@@ -5,6 +5,8 @@ shell:
 # Source : https://github.com/JonathanSpeek/palenight-iterm2
 window:
   opacity: 0.83
+env:
+  TERM: xterm-256color
 colors:
   # Default colors
   primary:
