@@ -38,8 +38,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
-exec --no-startup-id feh --bg-scale ~/.config/wallpaper.png
+exec --no-startup-id feh --bg-scale ~/.config/wallpaper.jpg
 exec --no-startup-id pulseaudio
+exec --no-startup-id flameshot
 exec --no-startup-id redshift
 
 # Use pactl to adjust volume in PulseAudio.
@@ -107,12 +108,12 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+BackSpace fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
 bindsym $mod+t layout toggle split
+bindsym $mod+g layout tabbed
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -121,7 +122,9 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
+
+bindsym $mod+k move workspace to output right
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -169,6 +172,29 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+l exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# launch essential applicatinos
+# quiscord
+bindsym $mod+q exec discord
+# web browser
+bindsym $mod+w exec firefox
+# file explorer
+bindsym $mod+f exec nautilus
+# player
+bindsym $mod+p exec spotify
+# calculator (b)
+bindsym $mod+b exec speedcrunch
+
+
+# Umlaute
+# doesn't work :(
+# bindsym $mod+a exec xdotool type 'ä'
+# bindsym $mod+o exec xdotool type 'ä'
+# bindsym $mod+u exec xdotool type 'ä'
+
+# bindsym $mod+Shift+a exec xdotool type 'Ä'
+# bindsym $mod+Shift+o exec xdotool type 'ä'
+# bindsym $mod+Shift+u exec xdotool type 'ä'
 
 # for_window [class=".*"] border pixel 3
 

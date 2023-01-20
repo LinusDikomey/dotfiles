@@ -40,3 +40,5 @@ set -x --universal SSH_AUTH_SOCK $XDG_RUNTIME_DIR"/ssh-agent.socket"
 alias ls=exa
 alias hx=helix
 alias cat=bat
+
+alias :q exit
