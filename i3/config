@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font FiraCode:monospace 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -26,6 +26,7 @@ exec --no-startup-id ~/.screenlayout/layout.sh
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+# compositor
 exec --no-startup-id picom
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
@@ -35,11 +36,13 @@ exec --no-startup-id picom
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
+# audio
+exec --no-startup-id pulseaudio
+exec --no-startup-id volumeicon
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id pulseaudio
 exec --no-startup-id nm-applet
-exec --no-startup-id feh --bg-scale ~/.config/wallpaper.jpg
+exec --no-startup-id feh --bg-scale ~/.config/wallpaper.png
 exec --no-startup-id flameshot
 exec --no-startup-id redshift
 
@@ -122,7 +125,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-# bindsym $mod+a focus parent
+bindsym $mod+a focus parent
 
 bindsym $mod+k move workspace to output right
 
@@ -174,17 +177,18 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+l exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # launch essential applicatinos
-# quiscord
+# discord (q)
 bindsym $mod+q exec discord
-# web browser
+# (w)eb browser
 bindsym $mod+w exec firefox
-# file explorer
+# (f)ile explorer
 bindsym $mod+f exec nautilus
-# player
+# music (p)layer
 bindsym $mod+p exec spotify
 # calculator (b)
 bindsym $mod+b exec speedcrunch
-
+# take screenshot
+bindsym $mod+Shift+s exec flameshot gui
 
 # Umlaute
 # doesn't work :(
@@ -241,8 +245,9 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
     # mode hide
-    position bottom
+    position top
     status_command i3status
     i3bar_command i3bar # --transparency
     output DP-2
+    font pango:monospace 11
 }
