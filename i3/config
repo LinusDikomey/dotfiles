@@ -42,7 +42,7 @@ exec --no-startup-id volumeicon
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
-exec --no-startup-id feh --bg-scale ~/.config/wallpaper.png
+exec --no-startup-id feh --no-fehbg --bg-scale ~/.config/wallpaper.png
 exec --no-startup-id flameshot
 exec --no-startup-id redshift
 
@@ -200,7 +200,7 @@ bindsym $mod+Shift+s exec flameshot gui
 # bindsym $mod+Shift+o exec xdotool type 'ä'
 # bindsym $mod+Shift+u exec xdotool type 'ä'
 
-# for_window [class=".*"] border pixel 3
+for_window [class=".*"] border pixel 4
 
 
 default_border pixel
