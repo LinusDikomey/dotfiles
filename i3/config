@@ -27,7 +27,7 @@ exec --no-startup-id ~/.screenlayout/layout.sh
 exec --no-startup-id dex --autostart --environment i3
 
 # compositor
-exec --no-startup-id picom
+exec --no-startup-id picom -b --unredir-if-possible 
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -202,12 +202,15 @@ bindsym $mod+Shift+s exec flameshot gui
 
 for_window [class=".*"] border pixel 4
 
+# godot game float
+for_window [class="game"] floating enable
+
 
 default_border pixel
 hide_edge_borders smart
 
 # gaps
-# gaps inner 10px
+gaps inner 10px
 smart_gaps on
 # toggle gaps
 bindsym $mod+Shift+g exec i3-msg gaps inner all toggle 10
