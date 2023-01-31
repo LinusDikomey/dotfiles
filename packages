@@ -9,7 +9,6 @@ cmake
 debugedit
 dex
 discord
-efibootmgr
 exa
 fakeroot
 feh
@@ -19,14 +18,12 @@ flameshot
 gcc
 gimp
 git
-godot
 groff
 grub
 i3-swallow-git
 i3-wm
 i3status
 imagemagick
-intel-ucode
 linux
 linux-firmware
 lua
@@ -40,14 +37,7 @@ neovim
 network-manager-applet
 noto-fonts
 noto-fonts-emoji
-npm
-ntfs-3g
-numlockx
-nvidia
-nvidia-settings
-nvidia-utils
 openssh
-os-prober
 pacman-contrib
 paru
 patch
@@ -55,10 +45,8 @@ pavucontrol
 picom
 pkgconf
 playerctl
-polymc-bin
 pulseaudio
 pulseaudio-alsa
-qemu-desktop
 ranger
 redshift
 rofi
@@ -67,9 +55,7 @@ sddm
 sddm-sugar-candy-git
 speedcrunch
 spotify
-steam
 sudo
-texinfo
 ttf-firacode-nerd
 unzip
 volumeicon
@@ -109,4 +95,3 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xss-lock
-zsa-wally-cli

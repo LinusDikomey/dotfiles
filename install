@@ -30,7 +30,7 @@ git clone git@github.com:LinusDikomey/dotfiles
 cd dotfiles
 
 echo "Installing packages"
-paru -S $(cat deps)
+paru -S $(cat packages)
 
 echo "Linking configs"
 cd ~/.config
