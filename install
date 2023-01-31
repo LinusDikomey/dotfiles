@@ -1,7 +1,7 @@
 set -e
 
 echo "Installing Linus' Arch Linux i3 Config"
-echo "This should be run as the user that everything should be installed for"
+echo "This should be run as the user everything should be installed for"
 read -p "press Enter to continue ..."
 
 cd ~
@@ -10,7 +10,7 @@ mkdir .config
 echo "Updating system"
 sudo pacman -Syu
 
-echo "Installing essentials for installing"
+echo "Installing development packages"
 sudo pacman -S --needed base-devel git rustup
 
 echo "Installing nightly rust"
@@ -45,6 +45,9 @@ ln -s ~/dotfiles/tmux
 
 echo "Enabling sddm"
 systemctl enable sddm
+
+echo "Enabling NetworkManager"
+systemctl enable NetworkManager
 
 echo
 echo
