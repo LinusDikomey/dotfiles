@@ -5,6 +5,7 @@ base
 bat
 bind
 btop
+cmake
 debugedit
 dex
 discord
@@ -18,8 +19,10 @@ flameshot
 gcc
 gimp
 git
+godot
 groff
 grub
+i3-swallow-git
 i3-wm
 i3status
 imagemagick
@@ -30,6 +33,7 @@ lua
 m4
 make
 man-db
+nasm
 nautilus
 neofetch
 neovim
@@ -54,9 +58,11 @@ playerctl
 polymc-bin
 pulseaudio
 pulseaudio-alsa
+qemu-desktop
 ranger
 redshift
 rofi
+rustup
 sddm
 sddm-sugar-candy-git
 speedcrunch

@@ -1,0 +1,59 @@
+set -e
+
+echo "Installing Linus' Arch Linux i3 Config"
+echo "This should be run as the user that everything should be installed for"
+read -p "press Enter to continue ..."
+
+cd ~
+mkdir .config
+
+echo "Updating system"
+sudo pacman -Syu
+
+echo "Installing essentials for installing"
+sudo pacman -S --needed base-devel git rustup
+
+echo "Installing nightly rust"
+rustup default nightly
+
+echo "Cloning paru"
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+
+cd ~
+rm -rf paru
+
+echo "Cloning dotfiles"
+git clone git@github.com:LinusDikomey/dotfiles
+
+cd dotfiles
+
+echo "Installing packages"
+paru -S $(cat deps)
+
+echo "Linking configs"
+cd ~/.config
+ln -s ~/dotfiles/alacritty
+ln -s ~/dotfiles/fish
+ln -s ~/dotfiles/i3
+ln -s ~/dotfiles/i3status
+ln -s ~/dotfiles/nvim
+ln -s ~/dotfiles/picom.conf
+ln -s ~/dotfiles/redshift
+ln -s ~/dotfiles/tmux
+
+echo "Enabling sddm"
+systemctl enable sddm
+
+echo
+echo
+echo "Installation is completed!"
+echo
+echo "You can set a wallpaper by placing it in ~/.config/wallpaper.png"
+echo
+echo "Setting up the sddm theme also has to be done manually right now by editing /etc/sddm.conf.d/sddm.conf and setting:"
+echo  "[Theme]"
+echo "Current=sugar-candy"
+echo
+echo "It's wallpaper can then be configured in /usr/share/sddm/themes/sugar-candy/theme.conf"
