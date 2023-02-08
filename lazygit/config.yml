@@ -190,8 +190,8 @@ keybinding:
         markCommitAsFixup: f
         createFixupCommit: F
         squashAboveCommit: aaa
-        moveDownCommit: <c-j>
-        moveUpCommit: <c-k>
+        moveDownCommit: <c-n>
+        moveUpCommit: <c-e>
         amendToCommit: A
         resetCommitAuthor: a
         pickCommit: p

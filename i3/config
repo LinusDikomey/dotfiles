@@ -190,6 +190,7 @@ bindsym $mod+p exec spotify
 bindsym $mod+b exec speedcrunch
 # take screenshot
 bindsym $mod+Shift+s exec flameshot gui
+bindsym $mod+Escape exec rofi -show power-menu -modi power-menu:~/dotfiles/rofi/rofi-power-menu
 
 # Umlaute
 # doesn't work :(
@@ -252,7 +253,7 @@ bar {
     # mode hide
     position top
     status_command i3status
-    i3bar_command polybar # --transparency
+    i3bar_command polybar
     output DP-2
     font pango:monospace 11
 }
