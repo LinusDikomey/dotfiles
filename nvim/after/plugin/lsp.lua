@@ -24,9 +24,9 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 
 local cmp_sources = lsp.defaults.cmp_sources()
 
-for _, source in pairs(cmp_sources) do
+--for _, source in pairs(cmp_sources) do
     -- source.keyword_length = 1
-end
+--end
 
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings,
@@ -57,7 +57,9 @@ vim.diagnostic.config({
     virtual_text = true,
 })
 
-require'lspconfig'.sumneko_lua.setup {
+local lspconfig = require'lspconfig'
+
+lspconfig.sumneko_lua.setup {
     settings = {
         Lua = {
             diagnostics = {
@@ -67,3 +69,7 @@ require'lspconfig'.sumneko_lua.setup {
     }
 }
 
+
+--lspconfig.rust_analyzer.setup {
+--    cmd = { "rustup", "run", "nightly", "rust-analyzer" }
+--}

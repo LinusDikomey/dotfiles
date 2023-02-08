@@ -42,6 +42,8 @@ ln -s ~/dotfiles/nvim
 ln -s ~/dotfiles/picom.conf
 ln -s ~/dotfiles/redshift
 ln -s ~/dotfiles/tmux
+ln -s ~/dotfiles/dunst
+ln -s ~/dotfiles/lazygit
 
 echo "Enabling sddm"
 systemctl enable sddm

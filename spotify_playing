@@ -1,0 +1,18 @@
+#/bin/bash
+
+title="$(playerctl -p spotify metadata title 2>&1)"
+ok=$?
+if [ $ok -ne 0 ]; then
+    exit 2
+fi
+
+artist=`playerctl -p spotify metadata artist`
+
+status="$(playerctl -p spotify status)"
+if [ $status = "Playing" ]; then
+     icon="▶️ "
+else
+    icon="_ "
+fi
+
+echo -e "$icon $title - $artist"
