@@ -174,9 +174,9 @@ do
 done
 for entry in "${all[@]}"
 do
-    confirmationMessages[$entry]=$(write_message "${icons[$entry]}" "Yes, ${texts[$entry]}")
+    confirmationMessages[$entry]=$(write_message "${icons[$entry]}" "Confirm")
 done
-confirmationMessages[cancel]=$(write_message "${icons[cancel]}" "No, cancel")
+confirmationMessages[cancel]=$(write_message "${icons[cancel]}" "Cancel")
 
 if [ $# -gt 0 ]
 then

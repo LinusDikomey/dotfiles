@@ -17,11 +17,16 @@ configuration {
     display-window:             "Windows";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c} · {t}";
+
+    /** Make Mouse Single Click/Hover Select Work **/
+    hover-select: true;
+    me-select-entry: "";
+    me-accept-entry: [ MousePrimary, MouseSecondary, MouseDPrimary ];
 }
 
 /*****----- Global Properties -----*****/
 * {
-    font:                        "JetBrains Mono Nerd Font 10";
+    font:                        "JetBrains Mono Nerd Font 20";
     background:                  #180F39;
     background-alt:              #32197D;
     foreground:                  #FFFFFF;
@@ -37,7 +42,8 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       1000px;
+    width:                       1400px;
+    height:                      1000px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -79,11 +85,12 @@ inputbar {
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
-    str:                         "";
-    padding:                     12px 15px;
+    str:                         " ";
+    padding:                     12px 12px 12px 17px;
     border-radius:               100%;
     background-color:            @background-alt;
     text-color:                  inherit;
+    horizontal-align:            0.01;
 }
 entry {
     enabled:                     true;
@@ -110,7 +117,7 @@ mode-switcher{
     text-color:                  @foreground;
 }
 button {
-    width:                       80px;
+    width:                       140px;
     padding:                     12px;
     border-radius:               100%;
     background-color:            @background-alt;
