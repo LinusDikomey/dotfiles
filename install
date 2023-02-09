@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 echo "Installing Linus' Arch Linux i3 Config"
@@ -44,6 +46,7 @@ ln -s ~/dotfiles/redshift
 ln -s ~/dotfiles/tmux
 ln -s ~/dotfiles/dunst
 ln -s ~/dotfiles/lazygit
+ln -s ~/dotfiles/rofi
 
 echo "Enabling sddm"
 systemctl enable sddm

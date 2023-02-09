@@ -10,9 +10,9 @@ artist=`playerctl -p spotify metadata artist`
 
 status="$(playerctl -p spotify status)"
 if [ $status = "Playing" ]; then
-     icon="▶️ "
+     icon=" "
 else
-    icon="_ "
+    icon=" "
 fi
 
-echo -e "$icon $title - $artist"
+echo -e "%{T2}$icon%{T-} $title - $artist"
