@@ -47,6 +47,7 @@ ln -s ~/dotfiles/tmux
 ln -s ~/dotfiles/dunst
 ln -s ~/dotfiles/lazygit
 ln -s ~/dotfiles/rofi
+ln -s ~/dotfiles/feh
 
 echo "Enabling sddm"
 systemctl enable sddm
