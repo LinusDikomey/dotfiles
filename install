@@ -56,7 +56,7 @@ systemctl enable NetworkManager
 
 echo "Seting up sddm"
 sddm_login_prompt=$(read -p "Enter Login Text: ")
-sudo ~/dotfiles/scripts/setup_sddm ~/.config/wallpaper.png "$sddm_login_prompt"
+sudo ~/dotfiles/scripts/setup_sddm /usr/share/wallpaper.png "$sddm_login_prompt"
 
 echo
 echo "Installation is completed!"
