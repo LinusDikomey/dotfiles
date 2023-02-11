@@ -32,9 +32,6 @@ function sudo!!
     eval sudo $history[1]
 end
 
-complete -c tt -a 'cancel create finish help start status' --no-files
-abbr -a x 'nvim ~/.xmonad/xmonad.hs'
-
 set -x --universal SSH_AUTH_SOCK $XDG_RUNTIME_DIR"/ssh-agent.socket"
 
 alias ls=exa

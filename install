@@ -39,7 +39,6 @@ cd ~/.config
 ln -s ~/dotfiles/alacritty
 ln -s ~/dotfiles/fish
 ln -s ~/dotfiles/i3
-ln -s ~/dotfiles/i3status
 ln -s ~/dotfiles/nvim
 ln -s ~/dotfiles/picom.conf
 ln -s ~/dotfiles/redshift
@@ -55,14 +54,12 @@ systemctl enable sddm
 echo "Enabling NetworkManager"
 systemctl enable NetworkManager
 
-echo
+echo "Seting up sddm"
+sddm_login_prompt=$(read -p "Enter Login Text: ")
+sudo ~/dotfiles/scripts/setup_sddm ~/.config/wallpaper.png "$sddm_login_prompt"
+
 echo
 echo "Installation is completed!"
 echo
 echo "You can set a wallpaper by placing it in ~/.config/wallpaper.png"
-echo
-echo "Setting up the sddm theme also has to be done manually right now by editing /etc/sddm.conf.d/sddm.conf and setting:"
-echo  "[Theme]"
-echo "Current=sugar-candy"
-echo
-echo "It's wallpaper can then be configured in /usr/share/sddm/themes/sugar-candy/theme.conf"
+echo "Have fun :D"
