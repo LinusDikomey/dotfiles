@@ -1,5 +1,5 @@
 # dotfiles
-My configuration files
+My configuration files. Productive i3 arch linux system.
 # Setup/Features
 - Arch Linux
 - I3 Window Manager
