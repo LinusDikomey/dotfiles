@@ -78,6 +78,8 @@ bindsym $mod+space exec "rofi -theme launcher -modi drun,run,window,ssh,filebrow
 bindsym $mod+d     exec "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show drun"
 # mod+c: windows
 bindsym $mod+c     exec "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show window"
+# mod+x: files
+bindsym $mod+x     exec "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show filebrowser"
 
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
