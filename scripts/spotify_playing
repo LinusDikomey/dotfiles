@@ -1,18 +1,33 @@
 #/bin/bash
 
-title="$(playerctl -p spotify metadata title 2>&1)"
-ok=$?
-if [ $ok -ne 0 ]; then
-    exit 2
-fi
+sleep_pid=0
 
-artist=`playerctl -p spotify metadata artist`
+toggle() {
+    if [ "$sleep_pid" -ne 0 ]; then
+        kill $sleep_pid >/dev/null 2>&1
+    fi
+}
 
-status="$(playerctl -p spotify status)"
-if [ $status = "Playing" ]; then
-     icon=" "
-else
-    icon=" "
-fi
+trap "toggle" USR1
 
-echo -e "%{T2}$icon%{T-} $title - $artist"
+while true; do
+    title="$(playerctl -p spotify metadata title 2>&1)"
+    ok=$?
+    if [ $ok -ne 0 ]; then
+        exit 2
+    fi
+
+    artist=`playerctl -p spotify metadata artist`
+
+    status="$(playerctl -p spotify status)"
+    if [ $status = "Playing" ]; then
+         icon=" "
+    else
+        icon=" "
+    fi
+
+    echo -e "%{T2}$icon%{T-} $title - $artist"
+    sleep 1 &
+    sleep_pid=$!
+    wait
+done

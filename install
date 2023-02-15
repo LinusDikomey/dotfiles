@@ -40,6 +40,7 @@ chsh -s /bin/fish
 echo "Linking configs"
 cd ~/.config
 ln -s ~/dotfiles/alacritty
+ln -s ~/dotfiles/starship.toml
 ln -s ~/dotfiles/dunst
 ln -s ~/dotfiles/feh
 ln -s ~/dotfiles/fish

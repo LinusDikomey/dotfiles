@@ -34,6 +34,10 @@ end
 
 set -x --universal SSH_AUTH_SOCK $XDG_RUNTIME_DIR"/ssh-agent.socket"
 
+# Starship prompt
+starship init fish | source
+
+# aliases
 alias ls=exa
 alias hx=helix
 alias cat=bat

@@ -1,4 +1,6 @@
 alacritty
+fish
+starship
 neovim
 picom
 dunst
@@ -31,7 +33,6 @@ exa
 fakeroot
 feh
 firefox
-fish
 flameshot
 gcc
 gimp
