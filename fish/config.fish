@@ -6,6 +6,7 @@ if status is-interactive
 end
 
 if test -z "$DISPLAY"
+    and test "$XDG_VTNR"
 	and test "$XDG_VTNR" -eq 1
 	exec startx
 end
