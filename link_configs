@@ -1,0 +1,17 @@
+#!/bin/bash
+
+cd ~/.config
+
+ln -s ~/dotfiles/alacritty
+ln -s ~/dotfiles/starship.toml
+ln -s ~/dotfiles/dunst
+ln -s ~/dotfiles/feh
+ln -s ~/dotfiles/fish
+ln -s ~/dotfiles/i3
+ln -s ~/dotfiles/lazygit
+ln -s ~/dotfiles/nvim
+ln -s ~/dotfiles/polybar
+ln -s ~/dotfiles/redshift
+ln -s ~/dotfiles/rofi
+ln -s ~/dotfiles/tmux
+ln -s ~/dotfiles/picom.conf
