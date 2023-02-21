@@ -66,7 +66,7 @@ M.i('<C-c>', '<Esc>')
 -- make Q unusable
 M.n('Q', '<nop>')
 
-M.n('<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
+M.n('<C-f>', '<cmd>silent !tmux new tmux-sessionizer<CR>')
 -- format file, not used and <leader>f is also bound to 'find files'
 -- M.n('<leader>f', function() vim.lsp.buf.format())
 
@@ -81,7 +81,7 @@ M.n('<leader>c', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 M.n('<leader>d', ':TroubleToggle<CR>')
 
 -- clear search
-M.n('<leader>/', ':noh<CR>')
+M.n('<leader>/', ':noh<CR>', { silent = true })
 
 -- splits
 M.n('sh', ':split<CR>')
@@ -95,3 +95,12 @@ M.n('si', '<C-w>l')
 -- previous/next location
 M.n('<C-t>', '<C-i>')
 M.n('<C-g>', '<C-o>')
+
+
+-- Use Telescope for goto definition/references
+M.n("gd", ':Telescope lsp_definitions<CR>', { silent = true })
+M.n("gr", ':Telescope lsp_references<CR>', { silent = true })
+
+-- Diagnostics
+M.n("<C-d>", ':Telescope diagnostics<CR>', { silent = true})
+

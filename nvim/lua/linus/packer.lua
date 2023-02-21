@@ -57,5 +57,18 @@ return require('packer').startup(function(use)
       requires = "kyazdani42/nvim-web-devicons",
   }
 
+  -- Debugging
+  use 'mfussenegger/nvim-dap'
+  use 'rcarriga/nvim-dap-ui'
+
+  ----------------------------------------
+  --------   LANGUAGE SPECIFIC   ---------
+  ----------------------------------------
+  --
+  -- LaTeX
   use 'lervag/vimtex'
+  
+  -- Rust
+  -- use 'simrat39/rust-tools.nvim'
+
 end)
