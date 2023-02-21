@@ -18,7 +18,7 @@ sudo pacman -S --needed base-devel git rustup
 echo "Installing nightly rust"
 rustup default nightly
 
-echo "Cloning paru"
+echo "Cloning and building paru"
 git clone https://aur.archlinux.org/paru.git
 cd paru
 makepkg -si
@@ -37,8 +37,11 @@ paru -S $(cat packages)
 echo "Setting shell to fish"
 chsh -s /bin/fish
 
+echo "Setting git editor to nvim"
+git config --global core.editor nvim
+
 echo "Linking configs"
-./link_configs
+./scripts/link_configs
 
 echo "Enabling sddm"
 systemctl enable sddm
@@ -53,5 +56,5 @@ sudo ~/dotfiles/scripts/setup_sddm /usr/share/wallpaper.png "$sddm_login_prompt"
 echo
 echo "Installation is completed!"
 echo
-echo "You can set a wallpaper by placing it in ~/.config/wallpaper.png"
+echo "You can set a wallpaper by placing it in /usr/share/wallpaper.png"
 echo "Have fun :D"

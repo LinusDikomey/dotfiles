@@ -1,7 +1,9 @@
+#!/bin/bash
+
 cd ~/dotfiles
 paru -Syu
 git pull
 paru -S $(cat packages)
-./link_configs
+./scripts/link_configs
 rustup update nightly
 
