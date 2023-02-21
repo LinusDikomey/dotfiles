@@ -58,3 +58,5 @@ echo "Installation is completed!"
 echo
 echo "You can set a wallpaper by placing it in /usr/share/wallpaper.png"
 echo "Have fun :D"
+
+neofetch
