@@ -56,10 +56,10 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioPause exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -69,18 +69,18 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec --no-startup-id alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start rofi with mod+space or mod+d:
-bindsym $mod+space exec "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show drun"
-bindsym $mod+d     exec "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show drun"
+bindsym $mod+space exec --no-startup-id "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show drun"
+bindsym $mod+d     exec --no-startup-id "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show drun"
 # mod+c: windows
-bindsym $mod+c     exec "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show window"
+bindsym $mod+c     exec --no-startup-id "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show window"
 # mod+x: files
-bindsym $mod+x     exec "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show filebrowser"
+bindsym $mod+x     exec --no-startup-id "rofi -theme launcher -modi drun,run,window,ssh,filebrowser -show filebrowser"
 
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
@@ -188,20 +188,20 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+l exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-# launch essential applicatinos
+# hotkeys to launch essential applicatinos
 # discord (q)
 bindsym $mod+q exec discord
 # (w)eb browser
-bindsym $mod+w exec firefox
+bindsym $mod+w exec --no-startup-id firefox
 # (f)ile explorer
 bindsym $mod+f exec nautilus
 # music (p)layer
-bindsym $mod+p exec spotify
+bindsym $mod+p exec --no-startup-id spotify
 # calculator (b)
 bindsym $mod+b exec speedcrunch
 # take screenshot
 bindsym $mod+Shift+s exec flameshot gui
-bindsym $mod+Escape exec rofi -show power-menu -theme applet -modi power-menu:~/dotfiles/rofi/rofi-power-menu
+bindsym $mod+Escape exec --no-startup-id rofi -show power-menu -theme applet -modi power-menu:~/dotfiles/rofi/rofi-power-menu
 
 # Umlaute
 # doesn't work :(
