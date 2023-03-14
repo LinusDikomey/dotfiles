@@ -44,3 +44,7 @@ alias hx=helix
 alias cat=bat
 
 alias :q exit
+
+## git aliases
+alias gp=git pull
+alias gca="git add . ; git commit"

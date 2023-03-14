@@ -35,6 +35,9 @@ M.v('n', 'j')
 M.v('e', 'k')
 M.v('i', 'l')
 
+M.v('l', 'i')
+M.v('L', 'I')
+
 M.n("<leader>p", vim.cmd.Ex)
 
 -- move lines
@@ -104,3 +107,5 @@ M.n("gr", ':Telescope lsp_references<CR>', { silent = true })
 -- Diagnostics
 M.n("<C-d>", ':Telescope diagnostics<CR>', { silent = true})
 
+-- Exit terminal mode with Escape
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')

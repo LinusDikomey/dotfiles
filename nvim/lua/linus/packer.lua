@@ -12,13 +12,14 @@ return require('packer').startup(function(use)
 	  -- or                            , branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
-  use({
+  use {
 	  'rose-pine/neovim',
 	  as = 'rose-pine',
 	  config = function()
 		  vim.cmd('colorscheme rose-pine')
 	  end
-  })
+  }
+  use { "catppuccin/nvim", as = "catppuccin" }
 
   use('nvim-treesitter/nvim-treesitter', { run = 'TSUpdate' })
   use('nvim-treesitter/playground')
@@ -67,7 +68,7 @@ return require('packer').startup(function(use)
   --
   -- LaTeX
   use 'lervag/vimtex'
-  
+
   -- Rust
   -- use 'simrat39/rust-tools.nvim'
 
