@@ -217,6 +217,7 @@ for_window [class=".*"] border pixel 4
 
 # godot game float
 for_window [class="game"] floating enable
+for_window [class="engine2"] floating enable
 for_window [class="Steam"] floating enable
 
 

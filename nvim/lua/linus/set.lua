@@ -36,4 +36,5 @@ vim.opt.smartcase = true
 -- global status line
 vim.opt.laststatus = 3
 
-vim.g.mapleader = " "
+vim.cmd('aunmenu PopUp.How-to\\ disable\\ mouse')
+vim.cmd('aunmenu PopUp.-1-')
