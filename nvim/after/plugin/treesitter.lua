@@ -29,5 +29,4 @@ parser_config.eye = {
   filetype = "eye", -- if filetype does not match the parser name
 }
 
-local ft_to_parser = require"nvim-treesitter.parsers".filetype_to_parsername
-ft_to_parser.eye = "eye"
+vim.treesitter.language.register("eye", "eye")
