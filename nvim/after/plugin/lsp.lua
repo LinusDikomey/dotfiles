@@ -52,12 +52,23 @@ end)
 
 lsp.setup()
 
+require('lspconfig.configs').eye = {
+    default_config = {
+        name = 'eye',
+        cmd = { 'eyelang', 'lsp' },
+        filetypes = { 'eye' },
+        root_dir = require('lspconfig.util').root_pattern({'main.eye'})
+    }
+}
+
 
 vim.diagnostic.config({
     virtual_text = true,
 })
 
 local lspconfig = require'lspconfig'
+
+lspconfig.eye.setup({})
 
 lspconfig.lua_ls.setup {
     settings = {
@@ -77,3 +88,4 @@ lspconfig.lua_ls.setup {
 --        }
 --    }
 --}
+
