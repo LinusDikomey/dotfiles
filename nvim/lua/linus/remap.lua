@@ -44,12 +44,12 @@ M.n("<leader>p", vim.cmd.Ex)
 M.v('N', ":m '>+1<CR>gv=gv")
 M.v('E', ":m '<-2<CR>gv=gv")
 
--- keep cursor when folding lines (disabled because j ist used for search)
+-- keep cursor when folding lines (disabled because j is used for search)
 -- M.n('J', 'mzJ`z')
 
--- half page jumps keep cursor in the middle
-M.n('<C-d>', '<C-d>zz')
-M.n('<C-u>', '<C-u>zz')
+-- half page jumps with N/E that keep cursor in the middle
+M.n('N', '<C-d>zz')
+M.n('E', '<C-u>zz')
 
 -- next/prev search result with j/J because n is mapped to movement (also keep cursor centered)
 M.n('j', 'n')
