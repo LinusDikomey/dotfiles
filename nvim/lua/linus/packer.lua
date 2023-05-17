@@ -12,12 +12,7 @@ return require('packer').startup(function(use)
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
-    use {
-        'mrded/nvim-lsp-notify',
-        config = function()
-            require('lsp-notify').setup({})
-        end
-    }
+    use 'j-hui/fidget.nvim'
     -- Themes
     use {
         'rose-pine/neovim',
