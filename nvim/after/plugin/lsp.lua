@@ -60,11 +60,18 @@ local luasnip = require 'luasnip'
 luasnip.config.setup {}
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 cmp.setup {
+    completion = {
+        completeopt = "menu,menuone",
+    },
     preselect = cmp.PreselectMode.Item,
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
         end,
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert {
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
@@ -75,8 +82,8 @@ cmp.setup {
             select = false,
         }),
         ['<C-Space>'] = cmp.mapping.complete(),
-        --['<C-n'] = cmp.mapping.scroll_docs(-4),
-        --['<C-e'] = cmp.mapping.scroll_docs(4),
+        ['<C-n>'] = cmp.mapping.scroll_docs(4),
+        ['<C-e>'] = cmp.mapping.scroll_docs(-4),
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
