@@ -38,7 +38,7 @@ M.v('i', 'l')
 M.v('l', 'i')
 M.v('L', 'I')
 
-M.n("<leader>p", vim.cmd.Ex)
+M.n("<leader>p", ":NvimTreeToggle<CR>") -- can also use vim.cmd.Ex
 
 -- move lines
 M.v('N', ":m '>+1<CR>gv=gv")
@@ -56,7 +56,6 @@ M.n('j', 'n')
 M.n('J', 'Nzzzv')
 
 -- space p to paste over selection while keeping previous copied item
--- "greatest remap ever" - ThePrimeagen
 M.x('<leader>p', '"_dP')
 
 -- yank to system clipboard
