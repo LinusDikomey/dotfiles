@@ -129,6 +129,7 @@ vim.diagnostic.config({
 })
 
 local lspconfig = require 'lspconfig'
+local util = require 'lspconfig.util'
 
 lspconfig.eye.setup({})
 
@@ -142,14 +143,16 @@ lspconfig.lua_ls.setup {
     }
 }
 
---lspconfig.rust_analyzer.setup {
-    --capabilities = capabilities,
---    on_attach = on_attach,
---    cmd = { "rustup", "run", "nightly", "rust-analyzer" },
---    settings = {
---        ["rust-analyzer"] = {
---            diagnostics = { disabled = { 'inactive-code' } }
---        }
---    }
---}
+lspconfig.rust_analyzer.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = { 'rustup', 'run', 'nightly', 'rust-analyzer' },
+    filetypes = { 'rust' },
+    root_dir = util.root_pattern('Cargo.toml'),
+    settings = {
+        ["rust-analyzer"] = {
+            diagnostics = { disabled = { 'inactive-code' } }
+        }
+    }
+}
 
