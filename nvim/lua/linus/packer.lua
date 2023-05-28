@@ -41,13 +41,7 @@ return require('packer').startup(function(use)
     use "nvim-tree/nvim-tree.lua"
 
     -- Themes
-    use {
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
-    }
+    use { 'rose-pine/neovim', as = 'rose-pine' }
     use { "catppuccin/nvim", as = "catppuccin" }
 
     -- other useful plugins
