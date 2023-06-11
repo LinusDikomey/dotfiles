@@ -38,7 +38,7 @@ return require('packer').startup(function(use)
     }
 
     -- nvim-tree for a vsc*de-like file tree viewer
-    use "nvim-tree/nvim-tree.lua"
+    use 'nvim-tree/nvim-tree.lua'
 
     -- Themes
     use { 'rose-pine/neovim', as = 'rose-pine' }
@@ -79,8 +79,8 @@ return require('packer').startup(function(use)
 
     -- Shows errors
     use {
-        "folke/trouble.nvim",
-        requires = "kyazdani42/nvim-web-devicons",
+        'folke/trouble.nvim',
+        requires = 'kyazdani42/nvim-web-devicons',
     }
 
     -- Debugging

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd ~/dotfiles
+paru -Syu
+git pull
+./scripts/link_configs
+rustup update nightly
+
+read -p "get ready to update neovim <Enter>:" -n1 -s
+nvim -c "so | PackerSync" ~/dotfiles/nvim/lua/linus/packer.lua

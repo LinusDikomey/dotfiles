@@ -1,9 +1,0 @@
-#!/bin/bash
-
-cd ~/dotfiles
-paru -Syu
-git pull
-paru -S $(cat packages)
-./scripts/link_configs
-rustup update nightly
-
