@@ -143,12 +143,19 @@ lspconfig.lua_ls.setup {
     }
 }
 
+local rust_cached_root_dir = nil
+
 lspconfig.rust_analyzer.setup {
     capabilities = capabilities,
     on_attach = on_attach,
     cmd = { 'rustup', 'run', 'nightly', 'rust-analyzer' },
     filetypes = { 'rust' },
-    root_dir = util.root_pattern('Cargo.toml'),
+    root_dir = function (fname)
+        if rust_cached_root_dir == nil then
+            rust_cached_root_dir = util.root_pattern('Cargo.toml')(fname)
+        end
+        return rust_cached_root_dir
+    end,
     settings = {
         ["rust-analyzer"] = {
             diagnostics = { disabled = { 'inactive-code' } }

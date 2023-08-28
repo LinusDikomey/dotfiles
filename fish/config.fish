@@ -40,7 +40,7 @@ starship init fish | source
 
 # aliases
 alias ls=exa
-alias hx=helix
+# alias hx=helix
 alias cat=bat
 
 alias :q exit
