@@ -43,6 +43,7 @@ return require('packer').startup(function(use)
     -- Themes
     use { 'rose-pine/neovim', as = 'rose-pine' }
     use { "catppuccin/nvim", as = "catppuccin" }
+    use "rebelot/kanagawa.nvim"
 
     -- other useful plugins
     use 'theprimeagen/harpoon'

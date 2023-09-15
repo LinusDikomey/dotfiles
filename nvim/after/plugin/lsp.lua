@@ -34,8 +34,11 @@ local on_attach = function(_, bufnr)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
-  -- also allow code action/quick fix in insert mode
-  vim.keymap.set("i", "<F4>", function() vim.lsp.buf.code_action() end, opts)
+  -- enable code action/quick hotkey fix in normal and insert mode
+  for _, mode in ipairs({ 'n', 'i' }) do
+      vim.keymap.set(mode, "<F2>", function() vim.lsp.buf.rename() end, opts)
+      vim.keymap.set(mode, "<C-.>", function() vim.lsp.buf.code_action() end, opts)
+  end
 end
 
 require('mason').setup()

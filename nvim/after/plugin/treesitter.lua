@@ -22,11 +22,17 @@ parser_config.eye = {
     url = "~/dev/tree-sitter-eye", -- local path or git repo
     files = {"src/parser.c", "src/scanner.c"},
     -- optional entries:
-    branch = "master", -- default branch in case of git repo if different from master
     generate_requires_npm = false, -- if stand-alone parser without npm dependencies
     requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-  },
-  filetype = "eye", -- if filetype does not match the parser name
+  }
+}
+parser_config.gon = {
+    install_info = {
+        url = "~/dev/tree-sitter-gon",
+        files = {"src/parser.c"},
+        generate_requires_npm = false,
+        requires_generate_from_grammar = false,
+    }
 }
 
 vim.treesitter.language.register("eye", "eye")

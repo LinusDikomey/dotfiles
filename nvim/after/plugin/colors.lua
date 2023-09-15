@@ -7,4 +7,4 @@ function ColorMyPencils(color)
 	--vim.api.nvim_set_hl(1, "NormalFloat", { bg = "none" })
 end
 -- ColorMyPencils()
-vim.cmd.colorscheme('catppuccin-macchiato')
+vim.cmd.colorscheme('kanagawa')
