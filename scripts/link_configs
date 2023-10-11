@@ -17,3 +17,4 @@ ln -s ~/dotfiles/redshift
 ln -s ~/dotfiles/rofi
 ln -s ~/dotfiles/tmux
 ln -s ~/dotfiles/picom.conf
+ln -s ~/dotfiles/helix

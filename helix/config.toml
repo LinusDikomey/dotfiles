@@ -1,0 +1,86 @@
+theme = "catppuccin_macchiato"
+
+[editor]
+line-number = "relative"
+shell = ["fish", "-c"]
+auto-save = true
+auto-format = false
+rulers = [120]
+color-modes = true
+
+[editor.cursor-shape]
+insert = "bar"
+
+[editor.lsp]
+display-messages = true
+
+[editor.indent-guides]
+render = true
+
+[keys.normal]
+k = "no_op"
+m = "move_char_left"
+n = "move_visual_line_down"
+e = "move_visual_line_up"
+i = "move_char_right"
+l = "insert_mode"
+j = "search_next"
+J = "search_prev"
+
+[keys.normal.h] # match mode, which is normally bound to m
+h	= "match_brackets"
+s = "surround_add"
+r = "surround_replace"
+d = "surround_delete"
+a = "select_textobject_around"
+i = "select_textobject_inner"
+
+[keys.normal.g]
+h = "no_op"
+l = "no_op"
+m = "goto_line_start"
+i = "goto_line_end"
+
+[keys.normal.z]
+j = "no_op"
+k = "no_op"
+n = "scroll_down"
+e = "scroll_up"
+
+[keys.select]
+h = "no_op"
+j = "no_op"
+k = "no_op"
+l = "no_op"
+m = "extend_char_left"
+n = "extend_visual_line_down"
+e = "extend_visual_line_up"
+i = "extend_char_right"
+
+[keys.select.g]
+h = "no_op"
+l = "no_op"
+m = "goto_line_start"
+i = "goto_line_end"
+
+[keys.normal."C-w"]
+h = "no_op"
+j = "no_op"
+k = "no_op"
+l = "no_op"
+H = "no_op"
+J = "no_op"
+K = "no_op"
+L = "no_op"
+C-h = "no_op"
+C-j = "no_op"
+C-k = "no_op"
+C-l = "no_op"
+m = "jump_view_left"
+n = "jump_view_down"
+e = "jump_view_up"
+i = "jump_view_right"
+M = "swap_view_left"
+N = "swap_view_down"
+E = "swap_view_up"
+I = "swap_view_right"

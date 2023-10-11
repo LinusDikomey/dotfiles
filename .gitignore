@@ -2,4 +2,5 @@ fish/fish_variables
 nvim/queries
 nvim/plugin
 lazygit/state.yml
+helix/runtime
 **/.DS_Store

@@ -28,6 +28,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
+vim.opt.textwidth = 119
 vim.opt.colorcolumn = "120"
 
 vim.opt.ignorecase = true

@@ -161,6 +161,9 @@ lspconfig.rust_analyzer.setup {
     end,
     settings = {
         ["rust-analyzer"] = {
+            cargo = {
+                -- noDefaultFeatures = true,
+            },
             diagnostics = { disabled = { 'inactive-code' } }
         }
     }

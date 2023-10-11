@@ -4,10 +4,11 @@ set -e
 
 echo "Installing Linus' Arch Linux i3 Config"
 echo "This should be run as the user everything should be installed for"
+echo "You are $(whoami), correct?"
 read -p "press Enter to continue ..."
 
 cd ~
-mkdir .config
+mkdir -p .config
 
 echo "Updating system"
 sudo pacman -Syu
@@ -18,16 +19,23 @@ sudo pacman -S --needed base-devel git rustup
 echo "Installing nightly rust"
 rustup default nightly
 
-echo "Cloning and building paru"
-git clone https://aur.archlinux.org/paru.git
-cd paru
-makepkg -si
+if command -v paru &> /dev/null ; then
+    echo "paru already exists, skipping step"
+else
+    echo "Cloning and building paru"
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si
+    cd ~
+    rm -rf paru
+fi
 
-cd ~
-rm -rf paru
-
-echo "Cloning dotfiles"
-git clone git@github.com:LinusDikomey/dotfiles
+if [ -d "dotfiles" ] ; then
+    echo "dotfiles folder already exists, skipping clone"
+else
+    echo "Cloning dotfiles"
+    git clone git@github.com:LinusDikomey/dotfiles
+fi
 
 cd dotfiles
 
@@ -37,8 +45,9 @@ paru -S $(cat packages)
 echo "Setting shell to fish"
 chsh -s /bin/fish
 
-echo "Setting git editor to nvim"
+echo "Setting git configs"
 git config --global core.editor nvim
+git config --global url.git@github.com:.insteadof https://github.com/
 
 echo "Linking configs"
 ./scripts/link_configs
