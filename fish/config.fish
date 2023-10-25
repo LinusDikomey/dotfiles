@@ -33,9 +33,13 @@ function s --wraps ~/sync/s
 end
 
 function note
+    ~/sync/s
     ~/sync/notes/edit-daily-note
+    ~/sync/s
 end
 
 function todo
+    ~/sync/s
     hx ~/sync/notes/todo.md
+    ~/sync/s
 end
