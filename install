@@ -37,26 +37,39 @@ else
     git clone git@github.com:LinusDikomey/dotfiles
 fi
 
+echo "Linking configs"
+./scripts/link_configs
+
+~/dotfiles/scripts/install_helix
+
 cd dotfiles
 
 echo "Installing packages"
 paru -S $(cat packages)
 
+read -p "echo 'install nvidia packages from ~/dotfiles/packages_nvidia (y/n):'" yn
+case $yn in
+    [yY] )
+        paru -S $(cat packages_nvidia)
+        ;;
+    * )
+        echo "not installing nvidia packages"
+        echo "you can still install them yourself with paru -S (cat ~/dotfiles/packages_nvidia)"
+        ;;
+esac
+
 echo "Setting shell to fish"
 chsh -s /bin/fish
 
 echo "Setting git configs"
-git config --global core.editor nvim
-git config --global url.git@github.com:.insteadof https://github.com/
+git config --global core.editor hx
+# git config --global url.git@github.com:.insteadof https://github.com/
 
-echo "Linking configs"
-./scripts/link_configs
-
-echo "Enabling sddm"
-sudo systemctl enable sddm
-
-echo "Enabling NetworkManager"
-sudo systemctl enable NetworkManager
+echo "Enabling services"
+sudo systemctl enable --now sddm
+sudo systemctl enable --now NetworkManager
+sudo systemctl enable --user --now pulseaudio
+sudo systemctl enable --user --now dunst
 
 echo "Seting up sddm"
 sddm_login_prompt=$(read -p "Enter Login Text: ")

@@ -1,0 +1,33 @@
+[language-server.rust-analyzer.config]
+# cargo.noDefaultFeatures = true
+diagnostics.disabled = ["inactive-code"]
+
+[language-server.eye]
+command = "eyelang"
+args = ["lsp"]
+
+[[language]]
+name = "eye"
+scope = "source.eye"
+file-types = ["eye"]
+roots = ["main.eye"]
+comment-token = "#"
+language-servers = ["eye"]
+grammar = "eye"
+indent = { tab-width = 4, unit = " " }
+
+[[language]]
+name = "gon"
+scope = "source.gon"
+file-types = ["gon"]
+roots = []
+comment-token = "//"
+grammar = "gon"
+
+[[grammar]]
+name = "eye"
+source.path = "~/dev/tree-sitter-eye"
+
+[[grammar]]
+name = "gon"
+source.path = "~/dev/tree-sitter-gon"

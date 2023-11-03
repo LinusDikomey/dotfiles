@@ -1,20 +1,11 @@
 #!/bin/bash
 
+mkdir -p ~/.config
 cd ~/.config
 
-ln -s ~/dotfiles/alacritty
-ln -s ~/dotfiles/starship.toml
-ln -s ~/dotfiles/dunst
-ln -s ~/dotfiles/feh
-ln -s ~/dotfiles/fish
-ln -s ~/dotfiles/i3
-ln -s ~/dotfiles/kitty
-ln -s ~/dotfiles/lazygit
-ln -s ~/dotfiles/nvim
-ln -s ~/dotfiles/polybar
-ln -s ~/dotfiles/ranger
-ln -s ~/dotfiles/redshift
-ln -s ~/dotfiles/rofi
-ln -s ~/dotfiles/tmux
-ln -s ~/dotfiles/picom.conf
-ln -s ~/dotfiles/helix
+for file in ~/dotfiles/config/* ; do
+  ln -s "$file"
+  if [ $? -eq 0 ]; then
+    echo "Linked $file"
+  fi
+done
