@@ -1,6 +1,7 @@
-(defwidget desktop_clock [] (box
+(defwidget desktop_clock [primary] (box
     :class "clock"
-    :space-evenly false
+    :space-evenly true
+    :spacing 150
     :orientation "v"
     :valign "center"
     :halign "center"
@@ -27,21 +28,14 @@
             }
         )
     )
-    (revealer :reveal desktop-show-calendar
+    (revealer
+        :reveal desktop-show-calendar
+        :visible primary
         (calendar)
-    )
-    (revealer :reveal false
-        (overlay
-            (circular-progress
-                :class "timer-progress"
-                :thickness 80
-                :value 60
-            )
-            (label :class "timer" :text "5:00")
-        )
     )
     (eventbox
         :halign "center"
+        :valign "bottom"
         :onclick "playerctl -p ${media[0].player} play-pause"
         :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media[0].player} {}"
         :class "media"
@@ -51,6 +45,7 @@
             :orientation "v"
             (box
                 :space-evenly false
+                :halign "center"
                 (image
                     :class "media-cover"
                     :path "${media[0].cover}"
@@ -70,9 +65,9 @@
     )
 ))
 
-(defwidget desktop [] (box
+(defwidget desktop [primary] (box
     :class "desktop"
-    (desktop_clock)
+    (desktop_clock :primary primary)
 ))
 
 (defwindow desktop0
@@ -80,5 +75,15 @@
     :stacking "bottom"
     :geometry (geometry :width  "100%"
                         :height "100%"
-                        :anchor "bottom right")(desktop))
+                        :anchor "bottom right")
+    (desktop :primary true)
+)
 
+(defwindow desktop1
+    :monitor 0
+    :stacking "bottom"
+    :geometry (geometry :width  "100%"
+                        :height "100%"
+                        :anchor "bottom right")
+    (desktop :primary false)
+)
