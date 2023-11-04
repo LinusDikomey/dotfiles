@@ -1,0 +1,84 @@
+(defwidget desktop_clock [] (box
+    :class "clock"
+    :space-evenly false
+    :orientation "v"
+    :valign "center"
+    :halign "center"
+    (overlay
+        (box
+            :space-evenly false
+            :orientation "v"
+            :valign "center"
+            :halign "center"
+            (box
+                :space-evenly false
+                (label :class "hour" :text hour)
+                (label :class "separator" :text ":")
+                (label :class "minutes" :text minutes)
+            )
+            (label :class "date" :text date)
+        )
+        (button
+            :style "background: transparent"
+            :onclick {
+                desktop-show-calendar
+                ? 'eww update desktop-show-calendar=false'
+                : 'eww update desktop-show-calendar=true'
+            }
+        )
+    )
+    (revealer :reveal desktop-show-calendar
+        (calendar)
+    )
+    (revealer :reveal false
+        (overlay
+            (circular-progress
+                :class "timer-progress"
+                :thickness 80
+                :value 60
+            )
+            (label :class "timer" :text "5:00")
+        )
+    )
+    (eventbox
+        :halign "center"
+        :onclick "playerctl -p ${media[0].player} play-pause"
+        :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media[0].player} {}"
+        :class "media"
+        (box
+            :visible {arraylength(media) > 0 ? true : false}
+            :space-evenly false
+            :orientation "v"
+            (box
+                :space-evenly false
+                (image
+                    :class "media-cover"
+                    :path "${media[0].cover}"
+                    :image-width 400
+                    :image-height 400
+                )
+            )
+            (box
+                :space-evenly false
+                :halign "center"
+                (label :class "icon ${media[0].player}" :text {media[0].icon})
+                (label
+                    :text "${media[0].artist} - ${media[0].title}"
+                )
+            )
+        )
+    )
+))
+
+(defwidget desktop [] (box
+    :class "desktop"
+    (desktop_clock)
+))
+
+(defwindow desktop0
+    :monitor 1
+    :stacking "bottom"
+    :geometry (geometry :width  "100%"
+                        :height "100%"
+                        :anchor "bottom right")(desktop))
+

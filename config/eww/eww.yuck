@@ -1,0 +1,4 @@
+(defvar main_monitor 0)
+
+(include "./yuck/desktop.yuck")
+(include "./yuck/vars.yuck")

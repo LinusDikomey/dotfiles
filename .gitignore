@@ -1,6 +1,5 @@
-fish/fish_variables
-nvim/queries
-nvim/plugin
-lazygit/state.yml
-helix/runtime
+config/fish/fish_variables
+config/lazygit/state.yml
+config/helix/runtime
+config/eww/cache
 **/.DS_Store

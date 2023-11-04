@@ -1,0 +1,2 @@
+if [[ $2 == 'up' ]];   then playerctl -p $1 volume '0.03+'; fi
+if [[ $2 == 'down' ]]; then playerctl -p $1 volume '0.03-'; fi
