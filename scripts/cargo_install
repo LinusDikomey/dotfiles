@@ -4,6 +4,9 @@ cargo install starship
 cargo install cargo-info
 # cargo install ncspot
 cargo install du-dust
+cargo install eww
 cargo install eza
 cargo install bat
 cargo install hyperfine
+cargo install mdbook
+cargo install porsmo

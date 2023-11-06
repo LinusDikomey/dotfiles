@@ -11,3 +11,5 @@ echo "Building and installing helix"
 HELIX_DISABLE_AUTO_GRAMMAR_BUILD=1 cargo install --path helix-term --locked
 echo "copying runtime dir"
 rm -rf ~/dotfiles/config/helix/runtime/
+hx --grammar fetch
+hx --grammar build

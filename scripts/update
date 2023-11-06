@@ -6,4 +6,5 @@ git pull
 ./scripts/link_configs
 rustup update nightly
 
+./scripts/cargo_install
 ./scripts/install_helix
