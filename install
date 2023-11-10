@@ -62,7 +62,7 @@ echo "Setting shell to fish"
 chsh -s /bin/fish
 
 echo "Setting git configs"
-git config --global core.editor hx
+git config --global core.editor nvim
 # git config --global url.git@github.com:.insteadof https://github.com/
 
 echo "Enabling services"
