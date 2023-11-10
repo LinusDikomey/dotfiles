@@ -1,8 +1,8 @@
 #!/bin/bash
 
+cargo install ripgrep
 cargo install starship
 cargo install cargo-info
-# cargo install ncspot
 cargo install du-dust
 cargo install eww
 cargo install eza

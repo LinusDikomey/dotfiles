@@ -15,23 +15,23 @@ end
 set -x --universal SSH_AUTH_SOCK $XDG_RUNTIME_DIR"/ssh-agent.socket"
 
 # Starship prompt
-starship init fish | source
+
+if status is-interactive
+    starship init fish | source
+end
 
 # aliases
-alias ls=exa
+alias ls=eza
 alias cat=bat
 alias :q=exit
+alias du=dust
 
 ## git aliases
 alias gp=git pull
 alias gca="git add . ; git commit"
 
 
-# rsync/notes setup
-function s --wraps ~/sync/s
-    ~/sync/s $argv
-end
-
+# notes setup
 function note
     ~/sync/s
     ~/sync/notes/edit-daily-note
@@ -40,6 +40,6 @@ end
 
 function todo
     ~/sync/s
-    hx ~/sync/notes/todo.md
+    nvim ~/sync/notes/todo.md
     ~/sync/s
 end

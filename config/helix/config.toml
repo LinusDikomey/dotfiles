@@ -26,6 +26,8 @@ i = "move_char_right"
 l = "insert_mode"
 j = "search_next"
 J = "search_prev"
+"C-u" = "jump_forward"
+"C-y" = "jump_backward"
 
 [keys.normal.h] # match mode, which is normally bound to m
 h	= "match_brackets"
