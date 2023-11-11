@@ -40,7 +40,7 @@ fi
 echo "Linking configs"
 ./scripts/link_configs
 
-~/dotfiles/scripts/install_helix
+# ~/dotfiles/scripts/install_helix
 
 cd dotfiles
 

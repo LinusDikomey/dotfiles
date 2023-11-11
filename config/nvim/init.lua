@@ -1,9 +1,25 @@
--- Set <space> as the leader key
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- Linus Dikomey's NeoVim config. Can switch navigation keys for different keyboard layout
+-- Some bindings are inspired by helix. Many actions are available behind the leader key (space).
+-- which-key provides previews of available key combinations for better discoverability
+--------------------------------------------------
+-- [[ Important configs to be configured easily ]]
+--------------------------------------------------
 
 -- Keyboard layout config. If you use querty, just change this to {'h','j','k','l'}
 local hjkl_remap = {'m','n','e','i'} -- Colemak DH
+
+-- Any completions longer than this will be cut off to prevent gigantic completion lists.
+local max_completion_len = 35
+
+-- Set <space> as the leader key
+local leader = ' '
+
+--------------------------------------------------
+-- [[         End of Important configs          ]]
+--------------------------------------------------
+
+vim.g.mapleader = leader
+vim.g.maplocalleader = leader
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -132,6 +148,14 @@ require('lazy').setup({
         component_separators = '|',
         section_separators = '',
       },
+      sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_c = {'filename'},
+        lualine_x = {'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'searchcount', 'selectioncount', 'location'}
+      }
     },
   },
 
@@ -253,6 +277,9 @@ vim.o.smartcase = true
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
+-- display ruler at column 120
+vim.o.colorcolumn = "120"
+
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
@@ -260,11 +287,11 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
 -- [[ Apply hjkl remap ]]
 local hjkl_original = {'h','j','k','l'}
+local directions = {'left','down','up','right'}
 for i=1,4 do
   if hjkl_remap[i] ~= hjkl_original[i] then
     -- swap new key with original key
@@ -273,6 +300,12 @@ for i=1,4 do
     -- also swap in uppercase
     vim.keymap.set({'n','x','o'}, string.upper(hjkl_remap[i]), string.upper(hjkl_original[i]), { silent = true })
     vim.keymap.set({'n','x','o'}, string.upper(hjkl_original[i]), string.upper(hjkl_remap[i]))
+
+    -- apply to window/split navigation
+    vim.keymap.set('n', '<C-w>' .. hjkl_remap[i], '<C-w>' .. hjkl_original[i], { desc = 'Go to ' .. directions[i] .. ' window' })
+    -- TODO: Deleting doesn't work, window commands are builtin in some way.
+    -- Movement commands will exist twice in which-key for now.
+    -- vim.keymap.del('n', '<C-w>' .. hjkl_original[i])
   end
 end
 
@@ -374,7 +407,7 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 ]]--
 
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').resume, { desc = 'Search resume ' })
-vim.keymap.set('n', '<leader>gF', require('telescope.builtin').git_files, { desc = 'Search [g]it [f]iles' })
+vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [g]it [f]iles' })
 vim.keymap.set('n', '<leader>f', require('telescope.builtin').find_files, { desc = 'Search [f]iles' })
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').help_tags, { desc = 'Search Help' })
 -- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
@@ -493,6 +526,8 @@ local on_attach = function(_, bufnr, opts)
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
+
+  require('icons').setup()
 end
 
 -- document existing key chains
@@ -558,6 +593,21 @@ local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
+local formatting_style = {
+  -- default fields order i.e completion word + item.kind + item.kind icons
+  -- fields = field_arrangement[cmp_style] or { "abbr", "kind", "menu" },
+
+  format = function(_, item)
+    item.kind = (require('icons')[item.kind] or item.kind)
+    if string.len(item.abbr) > max_completion_len then
+      item.abbr = string.sub(item.abbr, 1, max_completion_len-1) .. '󰇘'
+    end
+    vim.print(item)
+
+    return item
+  end,
+}
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -593,6 +643,7 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
+  formatting = formatting_style,
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
@@ -608,7 +659,11 @@ end
 vim.diagnostic.config({
   virtual_text = {
     prefix = '●'
-  }
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = true,
+  severity_sort = true,
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
