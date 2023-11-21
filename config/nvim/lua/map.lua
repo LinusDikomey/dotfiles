@@ -121,14 +121,14 @@ local treesitter_map = {
   }
 }
 
+-- rename doesn't work with lsp_map
+vim.keymap.set('n', '<leader>r', function()
+    return ":IncRename " .. vim.fn.expand("<cword>")
+  end,
+  { expr = true, desc = 'LSP: rename' }
+)
+
 local lsp_map = {
-  ['<leader>r'] = {
-    function()
-      return ":IncRename " .. vim.fn.expand("<cword>")
-    end,
-    'LSP: rename',
-    { expr = true },
-  },
   ['<leader>a'] = { vim.lsp.buf.code_action, 'Code [a]ction' },
   ['gd'] = { require('telescope.builtin').lsp_definitions, '[g]oto [d]efinition' },
   ['gr'] = { require('telescope.builtin').lsp_references, '[g]oto [r]eferences' },
