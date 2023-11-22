@@ -694,7 +694,7 @@ $env.config = {
     ]
 }
 
-use ~/.themes/nu-themes/catppuccin-mocha.nu
+use ~/.config/nushell/themes/catppuccin-mocha.nu
 $env.config = ($env.config | merge {color_config: (catppuccin-mocha)})
 
 use ~/.cache/starship/init.nu
