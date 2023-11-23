@@ -7,4 +7,4 @@ git pull
 rustup update nightly
 
 ./scripts/cargo_install
-./scripts/install_helix
+# ./scripts/install_helix
