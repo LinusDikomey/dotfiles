@@ -10,7 +10,7 @@
     "modules-center": ["hyprland/window"],
 
     // unused: "hyprland/language"
-    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock", "custom/power", "tray"],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "custom/weather", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock", "custom/power", "tray"],
     // Modules configuration
     //"hyprland/workspaces": {
     //    "disable-scroll": true,
@@ -28,8 +28,11 @@
     //        "default": ""
     //    }
     //},
+    "hyprland/workspaces": {
+    	"all-outputs": true,
+    },
     "keyboard-state": {
-        "numlock": true,
+        "numlock": false,
         "capslock": true,
         "format": "{name} {icon}",
         "format-icons": {
@@ -81,7 +84,7 @@
         }
     },
     "tray": {
-        // "icon-size": 21,
+        "icon-size": 21,
         "spacing": 10
     },
     "clock": {
@@ -168,6 +171,13 @@
     "custom/power": {
     	"format": "⏻",
 	"on-click": "wlogout"
-    }
+    },
+    "custom/weather": {
+    	"format": "{}",
+	"tooltip": true,
+	"interval": 3600,
+	"exec": "~/.config/waybar/waybar-wttr.py",
+	"return-type": "json"
+    },
 }
 
