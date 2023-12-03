@@ -37,48 +37,56 @@ else
     git clone git@github.com:LinusDikomey/dotfiles
 fi
 
+cd dotfiles
+
 echo "Linking configs"
 ./scripts/link_configs
 
 # ~/dotfiles/scripts/install_helix
 
-cd dotfiles
-
 echo "Installing packages"
-paru -S $(cat packages)
+paru -S --needed $(cat packages)
 
-read -p "echo 'install nvidia packages from ~/dotfiles/packages_nvidia (y/n):'" yn
+read -p "install nvidia packages from ~/dotfiles/packages_nvidia (y/n):" yn
 case $yn in
     [yY] )
-        paru -S $(cat packages_nvidia)
+        echo "You will also have to do additional (a bit complicated) steps when using nvidia. Please follow the steps explained at https://wiki.hyprland.org/Nvidia/ immediately after the installation is finished."
+        read -p "READ THE ABOVE, then press Enter to continue ..."
+        paru -S --needed $(cat packages_nvidia)
         ;;
     * )
         echo "not installing nvidia packages"
+        echo "you will have to remove the nvidia-specific env variables at ~/dotfiles/config/hypr/hyprland.conf (the section is clearly marked)"
         echo "you can still install them yourself with paru -S (cat ~/dotfiles/packages_nvidia)"
+        read -p "READ THE ABOVE, then press Enter to continue ..."
         ;;
 esac
 
-echo "Setting shell to fish"
-chsh -s /bin/fish
+echo "Setting shell to nu"
+chsh -s /bin/nu
 
 echo "Setting git configs"
 git config --global core.editor nvim
 # git config --global url.git@github.com:.insteadof https://github.com/
 
-echo "Enabling services"
+echo "Enabling services. Some of these might not work properly, so errors are allowed in this section"
+set +e
 sudo systemctl enable --now sddm
 sudo systemctl enable --now NetworkManager
 sudo systemctl enable --user --now pulseaudio
 sudo systemctl enable --user --now dunst
+set -e
 
 echo "Seting up sddm"
+set +e
 sddm_login_prompt=$(read -p "Enter Login Text: ")
-sudo ~/dotfiles/scripts/setup_sddm /usr/share/wallpaper.png "$sddm_login_prompt"
+sudo ~/dotfiles/scripts/setup_sddm ~/wallpaper.png "$sddm_login_prompt"
+set -e
 
 echo
 echo "Installation is completed!"
 echo
-echo "You can set a wallpaper by placing it in /usr/share/wallpaper.png"
+echo "You can set a wallpaper by placing it at ~/wallpaper.png"
 echo "Have fun :D"
 
 neofetch

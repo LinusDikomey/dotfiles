@@ -8,6 +8,7 @@ hyprland
 waybar
 swaybg
 dunst
+wofi
 wlogout
 swaylock
 kitty
@@ -24,10 +25,11 @@ neofetch
 btop
 cava
 network-manager-applet
-nvim
+neovim
 
-nushhell
+nushell
 carapace-bin
+starship
 
 gjs
 
