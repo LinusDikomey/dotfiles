@@ -30,6 +30,7 @@ neovim
 nushell
 carapace-bin
 starship
+bat
 
 gjs
 
