@@ -41,3 +41,6 @@ vim.o.completeopt = 'menuone,noselect'
 
 vim.o.termguicolors = true
 
+-- Indent using 4 spaces by default.
+-- Will be overwritten if vim-sleuth detects a different indentation width.
+vim.o.shiftwidth = 4
