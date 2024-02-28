@@ -44,3 +44,9 @@ vim.o.termguicolors = true
 -- Indent using 4 spaces by default.
 -- Will be overwritten if vim-sleuth detects a different indentation width.
 vim.o.shiftwidth = 4
+
+-- how many spaces a tab takes up
+vim.o.tabstop = 4
+
+vim.opt.list = true
+vim.opt.listchars = { trail = '•', nbsp = '␣' }
