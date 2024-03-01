@@ -8,15 +8,17 @@ for i=1,4 do
   if hjkl_remap[i] ~= hjkl_original[i] then
     local to = hjkl_remap[i]
     local from = hjkl_original[i]
+    local dir = directions[i]
     -- swap new key with original key
-    vim.keymap.set({'n','x','o'}, to, from, { silent = true })
-    vim.keymap.set({'n','x','o'}, from, to)
+    vim.keymap.set({'n','x'}, to, from, { silent = true })
+    vim.keymap.set({'n','x'}, from, to)
     -- also swap in uppercase
-    vim.keymap.set({'n','x','o'}, string.upper(to), string.upper(from), { silent = true })
-    vim.keymap.set({'n','x','o'}, string.upper(from), string.upper(to))
+    vim.keymap.set({'n','x'}, string.upper(to), string.upper(from), { silent = true })
+    vim.keymap.set({'n','x'}, string.upper(from), string.upper(to))
 
     -- apply to window/split navigation
-    vim.keymap.set('n', '<C-w>' .. to, '<C-w>' .. from, { desc = 'Go to ' .. directions[i] .. ' window' })
+    vim.keymap.set('n', '<C-w>' .. to, '<C-w>' .. from, { desc = 'Go to ' .. dir .. ' window' })
+    vim.keymap.set('n', '<C-' .. to .. '>', '<C-w><C-' .. from .. '>', { desc = 'Move focus to the ' ..  dir .. 'window' })
     -- TODO: Deleting doesn't work, window commands are builtin in some way.
     -- Movement commands will exist twice in which-key for now.
     -- vim.keymap.del('n', '<C-w>' .. hjkl_original[i])
@@ -74,7 +76,7 @@ vim.keymap.set('n', '<leader>?', require('telescope.builtin').help_tags, { desc 
 -- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>/', require('telescope.builtin').live_grep, { desc = 'Search by Grep' })
 vim.keymap.set('n', '<leader>g/', ':LiveGrepGitRoot<cr>', { desc = '[G]it Root: Search by [G]rep' })
-vim.keymap.set('n', '<leader>d', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>d', require('telescope.builtin').diagnostics, { desc = '[D]iagnostics' })
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'

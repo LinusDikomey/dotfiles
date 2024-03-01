@@ -36,6 +36,13 @@ vim.o.colorcolumn = tostring(vim.o.textwidth + 1)
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
+-- new split opening direction
+vim.o.splitright = true
+vim.o.splitbelow = true
+
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 7
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
