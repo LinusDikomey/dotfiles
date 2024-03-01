@@ -1,14 +1,16 @@
 # dotfiles
-My configuration files. Productive i3 arch linux system.
+My configuration files. Productive Hyprland arch linux system. Some programs also used on MacOS.
 # Setup/Features
 - Arch Linux
-- I3 Window Manager
-- Keybindings optimized for the Colemak Layout
-- Fish shell
-- Alacritty Terminal
-- Polybar
+- Hyprland Window Manager
+- Keybindings optimized for the Colemak DH Layout
+- Nushell
+- Kitty Terminal
+- waybar
   - Spotify Song Display
   - Power Menu
+  - Weather
+  - Calendar
   - Notifications (Dunst)
 - Neovim
 # Installation
