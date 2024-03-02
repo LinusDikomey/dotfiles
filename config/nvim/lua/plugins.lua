@@ -42,6 +42,20 @@ return {
     end
   },
 
+  { -- Autoformat
+    'stevearc/conform.nvim',
+    opts = {
+      notify_on_error = false,
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_fallback = true,
+      },
+      formatters_by_ft = {
+        lua = { 'stylua' },
+      },
+    },
+  },
+
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -60,22 +74,23 @@ return {
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', event = 'VeryLazy', opts = {} },
+  { 'folke/which-key.nvim', event = 'VeryLazy',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
-        add =          { text = '▍' },
-        change =       { text = '▍' },
-        delete =       { text = '▁' },
-        topdelete =    { text = '▔' },
+        add = { text = '▍' },
+        change = { text = '▍' },
+        delete = { text = '▁' },
+        topdelete = { text = '▔' },
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gh', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview [g]it [h]unk' })
-        vim.keymap.set('n', '<leader>gu', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[g]it [undo] hunk'})
-        vim.keymap.set('n', '<leader>gb', require('gitsigns').blame_line, { buffer = bufnr, desc = '[git] [blame] line'})
+        vim.keymap.set('n', '<leader>gh', require('gitsigns').preview_hunk,
+          { buffer = bufnr, desc = 'Preview [g]it [h]unk' })
+        vim.keymap.set('n', '<leader>gu', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[g]it [undo] hunk' })
+        vim.keymap.set('n', '<leader>gb', require('gitsigns').blame_line, { buffer = bufnr, desc = '[git] [blame] line' })
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
@@ -114,7 +129,7 @@ return {
 
   -- pick one of these colorschemes by uncommenting it and commenting all the others
   -- { 'navarasu/onedark.nvim', priority = 1000, config = function() vim.cmd.colorscheme 'onedark' end },
-  { "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000, config = function() vim.cmd.colorscheme 'catppuccin-mocha' end },
+  { "catppuccin/nvim",      name = "catppuccin", lazy = false, priority = 1000, config = function() vim.cmd.colorscheme 'catppuccin-mocha' end },
 
 
   {
@@ -129,17 +144,18 @@ return {
       },
       sections = {
         lualine_a = {
-          { 'mode',
+          {
+            'mode',
             fmt = function(str)
-              return str:sub(1,3)
+              return str:sub(1, 3)
             end
           }
         },
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
-        lualine_x = {'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'searchcount', 'selectioncount', 'location'}
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'searchcount', 'selectioncount', 'location' }
       }
     },
   },
@@ -153,7 +169,7 @@ return {
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',   opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -207,11 +223,11 @@ return {
         },
       },
       presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
+        bottom_search = true,         -- use a classic bottom cmdline for search
+        command_palette = true,       -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = true, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false, -- add a border to hover docs and signature help
+        inc_rename = true,            -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = false,       -- add a border to hover docs and signature help
       },
     },
     dependencies = {
