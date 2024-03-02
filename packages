@@ -30,7 +30,6 @@ neovim
 nushell
 carapace-bin
 starship
-bat
 
 gjs
 
@@ -59,3 +58,7 @@ gammastep
 gimp
 
 marksman-bin
+ripgrep
+hyperfine
+bat
+mdbook

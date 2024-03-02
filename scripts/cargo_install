@@ -1,11 +1,5 @@
 #!/bin/bash
 
-cargo install ripgrep
-cargo install starship
 cargo install cargo-info
 cargo install du-dust
-# cargo install eza
-cargo install bat
-cargo install hyperfine
-cargo install mdbook
 cargo install porsmo
