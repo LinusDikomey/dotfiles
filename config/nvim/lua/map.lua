@@ -1,24 +1,25 @@
 -- Keyboard layout config. If you use querty, just change this to {'h','j','k','l'}
-local hjkl_remap = {'m','n','e','i'} -- Colemak DH
+local hjkl_remap = { 'm', 'n', 'e', 'i' } -- Colemak DH
 
 -- [[ Apply hjkl remap ]]
-local hjkl_original = {'h','j','k','l'}
-local directions = {'left','down','up','right'}
-for i=1,4 do
+local hjkl_original = { 'h', 'j', 'k', 'l' }
+local directions = { 'left', 'down', 'up', 'right' }
+for i = 1, 4 do
   if hjkl_remap[i] ~= hjkl_original[i] then
     local to = hjkl_remap[i]
     local from = hjkl_original[i]
     local dir = directions[i]
     -- swap new key with original key
-    vim.keymap.set({'n','x'}, to, from, { silent = true })
-    vim.keymap.set({'n','x'}, from, to)
+    vim.keymap.set({ 'n', 'x' }, to, from, { silent = true })
+    vim.keymap.set({ 'n', 'x' }, from, to)
     -- also swap in uppercase
-    vim.keymap.set({'n','x'}, string.upper(to), string.upper(from), { silent = true })
-    vim.keymap.set({'n','x'}, string.upper(from), string.upper(to))
+    vim.keymap.set({ 'n', 'x' }, string.upper(to), string.upper(from), { silent = true })
+    vim.keymap.set({ 'n', 'x' }, string.upper(from), string.upper(to))
 
     -- apply to window/split navigation
     vim.keymap.set('n', '<C-w>' .. to, '<C-w>' .. from, { desc = 'Go to ' .. dir .. ' window' })
-    vim.keymap.set('n', '<C-' .. to .. '>', '<C-w><C-' .. from .. '>', { desc = 'Move focus to the ' ..  dir .. 'window' })
+    vim.keymap.set('n', '<C-' .. to .. '>', '<C-w><C-' .. from .. '>',
+      { desc = 'Move focus to the ' .. dir .. 'window' })
     -- TODO: Deleting doesn't work, window commands are builtin in some way.
     -- Movement commands will exist twice in which-key for now.
     -- vim.keymap.del('n', '<C-w>' .. hjkl_original[i])
@@ -31,7 +32,7 @@ end
 vim.keymap.set('n', '<C-t>', '<C-i>')
 vim.keymap.set('n', '<C-g>', '<C-o>')
 
-vim.keymap.set({'i','c'}, '<M-BS>', '<C-W>', { desc = 'alt+backspace to delete whole word' })
+vim.keymap.set({ 'i', 'c' }, '<M-BS>', '<C-W>', { desc = 'alt+backspace to delete whole word' })
 -- undo with shift+u like in helix
 vim.keymap.set('n', 'U', '<C-r>')
 
@@ -67,60 +68,53 @@ vim.api.nvim_create_user_command('LiveGrepGitRoot', require('live_grep_git_root'
 vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers,
   { desc = 'Find existing [b]uffers' })
 
-vim.keymap.set('n', '<leader>l', require('telescope.builtin').current_buffer_fuzzy_find, { desc = '[l]ocal buffer fuzzy search' })
+vim.keymap.set('n', '<leader>l', require('telescope.builtin').current_buffer_fuzzy_find,
+  { desc = '[l]ocal buffer fuzzy search' })
 
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').resume, { desc = 'Search resume ' })
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [g]it [f]iles' })
-vim.keymap.set('n', '<leader>f', require('telescope.builtin').find_files, { desc = 'Search [f]iles' })
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').help_tags, { desc = 'Search Help' })
+local telescope_builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader><space>', telescope_builtin.resume, { desc = 'Search resume ' })
+vim.keymap.set('n', '<leader>gf', telescope_builtin.git_files, { desc = 'Search [g]it [f]iles' })
+vim.keymap.set('n', '<leader>f', telescope_builtin.find_files, { desc = 'Search [f]iles' })
+vim.keymap.set('n', '<leader>?', telescope_builtin.help_tags, { desc = 'Search Help' })
 -- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>/', require('telescope.builtin').live_grep, { desc = 'Search by Grep' })
+vim.keymap.set('n', '<leader>/', telescope_builtin.live_grep, { desc = 'Search by Grep' })
 vim.keymap.set('n', '<leader>g/', ':LiveGrepGitRoot<cr>', { desc = '[G]it Root: Search by [G]rep' })
-vim.keymap.set('n', '<leader>d', require('telescope.builtin').diagnostics, { desc = '[D]iagnostics' })
+vim.keymap.set('n', '<leader>d', telescope_builtin.diagnostics, { desc = '[D]iagnostics' })
+
+vim.keymap.set('n', '<leader>c', function()
+  telescope_builtin.find_files { cwd = vim.fn.stdpath 'config' }
+end, { desc = 'Search neovim [c]onfig' })
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 local cmp_map = {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-}
-
--- for mapping more treesitter stuff, look in init.lua for now
-local treesitter_map = {
-  textobjects = {
-    -- You can use the capture groups defined in textobjects.scm
-    ['aa'] = '@parameter.outer',
-    ['ia'] = '@parameter.inner',
-    ['af'] = '@function.outer',
-    ['if'] = '@function.inner',
-    ['ac'] = '@class.outer',
-    ['ic'] = '@class.inner',
-  }
+  ['<C-n>'] = cmp.mapping.select_next_item(),
+  ['<C-p>'] = cmp.mapping.select_prev_item(),
+  ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+  ['<C-d>'] = cmp.mapping.scroll_docs(4),
+  ['<C-Space>'] = cmp.mapping.complete {},
+  ['<CR>'] = cmp.mapping.confirm {
+    behavior = cmp.ConfirmBehavior.Replace,
+    select = true,
+  },
+  ['<Tab>'] = cmp.mapping(function(fallback)
+    if cmp.visible() then
+      cmp.select_next_item()
+    elseif luasnip.expand_or_locally_jumpable() then
+      luasnip.expand_or_jump()
+    else
+      fallback()
+    end
+  end, { 'i', 's' }),
+  ['<S-Tab>'] = cmp.mapping(function(fallback)
+    if cmp.visible() then
+      cmp.select_prev_item()
+    elseif luasnip.locally_jumpable(-1) then
+      luasnip.jump(-1)
+    else
+      fallback()
+    end
+  end, { 'i', 's' }),
 }
 
 -- rename doesn't work with lsp_map
@@ -149,4 +143,4 @@ local lsp_map = {
   },
 }
 
-return { cmp = cmp_map, treesitter = treesitter_map, lsp = lsp_map }
+return { cmp = cmp_map, lsp = lsp_map }
