@@ -19,7 +19,10 @@ $env.PATH = (
 )
 
 if $nu.os-info.name == "macos" {
-    $env.PATH = ($env.PATH | split row (char esep) | prepend '/opt/homebrew/bin/')
+    $env.PATH = ($env.PATH | split row (char esep)
+        | prepend '/opt/homebrew/bin/'
+        | prepend '/usr/local/bin/'
+    )
 }
 
 mkdir ~/.cache/starship
