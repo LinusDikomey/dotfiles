@@ -11,8 +11,6 @@ return {
     config = function()
       require('mini.ai').setup { n_lines = 500 }
       require('mini.surround').setup()
-      local statusline = require 'mini.statusline'
-      statusline.setup()
     end,
   },
 
@@ -153,7 +151,7 @@ return {
   { "catppuccin/nvim",       name = "catppuccin", lazy = false, priority = 1000, config = function() vim.cmd.colorscheme 'catppuccin-mocha' end },
 
 
-  --[[{
+  {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     opts = {
@@ -179,7 +177,7 @@ return {
         lualine_z = { 'searchcount', 'selectioncount', 'location' }
       }
     },
-  },]] --
+  },
 
   {
     -- Add indentation guides even on blank lines
@@ -297,7 +295,6 @@ return {
 
   {
     "folke/noice.nvim",
-    event = "VeryLazy",
     opts = {
       lsp = {
         override = {
@@ -307,7 +304,7 @@ return {
         },
       },
       presets = {
-        bottom_search = true,         -- use a classic bottom cmdline for search
+        bottom_search = false,        -- use a classic bottom cmdline for search
         command_palette = true,       -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = true,            -- enables an input dialog for inc-rename.nvim

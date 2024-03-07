@@ -5,12 +5,13 @@ linux-firmware
 grub
 
 hyprland
+hypridle
+hyprlock
+hyprpaper
 waybar
-swaybg
 dunst
 wofi
 wlogout
-swaylock
 kitty
 pulseaudio
 pulseaudio-alsa
