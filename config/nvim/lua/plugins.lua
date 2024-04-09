@@ -141,7 +141,7 @@ return {
     event = 'VimEnter',
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
-      highlight = {
+      highlight = { -- TODO
         -- don't require a colon behind keyword
         pattern = [[.*<(KEYWORDS)\s*]],
       }
