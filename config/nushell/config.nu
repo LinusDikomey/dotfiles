@@ -702,6 +702,7 @@ use ~/.cache/starship/init.nu
 alias :q = exit
 alias cat = bat
 alias icat = kitten icat
+alias ssh = kitten ssh
 
 def take_out_the_trash [] {
     if (not ("~/.local/share/Trash/files" | path exists)) {

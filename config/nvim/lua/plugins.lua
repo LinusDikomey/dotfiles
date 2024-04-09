@@ -84,7 +84,7 @@ return {
   -- Useful plugin to show you pending keybinds.
   {
     'folke/which-key.nvim',
-    event = 'VeryLazy',
+    --event = 'VeryLazy', -- uncommenting this makes the startup screen disappear
     config = function()
       -- document existing key chains
       require('which-key').setup()
@@ -94,6 +94,7 @@ return {
       }
     end
   },
+
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -137,6 +138,7 @@ return {
 
   {
     'folke/todo-comments.nvim',
+    event = 'VimEnter',
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
       highlight = {
@@ -148,7 +150,8 @@ return {
 
   -- pick one of these colorschemes by uncommenting it and commenting all the others
   -- { 'navarasu/onedark.nvim', priority = 1000, config = function() vim.cmd.colorscheme 'onedark' end },
-  { "catppuccin/nvim",       name = "catppuccin", lazy = false, priority = 1000, config = function() vim.cmd.colorscheme 'catppuccin-mocha' end },
+  {
+    "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000, config = function() vim.cmd.colorscheme 'catppuccin-mocha' end },
 
 
   {
@@ -171,7 +174,12 @@ return {
           }
         },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { 'filename' },
+        lualine_c = {
+          {
+            'filename',
+            path = 1
+          },
+  	},
         lualine_x = { 'filetype' },
         lualine_y = { 'progress' },
         lualine_z = { 'searchcount', 'selectioncount', 'location' }
@@ -188,7 +196,7 @@ return {
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',   opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
