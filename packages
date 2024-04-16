@@ -13,8 +13,8 @@ dunst
 wofi
 wlogout
 kitty
-pulseaudio
-pulseaudio-alsa
+pipewire
+wireplumber
 sddm
 sddm-sugar-candy-git
 grim

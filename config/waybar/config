@@ -10,7 +10,7 @@
     "modules-center": ["hyprland/window"],
 
     // unused: "hyprland/language"
-    "modules-right": ["idle_inhibitor", "pulseaudio", "custom/weather", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock", "custom/power", "tray"],
+    "modules-right": ["idle_inhibitor", "wireplumber", "custom/weather", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock", "custom/power", "tray"],
     // Modules configuration
     //"hyprland/workspaces": {
     //    "disable-scroll": true,
@@ -92,7 +92,7 @@
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "{usage}%  ",
         "tooltip": false
     },
     "memory": {
@@ -130,31 +130,19 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-wifi": "{essid} ({signalStrength}%)  ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
+        "format-disconnected": "Disconnected ⚠ ",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
+    "wireplumber": {
+		"format": "{volume}% {icon}",
+		"format-muted": "    ",
+        "on-click": "pavucontrol",
+		"format-icons": ["", " ", " "],
+		"on-click-right": ""
     },
     "custom/media": {
         "format": "{icon} {}",
@@ -170,14 +158,14 @@
     },
     "custom/power": {
     	"format": "⏻",
-	"on-click": "wlogout"
+		"on-click": "wlogout"
     },
     "custom/weather": {
     	"format": "{}",
-	"tooltip": true,
-	"interval": 3600,
-	"exec": "~/.config/waybar/waybar-wttr.py",
-	"return-type": "json"
+		"tooltip": true,
+		"interval": 3600,
+		"exec": "~/.config/waybar/waybar-wttr.py",
+		"return-type": "json"
     },
 }
 

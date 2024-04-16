@@ -73,7 +73,8 @@ echo "Enabling services. Some of these might not work properly, so errors are al
 set +e
 sudo systemctl enable --now sddm
 sudo systemctl enable --now NetworkManager
-sudo systemctl enable --user --now pulseaudio
+sudo systemctl enable --user --now pipewire
+sudo systemctl enable --user --now wireplumber
 sudo systemctl enable --user --now dunst
 set -e
 

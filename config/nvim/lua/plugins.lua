@@ -19,11 +19,11 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
+      { 'williamboman/mason.nvim', opts = { PATH = "append" } },
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -179,7 +179,7 @@ return {
             'filename',
             path = 1
           },
-  	},
+        },
         lualine_x = { 'filetype' },
         lualine_y = { 'progress' },
         lualine_z = { 'searchcount', 'selectioncount', 'location' }
