@@ -6,11 +6,11 @@
     // "width": 1280, // Waybar width
     "spacing": 8, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["hyprland/workspaces", "hyprland/mode", "hyprland/scratchpad", "custom/media"],
+    "modules-left": ["hyprland/workspaces", "hyprland/mode", "hyprland/scratchpad", "custom/media", "custom/spotify"],
     "modules-center": ["hyprland/window"],
 
     // unused: "hyprland/language"
-    "modules-right": ["tray", "idle_inhibitor", "wireplumber", "custom/weather", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock", "custom/power"],
+    "modules-right": ["custom/updates", "tray", "idle_inhibitor", "wireplumber", "custom/weather", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock", "custom/power"],
     // Modules configuration
     //"hyprland/workspaces": {
     //    "disable-scroll": true,
@@ -139,23 +139,31 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "wireplumber": {
-		"format": "{volume}% {icon}",
-		"format-muted": "    ",
+        "format": "{volume}% {icon}",
+        "format-muted": "     ",
         "on-click": "pavucontrol",
-		"format-icons": ["", " ", " "],
-		"on-click-right": ""
+        "format-icons": [" ", " ", " "],
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
     },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    "custom/updates": {
+        "exec": "~/dotfiles/scripts/available_updates",
+        "on-click": "kitty --hold nu -c '~/dotfiles/scripts/update'"
+    },
+    "custom/spotify": {
+      "format": "<span foreground='#66dc69'>󰓇 </span> {icon}  <span>{}</span>",
+      "return-type": "json",
+      "max-length": 80,
+      "exec": "playerctl -p spotify metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+      "on-click": "playerctl -p spotify play-pause",
+      "on-double-click": "playerctl -p spotify next",
+      "on-click-right": "playerctl -p spotify previous",
+      "on-scroll-down": "playerctl -p spotify volume 0.02-",
+      "on-scroll-up": "playerctl -p spotify volume 0.02+",
+
+      "format-icons": {
+        "Playing": "<span foreground='#E5B9C6'>󰐌 </span>",
+        "Paused": "<span foreground='#928374'>󰏥 </span>"
+      },
     },
     "custom/power": {
     	"format": "⏻ ",

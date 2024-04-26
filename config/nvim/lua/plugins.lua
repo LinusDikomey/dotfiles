@@ -34,6 +34,7 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
+          print('lsp attached')
           -- TODO: lsp keymap here
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.documentHighlightProvider then
@@ -49,6 +50,10 @@ return {
           end
         end
       })
+      local lspconfig = require('lspconfig')
+      -- setup some language servers here manually so they don't have to be installed via mason
+      lspconfig.rust_analyzer.setup {}
+      lspconfig.clangd.setup {}
     end
   },
 

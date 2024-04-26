@@ -11,6 +11,7 @@ hyprpaper
 polkit-kde-agent
 waybar
 dunst
+pacman-contrib
 wofi
 wlogout
 kitty
@@ -29,15 +30,13 @@ neofetch
 btop
 cava
 network-manager-applet
-neovim
 
+neovim
+imagemagick
 nushell
 carapace-bin
 starship
 
-gjs
-
-discord
 firefox
 nautilus
 spotify

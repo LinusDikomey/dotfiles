@@ -18,6 +18,7 @@ sudo pacman -S --needed base-devel git rustup
 
 echo "Installing rust"
 rustup default stable
+rustup component add rust-analyzer
 
 if command -v paru &> /dev/null ; then
     echo "paru already exists, skipping step"
