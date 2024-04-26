@@ -24,6 +24,8 @@ if $nu.os-info.name == "macos" {
         | prepend '/usr/local/lib/'
         | prepend '/usr/local/bin/'
     )
+    # this overwrites the variable but it is unset otherwise anyways
+    $env.DYLD_LIBRARY_PATH = $"(brew --prefix)/lib"
 }
 
 mkdir ~/.cache/starship

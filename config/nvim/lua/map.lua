@@ -54,6 +54,12 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', hjkl_remap[2], "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set('n', hjkl_remap[3], "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
+-- open neotree
+vim.keymap.set('n', '<leader>F', ':Neotree reveal float<CR>', { desc = 'Show current file in file tree' })
+
+-- leap in both directions with f
+vim.keymap.set({ 'n', 'x', 'o' }, 'f', '<Plug>(leap)')
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })

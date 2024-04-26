@@ -14,6 +14,8 @@ return {
     end,
   },
 
+  'ggandor/leap.nvim',
+
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -226,6 +228,66 @@ return {
         },
       },
     }
+  },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      "3rd/image.nvim",
+    },
+    opts = {
+      window = {
+        position = 'float',
+        mappings = {
+          ["<space>"] = {
+            "toggle_node",
+            nowait = true, -- overwrite this so toggle happens immediately
+          },
+          ["e"] = {},      -- remove the mapping for e since it interferes with 'up' on Colemak
+        },
+      },
+      hijack_netrw_behavior = "open_default",
+    },
+  },
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1001, -- this plugin needs to run before anything else
+    opts = {
+      rocks = { "magick" },
+    },
+  },
+  {
+    "3rd/image.nvim",
+    event = "VeryLazy",
+    dependencies = { "luarocks.nvim" },
+    opts = {
+      backend = "kitty",
+      integrations = {
+        markdown = {
+          enabled = true,
+          clear_in_insert_mode = false,
+          download_remote_images = true,
+          only_render_image_at_cursor = false,
+          filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
+        },
+        neorg = {
+          enabled = true,
+          clear_in_insert_mode = false,
+          download_remote_images = true,
+          only_render_image_at_cursor = false,
+          filetypes = { "norg" },
+        },
+      },
+      max_width = nil,
+      max_height = nil,
+      max_width_window_percentage = nil,
+      max_height_window_percentage = 50,
+      kitty_method = "normal",
+    },
   },
 
   {
