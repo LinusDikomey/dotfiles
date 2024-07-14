@@ -10,7 +10,7 @@
     "modules-center": ["hyprland/window"],
 
     // unused: "hyprland/language"
-    "modules-right": ["custom/updates", "tray", "idle_inhibitor", "wireplumber", "custom/weather", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock", "custom/power"],
+    "modules-right": ["custom/updates", "tray", "idle_inhibitor", "wireplumber", "custom/weather", "cpu", "memory", "temperature", "backlight", "battery", "battery#bat2", "clock", "custom/power"],
     // Modules configuration
     //"hyprland/workspaces": {
     //    "disable-scroll": true,

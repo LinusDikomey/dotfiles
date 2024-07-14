@@ -8,6 +8,7 @@ hyprland
 hypridle
 hyprlock
 hyprpaper
+hyprpicker
 polkit-kde-agent
 waybar
 dunst
@@ -23,6 +24,7 @@ sddm
 sddm-sugar-candy-git
 grim
 slurp
+jq
 wl-clipboard
 ranger
 lazygit
@@ -43,10 +45,9 @@ spotify
 speedcrunch
 
 noto-fonts
+ttf-iosevka-nerd
 ttf-noto-nerd
 noto-fonts-emoji
-ttf-firacode-nerd
-ttf-jetbrains-mono-nerd
 
 rustup
 zip

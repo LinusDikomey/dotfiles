@@ -226,9 +226,13 @@ return {
       },
       defaults = {
         mappings = {
+          n = {
+            ['n'] = 'move_selection_next',
+            ['e'] = 'move_selection_previous',
+          },
           i = {
-            ['<C-u>'] = false,
-            ['<C-d>'] = false,
+            -- ['<C-u>'] = false,
+            -- ['<C-d>'] = false,
           },
         },
       },
@@ -245,6 +249,7 @@ return {
       "3rd/image.nvim",
     },
     opts = {
+      popup_border_style = "single",
       window = {
         position = 'float',
         mappings = {

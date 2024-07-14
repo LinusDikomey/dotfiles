@@ -37,6 +37,4 @@ def take_out_the_trash [] {
             echo "Doing nothing"
         }
     }
-    
 }
-

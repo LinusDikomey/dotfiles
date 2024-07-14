@@ -1,7 +1,13 @@
 #!/bin/bash
 
-updates=$(checkupdates | wc -l)
+while [ 1 ]
+do
+    updates=$(checkupdates | wc -l)
 
-if [ $updates -ne 0 ]; then
-    echo "<span foreground='#12FF39'>󰚰 </span> ${updates}"
-fi
+    if [ $updates -ne 0 ]; then
+        echo "<span foreground='#12FF39'>󰚰 </span> ${updates}"
+    else
+        echo ""
+    fi
+    sleep 60
+done

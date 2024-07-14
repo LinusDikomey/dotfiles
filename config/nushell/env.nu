@@ -11,11 +11,13 @@ $env.ENV_CONVERSIONS = {
     }
 }
 
+$env.EDITOR = nvim
+
 $env.PATH = (
     $env.PATH
     | split row (char esep)
     | prepend '~/.cargo/bin/'
-    | prepend '~/dev/llvm/17/bin/'
+    | prepend '~/dev/llvm/17-cross/bin/'
 )
 
 if $nu.os-info.name == "macos" {

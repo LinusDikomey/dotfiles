@@ -1,0 +1,40 @@
+[
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "m": "vim::Left",
+      "n": "vim::Down",
+      "e": "vim::Up",
+      "i": "vim::Right",
+      "g r": "editor::FindAllReferences",
+      "l": "vim::InsertBefore",
+      "space f": "file_finder::Toggle",
+      "space k": "editor::Hover",
+      "space t": "workspace::NewTerminal",
+      "space d": "diagnostics::Deploy",
+      "space r": "editor::Rename"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "n": "editor::MoveDown",
+      "e": "editor::MoveUp"
+    }
+  },
+  {
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      "space f": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w m": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-w n": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-w e": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-w i": ["workspace::ActivatePaneInDirection", "Down"]
+    }
+  }
+]
