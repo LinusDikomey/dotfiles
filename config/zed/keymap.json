@@ -12,7 +12,20 @@
       "space k": "editor::Hover",
       "space t": "workspace::NewTerminal",
       "space d": "diagnostics::Deploy",
-      "space r": "editor::Rename"
+      "space r": "editor::Rename",
+      "space s": "outline::Toggle",
+      "space S": "project_symbols::Toggle",
+      "j": "vim::MoveToNextMatch",
+      "shift+j": "vim::MoveToPrevMatch"
+    }
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
+      "ctrl-w m": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-w n": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-w e": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-w i": ["workspace::ActivatePaneInDirection", "Right"]
     }
   },
   {
