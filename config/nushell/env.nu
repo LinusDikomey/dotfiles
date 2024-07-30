@@ -22,12 +22,15 @@ $env.PATH = (
 
 if $nu.os-info.name == "macos" {
     $env.PATH = ($env.PATH | split row (char esep)
-        | prepend '/opt/homebrew/bin/'
+        | prepend $'/opt/homebrew/bin/'
+        | prepend $'/opt/homebrew/lib/'
         | prepend '/usr/local/lib/'
         | prepend '/usr/local/bin/'
     )
     # this overwrites the variable but it is unset otherwise anyways
     $env.DYLD_LIBRARY_PATH = $"(brew --prefix)/lib"
+    $env.SHADERC_LIB_DIR = $"(brew --prefix)/lib"
+    $env.RUSTFLAGS = "-L /opt/homebrew/lib/"
 }
 
 mkdir ~/.cache/starship

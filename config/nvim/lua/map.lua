@@ -71,6 +71,11 @@ vim.keymap.set('n', '<tab>', '<C-w>w')
 vim.api.nvim_create_user_command('LiveGrepGitRoot', require('live_grep_git_root'), {})
 
 -- vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
+vim.keymap.set('n', '<leader>o', require('telescope.builtin').buffers,
+  { desc = 'Find [o]pen buffers' })
+
+vim.keymap.set('n', '<leader>l', require('telescope.builtin').current_buffer_fuzzy_find,
+  { desc = '[l]ocal buffer fuzzy search' })
 
 local telescope_builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>b', telescope_builtin.buffers,
