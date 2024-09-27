@@ -2,24 +2,32 @@
   {
     "context": "VimControl && !menu",
     "bindings": {
-      "m": "vim::Left",
-      "n": "vim::Down",
-      "e": "vim::Up",
-      "i": "vim::Right",
+      "m": ["vim::Left", { "displayLines": true }],
+      "n": ["vim::Down", { "displayLines": true }],
+      "e": ["vim::Up", { "displayLines": true }],
+      "i": ["vim::Right", { "displayLines": true }],
       "g r": "editor::FindAllReferences",
       "l": "vim::InsertBefore",
       "space k": "editor::Hover",
+      "space t": "workspace::NewTerminal",
+      "space d": "diagnostics::Deploy",
+      "space r": "editor::Rename",
+      "space s": "outline::Toggle",
       "j": "vim::MoveToNextMatch",
       "J": "vim::MoveToPrevMatch"
     }
   },
   {
-    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "context": "(Editor && VimControl && !VimWaiting && !menu) || EmptyPane || SharedScreen",
     "bindings": {
       "ctrl-w m": ["workspace::ActivatePaneInDirection", "Left"],
       "ctrl-w n": ["workspace::ActivatePaneInDirection", "Down"],
       "ctrl-w e": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-w i": ["workspace::ActivatePaneInDirection", "Right"]
+      "ctrl-w i": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-b": "workspace::ToggleLeftDock",
+      "ctrl-j": "workspace::ToggleBottomDock",
+      "space f": "file_finder::Toggle",
+      "space S": "project_symbols::Toggle"
     }
   },
   {
