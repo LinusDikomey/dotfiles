@@ -2,10 +2,9 @@ theme = "catppuccin_macchiato"
 
 [editor]
 line-number = "relative"
-shell = ["fish", "-c"]
-auto-save = true
-auto-format = false
-rulers = [120]
+shell = ["nu", "-c"]
+auto-format = true
+rulers = [100]
 color-modes = true
 
 [editor.cursor-shape]
@@ -21,6 +20,7 @@ render = true
 k = "no_op"
 m = "move_char_left"
 n = "move_visual_line_down"
+N = "join_selections"
 e = "move_visual_line_up"
 i = "move_char_right"
 l = "insert_mode"

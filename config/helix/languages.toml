@@ -3,8 +3,12 @@
 diagnostics.disabled = ["inactive-code"]
 
 [language-server.eye]
-command = "eyelang"
+command = "eye"
 args = ["lsp"]
+
+[[language]]
+name = "rust"
+auto-format = true
 
 [[language]]
 name = "eye"
@@ -22,12 +26,13 @@ scope = "source.gon"
 file-types = ["gon"]
 roots = []
 comment-token = "//"
-grammar = "gon"
+#grammar = "gon"
 
 [[grammar]]
 name = "eye"
-source.path = "~/dev/tree-sitter-eye"
+source.path = "/home/linus/dev/tree-sitter-eye"
+#source.git = "https://github.com/LinusDikomey/tree-sitter-eye"
 
-[[grammar]]
-name = "gon"
-source.path = "~/dev/tree-sitter-gon"
+#[[grammar]]
+#name = "gon"
+#source.path = "~/dev/tree-sitter-gon"

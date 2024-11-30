@@ -17,7 +17,6 @@ use ~/.cache/starship/init.nu
 alias :q = exit
 alias cat = bat
 alias icat = kitten icat
-alias ssh = kitten ssh
 alias mv = mv -i # always prompt on overwrite
 
 def take_out_the_trash [] {

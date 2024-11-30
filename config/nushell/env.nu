@@ -18,6 +18,8 @@ $env.PATH = (
     | split row (char esep)
     | prepend '~/.cargo/bin/'
     | prepend '~/dev/llvm/bin/'
+    | prepend '~/.local/bin/'
+    | prepend '~/dev/scripts/'
 )
 
 if $nu.os-info.name == "macos" {
