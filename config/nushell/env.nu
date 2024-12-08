@@ -11,7 +11,7 @@ $env.ENV_CONVERSIONS = {
     }
 }
 
-$env.EDITOR = "nvim"
+$env.EDITOR = "hx"
 
 $env.PATH = (
     $env.PATH

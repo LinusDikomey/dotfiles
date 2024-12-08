@@ -1,6 +1,7 @@
 [language-server.rust-analyzer.config]
 # cargo.noDefaultFeatures = true
 diagnostics.disabled = ["inactive-code"]
+check.command = "clippy"
 
 [language-server.eye]
 command = "eye"
@@ -16,9 +17,23 @@ scope = "source.eye"
 file-types = ["eye"]
 roots = ["main.eye"]
 comment-token = "#"
+block-comment-tokens = [
+  { start = "#-", end = "-#" }
+]
 language-servers = ["eye"]
 grammar = "eye"
-indent = { tab-width = 4, unit = " " }
+indent = { tab-width = 4, unit = "    " }
+
+[language.auto-pairs]
+'(' = ')'
+'[' = ']'
+'{' = '}'
+'"' = '"'
+
+[[grammar]]
+name = "eye"
+source.path = "/home/linus/dev/tree-sitter-eye"
+#source.git = "https://github.com/LinusDikomey/tree-sitter-eye"
 
 [[language]]
 name = "gon"
@@ -28,11 +43,15 @@ roots = []
 comment-token = "//"
 #grammar = "gon"
 
-[[grammar]]
-name = "eye"
-source.path = "/home/linus/dev/tree-sitter-eye"
-#source.git = "https://github.com/LinusDikomey/tree-sitter-eye"
-
 #[[grammar]]
 #name = "gon"
 #source.path = "~/dev/tree-sitter-gon"
+
+[[language]]
+name = "python"
+language-servers = ["pyright"]
+formatter = { command = "black", args = ["--line-length", "100", "--quiet", "-"] }
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
