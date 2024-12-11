@@ -1,22 +1,20 @@
 # dotfiles
-My configuration files. Productive Hyprland arch linux system. Some programs also used on MacOS.
+My configuration files. Productive Hyprland NixOS system. Some programs also used on MacOS.
 # Setup/Features
-- Arch Linux
+- NixOS
 - Hyprland Window Manager
 - Keybindings optimized for the Colemak DH Layout
 - Nushell
-- Kitty Terminal
+- Ghostty Terminal
 - waybar
-  - Spotify Song Display
   - Power Menu
   - Weather
   - Calendar
   - Notifications (Dunst)
-- Neovim
+- Helix
 # Installation
-The `install` script is provided to setup all my configuration more or less from scratch on a new arch system.
-After setting up arch, creating your user and setting up permissions, just install git and run this:
+Install via the Nix flake after adding your `hardware-configuration.nix` into this folder.
 ```bash
-cd ~ && git clone https://github.com/LinusDikomey/dotfiles && ./dotfiles/install
+cd ~ && git clone https://github.com/LinusDikomey/dotfiles && cp /etc/nix/hardware-configuration.nix dotfiles/ && sudo nixos-rebuild switch --flake ~/dotfiles#default
 ```
 After that, everything *should* work as expected.
