@@ -29,8 +29,8 @@ end
 -- [[ Basic Keymaps ]]
 
 -- previous/next location
-vim.keymap.set('n', '<C-i>', '<C-i>')
-vim.keymap.set('n', '<C-o>', '<C-o>')
+vim.keymap.set('n', '<C-t>', '<C-i>')
+vim.keymap.set('n', '<C-g>', '<C-o>')
 
 vim.keymap.set({ 'i', 'c' }, '<M-BS>', '<C-W>', { desc = 'alt+backspace to delete whole word' })
 -- undo with shift+u like in helix

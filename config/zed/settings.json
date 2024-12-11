@@ -8,7 +8,7 @@
 // from the command palette or from `Zed` application menu.
 {
   "tab_bar": {
-    "show": true
+    "show": false
   },
   "features": {
     "inline_completion_provider": "none"
