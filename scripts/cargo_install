@@ -1,5 +1,0 @@
-#!/bin/bash
-
-cargo install cargo-info
-cargo install du-dust
-cargo install porsmo
