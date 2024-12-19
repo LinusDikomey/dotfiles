@@ -30,7 +30,7 @@
 }
 {
     "label" : "windows",
-    "action" : "pkexec grub-set-default 2 && systemctl reboot",
+    "action" : "systemctl reboot --boot-loader-entry=auto-windows",
     "text" : "Boot to Windows",
     "keybind" : "w"
 }

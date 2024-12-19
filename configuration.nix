@@ -13,11 +13,19 @@
 
   networking.networkmanager.enable = true;
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
   time.timeZone = "Europe/Berlin";
 
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "sddm-sugar-dark";
+  };
 
   services.printing.enable = true;
   services.openssh.enable = true;
@@ -50,6 +58,7 @@
     grim
     slurp
     pulseaudio # still using pipewire but need pactl for scripts for now
+    playerctl
     pavucontrol
     wl-clipboard
     wofi
@@ -68,6 +77,7 @@
     unzip
     killall
     btop
+    imagemagick
   ];
 
   fonts.packages = with pkgs; [

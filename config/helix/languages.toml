@@ -55,3 +55,9 @@ formatter = { command = "black", args = ["--line-length", "100", "--quiet", "-"]
 [language-server.pyright]
 command = "pyright-langserver"
 args = ["--stdio"]
+
+[[language]]
+name = "latex"
+soft-wrap.enable = true
+soft-wrap.wrap-at-text-width = true
+text-width = 99

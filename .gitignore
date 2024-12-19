@@ -6,4 +6,3 @@ config/nvim/lazy-lock.json
 config/eww/cache
 config/zed/.tmp*
 **/.DS_Store
-hardware-configuration.nix

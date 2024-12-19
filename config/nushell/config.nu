@@ -18,6 +18,9 @@ alias :q = exit
 alias cat = bat
 alias icat = kitten icat
 alias mv = mv -i # always prompt on overwrite
+alias "nix develop" = nix develop --command nu
+alias "nix-shell" = nix-shell --command nu
+alias nixr = sudo nixos-rebuild switch --flake ~/dotfiles#default
 
 def take_out_the_trash [] {
     if (not ("~/.local/share/Trash/files" | path exists)) {
