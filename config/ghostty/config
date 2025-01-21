@@ -1,0 +1,4 @@
+theme = catppuccin-mocha
+window-decoration = false
+font-family = "IosevkaNerdFont"
+font-size = 20

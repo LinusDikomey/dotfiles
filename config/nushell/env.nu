@@ -12,6 +12,7 @@ $env.ENV_CONVERSIONS = {
 }
 
 $env.EDITOR = "hx"
+$env.TERM = "xterm-256color"
 
 $env.PATH = (
     $env.PATH
