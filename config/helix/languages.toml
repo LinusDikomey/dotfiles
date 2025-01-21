@@ -41,11 +41,11 @@ scope = "source.gon"
 file-types = ["gon"]
 roots = []
 comment-token = "//"
-#grammar = "gon"
+grammar = "gon"
 
-#[[grammar]]
-#name = "gon"
-#source.path = "~/dev/tree-sitter-gon"
+[[grammar]]
+name = "gon"
+source = { git = "https://github.com/LinusDikomey/tree-sitter-gon", rev = "f93d6509a3517aec5b97e5533aa354f0d0006f76" }
 
 [[language]]
 name = "python"

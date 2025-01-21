@@ -6,6 +6,10 @@ shell = ["nu", "-c"]
 auto-format = true
 rulers = [100]
 color-modes = true
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "error"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -21,6 +25,7 @@ k = "no_op"
 m = "move_char_left"
 n = "move_visual_line_down"
 N = "join_selections"
+"A-N" = "join_selections_space"
 e = "move_visual_line_up"
 i = "move_char_right"
 l = "insert_mode"
@@ -51,13 +56,14 @@ e = "scroll_up"
 
 [keys.select]
 h = "no_op"
-j = "no_op"
 k = "no_op"
 l = "no_op"
 m = "extend_char_left"
 n = "extend_visual_line_down"
 e = "extend_visual_line_up"
 i = "extend_char_right"
+j = "extend_search_next"
+J = "extend_search_prev"
 
 [keys.select.g]
 h = "no_op"
