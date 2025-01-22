@@ -1,15 +1,20 @@
-{ config, lib, pkgs, ... }:
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   networking.networkmanager.enable = true;
 
@@ -28,7 +33,6 @@
   };
 
   services.printing.enable = true;
-  services.openssh.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -40,13 +44,14 @@
 
   users.users.linus = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     shell = pkgs.nushell;
   };
 
   programs.hyprland.enable = true;
 
   environment.systemPackages = with pkgs; [
+    wpa_supplicant
     hyprpaper
     waybar
     networkmanagerapplet
@@ -65,10 +70,12 @@
     nautilus
 
     git
+    jujutsu
     helix
     neovim
     wget
     firefox
+    ghostty
     kitty
     nushell
     carapace
@@ -85,6 +92,7 @@
   ];
 
   programs.steam.enable = true;
+  virtualisation.docker.enable = true;
 
   home-manager = {
     users = {
@@ -92,6 +100,26 @@
     };
   };
 
-  system.stateVersion = "24.11";
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [22 8000];
+    allowedUDPPorts = [9];
+  };
 
+  networking.interfaces.enp4s0.wakeOnLan.enable = true;
+
+  services.openssh = {
+    enable = true;
+    ports = [22];
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = [ "linus" ];
+      UseDns = false;
+      X11Forwarding = false;
+      PermitRootLogin = "prohibit-password";
+    };
+  };
+  services.fail2ban.enable = true;
+
+  system.stateVersion = "24.11";
 }

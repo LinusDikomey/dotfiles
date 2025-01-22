@@ -61,3 +61,8 @@ name = "latex"
 soft-wrap.enable = true
 soft-wrap.wrap-at-text-width = true
 text-width = 99
+
+[[language]]
+name = "nix"
+formatter = { command = "alejandra" }
+auto-format = true

@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.username = "linus";
   home.homeDirectory = "/home/linus";
 
@@ -15,7 +17,7 @@
 
     # can be replaced with official package when it gets merged
     # https://github.com/NixOS/nixpkgs/pull/309327
-    (pkgs.callPackage ./packages/olympus/package.nix { })
+    (pkgs.callPackage ./packages/olympus/package.nix {})
 
     # cli tools
     ripgrep
@@ -26,6 +28,10 @@
     rustup
     lldb
     texlive.combined.scheme-full
+    texlab
+    inkscape
+    nil
+    alejandra
   ];
 
   home.file = {
