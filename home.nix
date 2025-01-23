@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.username = "linus";
   home.homeDirectory = "/home/linus";
 
@@ -30,7 +26,7 @@
     texlive.combined.scheme-full
     texlab
     inkscape
-    nil
+    nixd
     alejandra
   ];
 

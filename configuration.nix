@@ -1,7 +1,6 @@
 {
-  config,
-  lib,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
@@ -10,6 +9,7 @@
 
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -113,7 +113,7 @@
     ports = [22];
     settings = {
       PasswordAuthentication = true;
-      AllowUsers = [ "linus" ];
+      AllowUsers = ["linus"];
       UseDns = false;
       X11Forwarding = false;
       PermitRootLogin = "prohibit-password";
