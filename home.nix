@@ -1,6 +1,11 @@
-{pkgs, ...}: {
-  home.username = "linus";
-  home.homeDirectory = "/home/linus";
+{
+  config,
+  pkgs,
+  username,
+  ...
+}: {
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   nixpkgs.config.allowUnfree = true;
 
@@ -21,6 +26,7 @@
 
     # compilers and stuff
     clang
+    llvmPackages_18.clang-tools
     rustup
     lldb
     texlive.combined.scheme-full
@@ -30,7 +36,23 @@
     alejandra
   ];
 
-  home.file = {
+  home.file = let
+    linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/home/${username}/dotfiles/config/${name}";
+  in {
+    ".config/dunst/".source = linkConfig "dunst";
+    ".config/gammastep/".source = linkConfig "gammastep";
+    ".config/ghostty/".source = linkConfig "ghostty";
+    ".config/helix/".source = linkConfig "helix";
+    ".config/hypr/".source = linkConfig "hypr";
+    ".config/lazygit/".source = linkConfig "lazygit";
+    ".config/nushell/".source = linkConfig "nushell";
+    ".config/nvim/".source = linkConfig "nvim";
+    ".config/ranger/".source = linkConfig "ranger";
+    ".config/starship.toml".source = linkConfig "starship.toml";
+    ".config/waybar/".source = linkConfig "waybar";
+    ".config/wlogout/".source = linkConfig "wlogout";
+    ".config/wofi/".source = linkConfig "wofi";
+    ".config/zed/".source = linkConfig "zed";
   };
 
   home.sessionVariables = {

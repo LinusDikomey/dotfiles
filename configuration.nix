@@ -2,7 +2,9 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  username = "linus";
+in {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -42,13 +44,20 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
-  users.users.linus = {
+  users.users.${username} = {
     isNormalUser = true;
     extraGroups = ["wheel"];
     shell = pkgs.nushell;
   };
 
   programs.hyprland.enable = true;
+
+  services.desktopManager.plasma6.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    xdgOpenUsePortal = true;
+  };
 
   environment.systemPackages = with pkgs; [
     wpa_supplicant
@@ -68,6 +77,7 @@
     wl-clipboard
     wofi
     nautilus
+    lxqt.lxqt-policykit
 
     git
     jujutsu
@@ -92,18 +102,29 @@
   ];
 
   programs.steam.enable = true;
+  programs.steam.gamescopeSession.enable = true;
+  programs.gamemode.enable = true;
+
   virtualisation.docker.enable = true;
 
   home-manager = {
-    users = {
-      "linus" = import ./home.nix;
-    };
+    users."${username}".imports = [({config, ...}: import ./home.nix {inherit config pkgs username;})];
   };
 
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [22 8000];
     allowedUDPPorts = [9];
+    # used for samba network storage discovery
+    extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
+  };
+
+  services.samba.enable = true;
+  services.gvfs.enable = true;
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
   };
 
   networking.interfaces.enp4s0.wakeOnLan.enable = true;
@@ -113,7 +134,7 @@
     ports = [22];
     settings = {
       PasswordAuthentication = true;
-      AllowUsers = ["linus"];
+      AllowUsers = [username];
       UseDns = false;
       X11Forwarding = false;
       PermitRootLogin = "prohibit-password";

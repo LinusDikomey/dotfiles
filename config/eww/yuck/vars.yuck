@@ -1,7 +1,0 @@
-(defpoll    hour                  :interval "5s" `date "+%H"`)
-(defpoll    minutes               :interval "5s" `date "+%M"`)
-(defpoll    date                  :interval "5s" `date "+%A, %d. %B"`)
-
-(deflisten  media                 :initial  "[]" `scripts/media`)
-
-(defvar     desktop-show-calendar false)
