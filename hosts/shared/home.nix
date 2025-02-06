@@ -1,28 +1,31 @@
 {
   config,
   pkgs,
+  homeFolder,
   username,
   ...
 }: {
   home.username = username;
-  home.homeDirectory = "/home/${username}";
-
-  nixpkgs.config.allowUnfree = true;
+  home.homeDirectory = "/${homeFolder}/${username}";
 
   home.packages = with pkgs; [
     # graphical applications
     discord-canary
     obsidian
-    thunderbird
     prismlauncher
 
-    # can be replaced with official package when it gets merged
-    # https://github.com/NixOS/nixpkgs/pull/309327
-    (pkgs.callPackage ./packages/olympus/package.nix {})
-
     # cli tools
+    git
+    jujutsu
+    helix
+    neovim
+    wget
     ripgrep
     bat
+    carapace
+    starship
+    btop
+    imagemagick
 
     # compilers and stuff
     clang
@@ -37,7 +40,7 @@
   ];
 
   home.file = let
-    linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/home/${username}/dotfiles/config/${name}";
+    linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/${homeFolder}/${username}/dotfiles/config/${name}";
   in {
     ".config/dunst/".source = linkConfig "dunst";
     ".config/gammastep/".source = linkConfig "gammastep";
@@ -48,7 +51,7 @@
     ".config/nushell/".source = linkConfig "nushell";
     ".config/nvim/".source = linkConfig "nvim";
     ".config/ranger/".source = linkConfig "ranger";
-    ".config/starship.toml".source = linkConfig "starship.toml";
+    # ".config/starship.toml".source = linkConfig "starship.toml";
     ".config/waybar/".source = linkConfig "waybar";
     ".config/wlogout/".source = linkConfig "wlogout";
     ".config/wofi/".source = linkConfig "wofi";
@@ -59,37 +62,32 @@
     EDITOR = "hx";
   };
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 24;
-  };
-
-  gtk = {
-    enable = true;
-    theme = {
-      package = pkgs.flat-remix-gtk;
-      name = "Flat-Remix-GTK-Grey-Darkest";
-    };
-    # cursorTheme = {
-    #   name = "Bibata-Modern-Ice";
-    #   size = 24;
-    # };
-    iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
-    };
-  };
-
   programs.git = {
     enable = true;
     userName = "Linus Dikomey";
     userEmail = "l.dikomey03@gmail.com";
   };
 
-  services.mpris-proxy.enable = true;
+  # programs.ghostty.enable = true;
+
+  programs.nushell = import ../../modules/nu.nix {inherit username;};
+  programs.carapace = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    settings = {
+      add_newline = true;
+      character = {
+        success_symbol = "[➜](bold green)";
+        error_symbol = "[➜](bold red)";
+      };
+    };
+  };
 
   programs.home-manager.enable = true;
+
   home.stateVersion = "24.11";
 }

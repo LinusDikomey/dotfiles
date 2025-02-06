@@ -1,16 +1,15 @@
 {
   pkgs,
   inputs,
+  username,
   ...
-}: let
-  username = "linus";
-in {
+}: {
   imports = [
     ./hardware-configuration.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   boot.loader.systemd-boot.enable = true;
@@ -24,8 +23,6 @@ in {
     enable = true;
     powerOnBoot = true;
   };
-
-  time.timeZone = "Europe/Berlin";
 
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
@@ -79,22 +76,13 @@ in {
     nautilus
     lxqt.lxqt-policykit
 
-    git
-    jujutsu
-    helix
-    neovim
-    wget
     firefox
     ghostty
     kitty
     nushell
-    carapace
-    starship
     zip
     unzip
     killall
-    btop
-    imagemagick
   ];
 
   fonts.packages = with pkgs; [
@@ -106,10 +94,6 @@ in {
   programs.gamemode.enable = true;
 
   virtualisation.docker.enable = true;
-
-  home-manager = {
-    users."${username}".imports = [({config, ...}: import ./home.nix {inherit config pkgs username;})];
-  };
 
   networking.firewall = {
     enable = true;
