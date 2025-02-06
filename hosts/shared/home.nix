@@ -39,6 +39,15 @@
     alejandra
   ];
 
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = import ../../modules/hyprland.nix;
+  };
+  services.hyprpaper = {
+    enable = true;
+    settings = import ../../modules/hyprpaper.nix;
+  };
+
   home.file = let
     linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/${homeFolder}/${username}/dotfiles/config/${name}";
   in {
@@ -46,9 +55,8 @@
     ".config/gammastep/".source = linkConfig "gammastep";
     ".config/ghostty/".source = linkConfig "ghostty";
     ".config/helix/".source = linkConfig "helix";
-    ".config/hypr/".source = linkConfig "hypr";
-    ".config/nushell/".source = linkConfig "nushell";
-    # ".config/starship.toml".source = linkConfig "starship.toml";
+    ".config/hypr/hypridle.conf".source = linkConfig "hypr/hypridle.conf";
+    ".config/hypr/hyprlock.conf".source = linkConfig "hypr/hyprlock.conf";
     ".config/waybar/".source = linkConfig "waybar";
     ".config/wlogout/".source = linkConfig "wlogout";
     ".config/wofi/".source = linkConfig "wofi";

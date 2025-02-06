@@ -21,6 +21,15 @@
     size = 24;
   };
 
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = import ../../modules/hyprland.nix;
+  };
+  services.hyprpaper = {
+    enable = true;
+    settings = import ../../modules/hyprpaper.nix;
+  };
+
   gtk = {
     enable = true;
     theme = {
