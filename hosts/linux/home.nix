@@ -14,6 +14,8 @@
     (pkgs.callPackage ../../packages/olympus/package.nix {})
   ];
 
+  programs.ghostty.enable = true;
+
   home.pointerCursor = {
     gtk.enable = true;
     package = pkgs.bibata-cursors;
@@ -29,6 +31,7 @@
     enable = true;
     settings = import ../../modules/hyprpaper.nix;
   };
+  services.dunst.enable = true;
 
   gtk = {
     enable = true;

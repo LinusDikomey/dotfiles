@@ -64,7 +64,6 @@
     gammastep
     hypridle
     hyprlock
-    dunst
     wlogout
     grim
     slurp
@@ -77,7 +76,6 @@
     lxqt.lxqt-policykit
 
     firefox
-    ghostty
     kitty
     nushell
     zip

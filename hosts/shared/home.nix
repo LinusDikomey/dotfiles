@@ -30,7 +30,7 @@
     # compilers and stuff
     clang
     llvmPackages_18.clang-tools
-    rustup
+    cargo
     lldb
     texlive.combined.scheme-full
     texlab
@@ -39,19 +39,10 @@
     alejandra
   ];
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    settings = import ../../modules/hyprland.nix;
-  };
-  services.hyprpaper = {
-    enable = true;
-    settings = import ../../modules/hyprpaper.nix;
-  };
-
   home.file = let
     linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/${homeFolder}/${username}/dotfiles/config/${name}";
   in {
-    ".config/dunst/".source = linkConfig "dunst";
+    #".config/dunst/".source = linkConfig "dunst";
     ".config/gammastep/".source = linkConfig "gammastep";
     ".config/ghostty/".source = linkConfig "ghostty";
     ".config/helix/".source = linkConfig "helix";
@@ -74,7 +65,6 @@
   };
 
   # programs.ghostty.enable = true;
-
   programs.nushell = import ../../modules/nu.nix {inherit username;};
   programs.carapace = {
     enable = true;

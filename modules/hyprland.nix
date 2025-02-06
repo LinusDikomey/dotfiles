@@ -8,14 +8,12 @@
   workspace = "1, monitor:DP-4, default:true";
 
   exec-once = [
-    "waybar"
     "bash ~/.config/eww/scripts/init"
     "nm-applet"
     "gammastep"
     "hypridle"
     "/usr/lib/polkit-kde-authentication-agent-1"
     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-    "dunst"
   ];
 
   # all for making hyprland work better with nvidia
@@ -97,7 +95,7 @@
   bind =
     [
       "$mod, Return, exec, ghostty"
-      "$mod Shift, Return, exec, ghostty" # if ghostty doesn't work
+      "$mod Shift, Return, exec, kitty" # if ghostty doesn't work
       "bind = $mod SHIFT, Q, killactive,"
       "$mod Shift, Escape, exec, wlogout"
 
