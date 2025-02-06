@@ -26,5 +26,6 @@
     cat = "bat";
     icat = "kitten icat";
     mv = "mv -i";
+    "nix develop" = "nix develop --command nu";
   };
 }

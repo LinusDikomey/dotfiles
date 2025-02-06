@@ -47,10 +47,7 @@
     ".config/ghostty/".source = linkConfig "ghostty";
     ".config/helix/".source = linkConfig "helix";
     ".config/hypr/".source = linkConfig "hypr";
-    ".config/lazygit/".source = linkConfig "lazygit";
     ".config/nushell/".source = linkConfig "nushell";
-    ".config/nvim/".source = linkConfig "nvim";
-    ".config/ranger/".source = linkConfig "ranger";
     # ".config/starship.toml".source = linkConfig "starship.toml";
     ".config/waybar/".source = linkConfig "waybar";
     ".config/wlogout/".source = linkConfig "wlogout";
