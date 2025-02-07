@@ -58,8 +58,6 @@
 
   environment.systemPackages = with pkgs; [
     wpa_supplicant
-    hyprpaper
-    waybar
     networkmanagerapplet
     gammastep
     hypridle
@@ -67,7 +65,6 @@
     wlogout
     grim
     slurp
-    pulseaudio # still using pipewire but need pactl for scripts for now
     playerctl
     pavucontrol
     wl-clipboard

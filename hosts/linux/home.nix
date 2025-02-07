@@ -33,6 +33,8 @@
   };
   services.dunst.enable = true;
 
+  programs.waybar = import ../../modules/waybar {inherit pkgs;};
+
   gtk = {
     enable = true;
     theme = {

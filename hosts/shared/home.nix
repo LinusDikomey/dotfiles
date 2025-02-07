@@ -14,6 +14,7 @@
     discord-canary
     obsidian
     prismlauncher
+    spotify
 
     # cli tools
     git
@@ -49,7 +50,6 @@
     ".config/helix/".source = linkConfig "helix";
     ".config/hypr/hypridle.conf".source = linkConfig "hypr/hypridle.conf";
     ".config/hypr/hyprlock.conf".source = linkConfig "hypr/hyprlock.conf";
-    ".config/waybar/".source = linkConfig "waybar";
     ".config/wlogout/".source = linkConfig "wlogout";
     ".config/wofi/".source = linkConfig "wofi";
     ".config/zed/".source = linkConfig "zed";
