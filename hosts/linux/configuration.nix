@@ -59,13 +59,9 @@
   environment.systemPackages = with pkgs; [
     wpa_supplicant
     networkmanagerapplet
-    gammastep
-    hypridle
-    hyprlock
     wlogout
     grim
     slurp
-    playerctl
     pavucontrol
     wl-clipboard
     wofi

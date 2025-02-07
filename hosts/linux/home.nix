@@ -31,10 +31,16 @@
     enable = true;
     settings = import ../../modules/hyprpaper.nix;
   };
+  services.hypridle = {
+    enable = true;
+    settings = import ./settings/hypridle.nix {inherit pkgs;};
+  };
   services.dunst = {
     enable = true;
     settings = import ../../modules/dunst.nix;
   };
+  services.network-manager-applet.enable = true;
+  services.gammastep = import ./settings/gammastep.nix;
 
   programs.waybar = import ../../modules/waybar {inherit pkgs;};
 

@@ -8,10 +8,6 @@
   workspace = "1, monitor:DP-4, default:true";
 
   exec-once = [
-    "bash ~/.config/eww/scripts/init"
-    "nm-applet"
-    "gammastep"
-    "hypridle"
     "/usr/lib/polkit-kde-authentication-agent-1"
     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
   ];
