@@ -44,7 +44,6 @@
   home.file = let
     linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/${homeFolder}/${username}/dotfiles/config/${name}";
   in {
-    #".config/dunst/".source = linkConfig "dunst";
     ".config/gammastep/".source = linkConfig "gammastep";
     ".config/ghostty/".source = linkConfig "ghostty";
     ".config/helix/".source = linkConfig "helix";

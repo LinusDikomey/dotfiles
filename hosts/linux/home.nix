@@ -31,7 +31,10 @@
     enable = true;
     settings = import ../../modules/hyprpaper.nix;
   };
-  services.dunst.enable = true;
+  services.dunst = {
+    enable = true;
+    settings = import ../../modules/dunst.nix;
+  };
 
   programs.waybar = import ../../modules/waybar {inherit pkgs;};
 
