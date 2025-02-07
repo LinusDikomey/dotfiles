@@ -3,6 +3,7 @@
   pkgs,
   homeFolder,
   username,
+  lib,
   ...
 }: {
   home.username = username;
@@ -65,10 +66,16 @@
   };
 
   # programs.ghostty.enable = true;
-  programs.nushell = import ../../modules/nu.nix {inherit username;};
+  programs.nushell = import ../../modules/nu.nix {inherit username lib;};
   programs.carapace = {
     enable = true;
     enableNushellIntegration = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableNushellIntegration = true;
+    nix-direnv.enable = true;
   };
 
   programs.starship = {
