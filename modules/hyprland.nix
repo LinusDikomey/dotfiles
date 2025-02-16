@@ -8,7 +8,6 @@
   workspace = "1, monitor:DP-4, default:true";
 
   exec-once = [
-    "/usr/lib/polkit-kde-authentication-agent-1"
     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
   ];
 
@@ -27,7 +26,8 @@
     kb_options = "compose:rwin";
 
     follow_mouse = 1;
-    sensitivity = -0.75;
+    sensitivity = -0.45;
+    accel_profile = "flat";
   };
 
   general = {

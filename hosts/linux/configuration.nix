@@ -15,6 +15,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.supportedFilesystems = ["ntfs"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   networking.networkmanager.enable = true;
@@ -76,6 +77,19 @@
     killall
   ];
 
+  systemd.user.services.polkit-lxqt-authentication-agent = {
+    wantedBy = ["graphical-session.target"];
+    wants = ["graphical-session.target"];
+    after = ["graphical-session.target"];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
+
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
   ];
@@ -94,13 +108,15 @@
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
   };
 
-  services.samba.enable = true;
-  services.gvfs.enable = true;
-
-  services.ollama = {
+  services.samba = {
     enable = true;
-    acceleration = "cuda";
+    settings.global = {
+      "client min protocol" = "NT1";
+      "name resolve order" = "bcast host lmhosts wins";
+    };
   };
+  services.gvfs.enable = true;
+  services.avahi.enable = true;
 
   networking.interfaces.enp4s0.wakeOnLan.enable = true;
 

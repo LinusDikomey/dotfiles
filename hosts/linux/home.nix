@@ -26,6 +26,9 @@
   wayland.windowManager.hyprland = {
     enable = true;
     settings = import ../../modules/hyprland.nix;
+    # use packages from NixOS module
+    package = null;
+    portalPackage = null;
   };
   services.hyprpaper = {
     enable = true;

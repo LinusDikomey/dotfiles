@@ -15,6 +15,7 @@
     obsidian
     prismlauncher
     spotify
+    signal-desktop
 
     # cli tools
     git
@@ -33,6 +34,10 @@
     clang
     llvmPackages_18.clang-tools
     cargo
+    rustc
+    clippy
+    rustfmt
+    rust-analyzer
     lldb
     texlive.combined.scheme-full
     texlab
@@ -59,6 +64,7 @@
     enable = true;
     userName = "Linus Dikomey";
     userEmail = "l.dikomey03@gmail.com";
+    lfs.enable = true;
   };
 
   # programs.ghostty.enable = true;
