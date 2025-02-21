@@ -8,10 +8,12 @@
 
   home.packages = with pkgs; [
     thunderbird
+    unityhub
 
     # can be replaced with official package when it gets merged
     # https://github.com/NixOS/nixpkgs/pull/309327
     (pkgs.callPackage ../../packages/olympus/package.nix {})
+    (pkgs.callPackage ../../packages/waywall/package.nix {})
   ];
 
   programs.ghostty.enable = true;
@@ -20,16 +22,26 @@
     gtk.enable = true;
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Classic";
-    size = 24;
+    size = 18;
   };
 
-  wayland.windowManager.hyprland = {
+  xdg.mimeApps = {
     enable = true;
-    settings = import ../../modules/hyprland.nix;
-    # use packages from NixOS module
-    package = null;
-    portalPackage = null;
+    defaultApplications = let
+      browser = "firefox.desktop";
+    in {
+      "image/png" = browser;
+      "text/html" = browser;
+      "x-scheme-handler/http" = browser;
+      "x-scheme-handler/https" = browser;
+      "x-scheme-handler/about" = browser;
+      "x-scheme-handler/unknown" = browser;
+      "application/pdf" = browser;
+      "inode/directory" = "org.gnome.Nautilus.desktop";
+    };
   };
+
+  wayland.windowManager.hyprland = import ../../modules/hyprland.nix;
   services.hyprpaper = {
     enable = true;
     settings = import ../../modules/hyprpaper.nix;

@@ -77,6 +77,22 @@
     killall
   ];
 
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = ["*" "1532:006e:4d3e9afd"];
+        settings = {
+          main = {
+            mouse2 = "f3";
+          };
+        };
+      };
+    };
+  };
+
   systemd.user.services.polkit-lxqt-authentication-agent = {
     wantedBy = ["graphical-session.target"];
     wants = ["graphical-session.target"];

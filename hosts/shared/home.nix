@@ -16,6 +16,7 @@
     prismlauncher
     spotify
     signal-desktop
+    obs-studio
 
     # cli tools
     git
@@ -65,6 +66,10 @@
     userName = "Linus Dikomey";
     userEmail = "l.dikomey03@gmail.com";
     lfs.enable = true;
+    ignores = [
+      ".obsidian"
+      ".DS_Store"
+    ];
   };
 
   # programs.ghostty.enable = true;
