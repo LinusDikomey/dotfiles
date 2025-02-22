@@ -16,7 +16,6 @@
     prismlauncher
     spotify
     signal-desktop
-    obs-studio
 
     # cli tools
     git

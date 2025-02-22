@@ -23,7 +23,18 @@ in {
     "/sbin"
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  home.extraActivationPath = with pkgs; [
+    rsync
+    dockutil
+    gawk
+  ];
+  home.activation.makeTrampolineApps = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ${builtins.readFile ./make-app-trampolines.sh}
+      fromDir="$HOME/Applications/Home Manager Apps"
+      toDir="$HOME/Applications/Home Manager Trampolines"
+      sync_trampolines "$fromDir" "$toDir"
+  '';
+
   home.packages = with pkgs; [
     vlc-bin
   ];

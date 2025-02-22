@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     thunderbird
     unityhub
+    obs-studio
 
     # can be replaced with official package when it gets merged
     # https://github.com/NixOS/nixpkgs/pull/309327
