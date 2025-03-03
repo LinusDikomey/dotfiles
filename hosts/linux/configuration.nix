@@ -79,20 +79,6 @@
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  services.keyd = {
-    enable = true;
-    keyboards = {
-      default = {
-        ids = ["*" "1532:006e:4d3e9afd"];
-        settings = {
-          main = {
-            mouse2 = "f3";
-          };
-        };
-      };
-    };
-  };
-
   systemd.user.services.polkit-lxqt-authentication-agent = {
     wantedBy = ["graphical-session.target"];
     wants = ["graphical-session.target"];
@@ -118,7 +104,7 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [22 8000];
+    allowedTCPPorts = [22 8000 25565];
     allowedUDPPorts = [9];
     # used for samba network storage discovery
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
