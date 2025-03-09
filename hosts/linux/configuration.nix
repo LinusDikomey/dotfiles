@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   username,
+  lib,
   ...
 }: {
   imports = [
@@ -29,7 +30,15 @@
   services.xserver.xkb.layout = "us";
   services.displayManager.sddm = {
     enable = true;
-    theme = "sddm-sugar-dark";
+
+    # kde sets the next options, override them
+    package = lib.mkForce pkgs.libsForQt5.sddm;
+    extraPackages = pkgs.lib.mkForce (with pkgs; [
+      libsForQt5.qt5.qtquickcontrols2
+      libsForQt5.qt5.qtgraphicaleffects
+      libsForQt5.qt5.qtsvg
+    ]);
+    theme = "${import ../../packages/sddm-theme.nix {inherit pkgs;}}";
   };
 
   services.printing.enable = true;
@@ -50,7 +59,11 @@
 
   programs.hyprland.enable = true;
 
-  services.desktopManager.plasma6.enable = true;
+  services.desktopManager.plasma6 = {
+    enable = true;
+    enableQt5Integration = true;
+  };
+
   xdg.portal = {
     enable = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
