@@ -44,12 +44,29 @@
     inkscape
     nixd
     alejandra
+
+    # fonts
+    pkgs.nerd-fonts.iosevka
   ];
+
+  fonts.fontconfig.enable = true;
+
+  programs.ghostty = {
+    enable = true;
+    package =
+      if pkgs.stdenv.isLinux
+      then pkgs.ghostty
+      else null;
+    settings = {
+      theme = "catppuccin-macchiato";
+      font-family = "Iosevka Nerd Font";
+      font-size = 20;
+    };
+  };
 
   home.file = let
     linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/${homeFolder}/${username}/dotfiles/config/${name}";
   in {
-    ".config/ghostty/".source = linkConfig "ghostty";
     ".config/helix/".source = linkConfig "helix";
     ".config/wlogout/".source = linkConfig "wlogout";
     ".config/wofi/".source = linkConfig "wofi";

@@ -105,10 +105,6 @@
     };
   };
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.iosevka
-  ];
-
   programs.steam.enable = true;
   programs.steam.gamescopeSession.enable = true;
   programs.gamemode.enable = true;
