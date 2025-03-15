@@ -25,8 +25,6 @@
     wget
     ripgrep
     bat
-    carapace
-    starship
     btop
     imagemagick
 

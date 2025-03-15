@@ -4,17 +4,6 @@
 }: {
   enable = true;
   environmentVariables = {
-    # PATH = [
-    #   "~/.nix-profile/bin"
-    #   "/etc/profiles/per-user/${username}/bin"
-    #   "/run/current-system/sw/bin"
-    #   "/nix/var/nix/profiles/default/bin"
-    #   "/usr/local/bin"
-    #   "/usr/bin"
-    #   "/bin"
-    #   "/usr/sbin"
-    #   "/sbin"
-    # ];
     EDITOR = "hx";
     TERM = "xterm-256color";
   };

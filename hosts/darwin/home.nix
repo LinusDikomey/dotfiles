@@ -11,18 +11,15 @@ in {
   home.username = username;
   home.homeDirectory = homeDirectory;
 
-  programs.nushell.environmentVariables.PATH = [
-    "~/.nix-profile/bin"
-    "/etc/profiles/per-user/${username}/bin"
-    "/run/current-system/sw/bin"
-    "/nix/var/nix/profiles/default/bin"
-    "/usr/local/bin"
-    "/usr/bin"
-    "/bin"
-    "/usr/sbin"
-    "/sbin"
-  ];
-
+  programs.nushell.extraConfig = ''
+    $env.PATH = ($env.PATH
+      | append $"($env.HOME)/nix-profile/bin"
+      | append "/etc/profiles/per-user/${username}/bin"
+      | append "/run/current-system/sw/bin"
+      | append "/nix/var/nix/profiles/default/bin"
+      | append "/usr/local/bin"
+    )
+  '';
   home.extraActivationPath = with pkgs; [
     rsync
     dockutil

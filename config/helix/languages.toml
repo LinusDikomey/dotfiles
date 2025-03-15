@@ -32,8 +32,7 @@ indent = { tab-width = 4, unit = "    " }
 
 [[grammar]]
 name = "eye"
-source.path = "/home/linus/dev/tree-sitter-eye"
-#source.git = "https://github.com/LinusDikomey/tree-sitter-eye"
+source = { git = "https://github.com/LinusDikomey/tree-sitter-eye", rev = "c8d2f3d14c59281a3872c0320b87cdf9c2e520e6" }
 
 [[language]]
 name = "gon"

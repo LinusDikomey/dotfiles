@@ -20,6 +20,9 @@ display-messages = true
 [editor.indent-guides]
 render = true
 
+[editor.whitespace.render]
+tab = "all"
+
 [keys.normal]
 k = "no_op"
 m = "move_char_left"
