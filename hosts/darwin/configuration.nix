@@ -27,6 +27,7 @@
       autohide = true;
       show-recents = false;
       tilesize = 55;
+      minimize-to-application = true;
     };
   };
   system.keyboard = {
