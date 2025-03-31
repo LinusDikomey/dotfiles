@@ -3,19 +3,25 @@
   pkgs,
   homeFolder,
   username,
+  inputs,
   lib,
   ...
 }: {
+  imports = [
+    ./nu.nix
+  ];
+
   home.username = username;
   home.homeDirectory = "/${homeFolder}/${username}";
 
   home.packages = with pkgs; [
     # graphical applications
-    discord-canary
+    firefox
+    discord
     obsidian
-    prismlauncher
     spotify
     signal-desktop
+    thunderbird
 
     # cli tools
     git
@@ -27,21 +33,25 @@
     bat
     btop
     imagemagick
+    zip
+    unzip
+    killall
 
     # compilers and stuff
     clang
-    llvmPackages_18.clang-tools
+    llvmPackages_19.clang-tools
+    lldb_19
     cargo
     rustc
     clippy
     rustfmt
     rust-analyzer
-    lldb
     texlive.combined.scheme-full
     texlab
     inkscape
     nixd
     alejandra
+    inputs.eye.packages.${pkgs.system}.default
 
     # fonts
     pkgs.nerd-fonts.iosevka
@@ -64,8 +74,17 @@
 
   home.file = let
     linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/${homeFolder}/${username}/dotfiles/config/${name}";
+    treeSitterEye = pkgs.fetchFromGitHub {
+      owner = "LinusDikomey";
+      repo = "tree-sitter-eye";
+      rev = "96eea2d00bbb4ed06fa29d22f7f508124abe01bc";
+      sha256 = "sha256-K14lGWjIztdBuM/kgoWXTSVn1tKzKrAqX3l91cqM/Ak=";
+    };
   in {
-    ".config/helix/".source = linkConfig "helix";
+    ".config/helix/config.toml".source = linkConfig "helix/config.toml";
+    ".config/helix/languages.toml".source = linkConfig "helix/languages.toml";
+    ".config/helix/runtime/queries/eye/locals.scm".source = "${treeSitterEye}/queries/locals.scm";
+    ".config/helix/runtime/queries/eye/highlights.scm".source = "${treeSitterEye}/queries/highlights.scm";
     ".config/wlogout/".source = linkConfig "wlogout";
     ".config/wofi/".source = linkConfig "wofi";
     ".config/zed/".source = linkConfig "zed";
@@ -86,13 +105,6 @@
     ];
   };
 
-  # programs.ghostty.enable = true;
-  programs.nushell = import ../../modules/nu.nix {inherit username lib;};
-  programs.carapace = {
-    enable = true;
-    enableNushellIntegration = true;
-  };
-
   programs.direnv = {
     enable = true;
     enableNushellIntegration = true;
@@ -111,6 +123,5 @@
   };
 
   programs.home-manager.enable = true;
-
   home.stateVersion = "24.11";
 }

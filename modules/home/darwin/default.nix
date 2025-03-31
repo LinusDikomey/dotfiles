@@ -1,15 +1,13 @@
 {
-  config,
   pkgs,
   username,
   lib,
-  osConfig,
   ...
 }: let
-  homeDirectory = "/Users/${username}";
 in {
-  home.username = username;
-  home.homeDirectory = homeDirectory;
+  home.packages = with pkgs; [
+    vlc-bin
+  ];
 
   programs.nushell.extraConfig = ''
     $env.PATH = ($env.PATH
@@ -32,13 +30,5 @@ in {
       sync_trampolines "$fromDir" "$toDir"
   '';
 
-  home.packages = with pkgs; [
-    vlc-bin
-  ];
-
   home.file.".hushlogin".text = "";
-
-  programs.home-manager.enable = true;
-
-  home.stateVersion = "24.11";
 }

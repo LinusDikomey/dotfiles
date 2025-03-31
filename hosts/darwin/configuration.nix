@@ -2,19 +2,15 @@
   pkgs,
   config,
   inputs,
+  homeFolder,
   username,
   ...
 }: {
   users.users.${username} = {
-    home = "/Users/linus";
-    shell = pkgs.nushell;
+    home = "/${homeFolder}/${username}";
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   environment.systemPackages = with pkgs; [
-    #firefox
-    #ghostty
     mkalias
   ];
 

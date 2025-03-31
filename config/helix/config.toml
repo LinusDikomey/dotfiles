@@ -95,3 +95,7 @@ M = "swap_view_left"
 N = "swap_view_down"
 E = "swap_view_up"
 I = "swap_view_right"
+
+[keys.normal." ".g]
+u = ":reset-diff-change"
+c = "changed_file_picker"

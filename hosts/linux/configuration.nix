@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   username,
   lib,
   ...
@@ -8,16 +7,15 @@
   imports = [
     ./hardware-configuration.nix
   ];
-
-  nixpkgs.config.allowUnfree = true;
-
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+  home-manager.users."${username}".imports = [../../modules/home/linuxPackages.nix];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.supportedFilesystems = ["ntfs"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
+
+  programs.hyprland.enable = true;
 
   networking.networkmanager.enable = true;
 
@@ -48,66 +46,15 @@
     pulse.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
-
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = ["wheel"];
-    shell = pkgs.nushell;
   };
-
-  programs.hyprland.enable = true;
 
   services.desktopManager.plasma6 = {
     enable = true;
     enableQt5Integration = true;
   };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-    xdgOpenUsePortal = true;
-  };
-
-  environment.systemPackages = with pkgs; [
-    wpa_supplicant
-    networkmanagerapplet
-    wlogout
-    grim
-    slurp
-    pavucontrol
-    wl-clipboard
-    wofi
-    nautilus
-    lxqt.lxqt-policykit
-
-    firefox
-    kitty
-    nushell
-    zip
-    unzip
-    killall
-  ];
-
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  systemd.user.services.polkit-lxqt-authentication-agent = {
-    wantedBy = ["graphical-session.target"];
-    wants = ["graphical-session.target"];
-    after = ["graphical-session.target"];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
-    };
-  };
-
-  programs.steam.enable = true;
-  programs.steam.gamescopeSession.enable = true;
-  programs.gamemode.enable = true;
 
   virtualisation.docker.enable = true;
 
@@ -135,7 +82,7 @@
     enable = true;
     ports = [22];
     settings = {
-      PasswordAuthentication = true;
+      PasswordAuthentication = false;
       AllowUsers = [username];
       UseDns = false;
       X11Forwarding = false;

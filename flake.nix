@@ -10,6 +10,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    eye = {
+      url = "github:LinusDikomey/eyelang";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -20,40 +24,29 @@
     username = "linus";
   in {
     nixosConfigurations.pc = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs username;};
+      specialArgs = {
+        inherit inputs username;
+        homeFolder = "home";
+      };
       modules = [
-        ./hosts/shared/configuration.nix
+        ./modules
         ./hosts/linux/configuration.nix
-        {
-          home-manager.users."${username}".imports = [
-            ./hosts/linux/home.nix
-            ./hosts/shared/home.nix
-          ];
-          home-manager.extraSpecialArgs = {
-            inherit username;
-            homeFolder = "home";
-          };
-        }
         inputs.home-manager.nixosModules.default
       ];
     };
     darwinConfigurations.LinusAir = nix-darwin.lib.darwinSystem {
-      specialArgs = {inherit inputs username;};
+      specialArgs = {
+        inherit inputs username;
+        homeFolder = "Users";
+      };
       modules = [
-        ./hosts/shared/configuration.nix
+        ./modules
         ./hosts/darwin/configuration.nix
         inputs.home-manager.darwinModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
           home-manager.users.${username}.imports = [
-            ./hosts/darwin/home.nix
-            ./hosts/shared/home.nix
+            ./modules/home/darwin
           ];
-          home-manager.extraSpecialArgs = {
-            inherit username;
-            homeFolder = "Users";
-          };
         }
       ];
     };
