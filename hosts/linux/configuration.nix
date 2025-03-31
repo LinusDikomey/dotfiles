@@ -7,7 +7,17 @@
   imports = [
     ./hardware-configuration.nix
   ];
-  home-manager.users."${username}".imports = [../../modules/home/linuxPackages.nix];
+  home-manager.users."${username}" = {
+    dotfiles = {
+      hyprlandDesktop.enable = true;
+      gtkTheme.enable = true;
+    };
+  };
+
+  dotfiles = {
+    gaming.enable = true;
+    sddm.enable = true;
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -22,21 +32,6 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
-  };
-
-  services.xserver.enable = true;
-  services.xserver.xkb.layout = "us";
-  services.displayManager.sddm = {
-    enable = true;
-
-    # kde sets the next options, override them
-    package = lib.mkForce pkgs.libsForQt5.sddm;
-    extraPackages = pkgs.lib.mkForce (with pkgs; [
-      libsForQt5.qt5.qtquickcontrols2
-      libsForQt5.qt5.qtgraphicaleffects
-      libsForQt5.qt5.qtsvg
-    ]);
-    theme = "${import ../../packages/sddm-theme.nix {inherit pkgs;}}";
   };
 
   services.printing.enable = true;

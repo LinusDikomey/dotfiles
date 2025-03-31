@@ -9,6 +9,10 @@
 }: {
   imports = [
     ./nu.nix
+    ./mime.nix
+    ./linuxPackages.nix
+    ./hyprlandDesktop
+    ./gtkTheme.nix
   ];
 
   home.username = username;

@@ -1,5 +1,9 @@
-{...}: {
-  xdg.mimeApps = {
+{
+  lib,
+  pkgs,
+  ...
+}: {
+  xdg.mimeApps = lib.mkIf pkgs.stdenv.isLinux {
     enable = true;
     defaultApplications = let
       browser = "firefox.desktop";

@@ -1,8 +1,8 @@
-{
+{pkgs}: {
   enable = true;
   # use packages from NixOS module
   package = null;
-  portalPackage = null;
+  portalPackage = pkgs.xdg-desktop-portal-gtk;
   settings = {
     monitor = [
       "DP-4, 3840x2160@60, 0x0, 1.5"
