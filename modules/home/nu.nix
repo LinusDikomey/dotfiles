@@ -1,10 +1,7 @@
-{...}: {
+{config, ...}: {
   programs.nushell = {
     enable = true;
-    environmentVariables = {
-      EDITOR = "hx";
-      TERM = "xterm-256color";
-    };
+    environmentVariables = config.home.sessionVariables;
     settings = {
       show_banner = false;
       rm.always_trash = true;

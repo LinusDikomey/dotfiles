@@ -2,7 +2,7 @@
   enable = true;
   # use packages from NixOS module
   package = null;
-  portalPackage = pkgs.xdg-desktop-portal-gtk;
+  # portalPackage = pkgs.xdg-desktop-portal-gtk;
   settings = {
     monitor = [
       "DP-4, 3840x2160@60, 0x0, 1.5"
@@ -24,6 +24,7 @@
       "GBM_BACKEND,nvidia-drm" # remove if firefox crashes
       "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       "WLR_NO_HARDWARE_CURSORS,1"
+      "NIXOS_OZONE_WL,1"
     ];
 
     input = {

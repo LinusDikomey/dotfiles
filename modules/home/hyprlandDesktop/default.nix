@@ -26,6 +26,12 @@ in {
       kitty
     ];
 
+    xdg.portal = {
+      enable = true;
+      configPackages = [pkgs.xdg-desktop-portal-hyprland];
+      xdgOpenUsePortal = true;
+    };
+
     home.sessionVariables.NIXOS_OZONE_WL = "1";
 
     wayland.windowManager.hyprland = import ./hyprland.nix {inherit pkgs;};
@@ -46,13 +52,13 @@ in {
     services.network-manager-applet.enable = true;
     services.mpris-proxy.enable = true;
 
-    xdg.portal.xdgOpenUsePortal = true;
-
     systemd.user.services.polkit-lxqt-authentication-agent = {
-      wantedBy = ["graphical-session.target"];
-      wants = ["graphical-session.target"];
-      after = ["graphical-session.target"];
-      serviceConfig = {
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
+      Service = {
+        wants = ["graphical-session.target"];
+        after = ["graphical-session.target"];
         Type = "simple";
         ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
         Restart = "on-failure";

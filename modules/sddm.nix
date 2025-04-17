@@ -22,7 +22,7 @@ in {
         libsForQt5.qt5.qtgraphicaleffects
         libsForQt5.qt5.qtsvg
       ]);
-      theme = "${import ../../packages/sddm-theme.nix {inherit pkgs;}}";
+      theme = "${import ../packages/sddm-theme.nix {inherit pkgs;}}";
     };
   };
 }

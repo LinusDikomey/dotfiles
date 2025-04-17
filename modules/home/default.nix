@@ -24,7 +24,7 @@
     discord
     obsidian
     spotify
-    signal-desktop
+    signal-desktop-bin
     thunderbird
 
     # cli tools
@@ -96,6 +96,7 @@
 
   home.sessionVariables = {
     EDITOR = "hx";
+    TERM = "xterm-256color";
   };
 
   programs.git = {
