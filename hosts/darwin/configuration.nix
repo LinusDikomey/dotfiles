@@ -10,6 +10,12 @@
     home = "/${homeFolder}/${username}";
   };
 
+  home-manager.users.${username} = {
+    dotfiles = {
+      work.enable = true;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     mkalias
   ];

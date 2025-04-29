@@ -12,6 +12,7 @@
     ./linuxPackages.nix
     ./hyprlandDesktop
     ./gtkTheme.nix
+    ./work.nix
   ];
 
   home.username = username;
