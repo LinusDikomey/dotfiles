@@ -15,7 +15,7 @@
       settings = {
         PasswordAuthentication = false;
         AllowUsers = ["root"];
-        UseDns = true;
+        UseDns = false;
       };
     };
     networking.firewall.allowedTCPPorts = [22 2049];
@@ -68,7 +68,5 @@
 
     networking.firewall.enable = true;
     networking.firewall.allowPing = true;
-
-    system.stateVersion = "24.11";
   };
 }

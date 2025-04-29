@@ -5,6 +5,8 @@
   networking.hostName = "saturn";
   home-manager.users."${username}" = {
     dotfiles = {
+      graphical.enable = true;
+      coding.enable = true;
       hyprlandDesktop.enable = true;
       gtkTheme.enable = true;
     };
@@ -37,11 +39,6 @@
   services.pipewire = {
     enable = true;
     pulse.enable = true;
-  };
-
-  users.users.${username} = {
-    isNormalUser = true;
-    extraGroups = ["wheel"];
   };
 
   services.desktopManager.plasma6 = {
@@ -84,6 +81,4 @@
   };
   age.identityPaths = ["/home/linus/.ssh/id_ed25519"];
   services.fail2ban.enable = true;
-
-  system.stateVersion = "24.11";
 }
