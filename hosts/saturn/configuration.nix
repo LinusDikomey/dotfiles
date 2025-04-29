@@ -1,12 +1,8 @@
-{
-  pkgs,
-  username,
-  lib,
-  ...
-}: {
+{username, ...}: {
   imports = [
     ./hardware-configuration.nix
   ];
+  networking.hostName = "saturn";
   home-manager.users."${username}" = {
     dotfiles = {
       hyprlandDesktop.enable = true;

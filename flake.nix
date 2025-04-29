@@ -19,39 +19,53 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deploy-rs.url = "github:serokell/deploy-rs";
     eye = {
       url = "github:LinusDikomey/eyelang";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs: {
-    nixosConfigurations.pc = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs;
-        homeFolder = "home";
-        username = "linus";
+  outputs = inputs: let
+    keys.linus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOUBLt7DvAGEwZptMihw1RWYM3jEHV9U5h7ugQpb8m3s";
+    mkNixos = host: username:
+      inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs keys username;
+          homeFolder = "home";
+        };
+        modules = [
+          host-module
+          ./modules
+          ./modules/nixos
+          inputs.home-manager.nixosModules.default
+          inputs.agenix.nixosModules.default
+        ];
       };
-      modules = [
-        ./hosts/linux/configuration.nix
-        ./modules
-        ./modules/nixos
-        inputs.home-manager.nixosModules.default
-        inputs.agenix.nixosModules.default
-      ];
-    };
-    darwinConfigurations.LinusAir = inputs.nix-darwin.lib.darwinSystem {
-      specialArgs = {
-        inherit inputs;
-        homeFolder = "Users";
-        username = "linus";
+    mkDarwin = host: username:
+      inputs.nix-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit inputs keys username;
+          homeFolder = "Users";
+        };
+        modules = [
+          host
+          ./modules
+          ./modules/darwin
+          inputs.home-manager.darwinModules.home-manager
+          inputs.agenix.darwinModules.default
+        ];
       };
-      modules = [
-        ./hosts/darwin/configuration.nix
-        ./modules
-        ./modules/darwin
-        inputs.home-manager.darwinModules.home-manager
-        inputs.agenix.darwinModules.default
-      ];
+  in {
+    nixosConfigurations.saturn = mkNixos ./hosts/saturn/configuration.nix "linus";
+    darwinConfigurations.mars = mkDarwin ./hosts/mars/configuration.nix "linus";
+    nixosConfigurations.titan = mkNixos ./hosts/titan/configuration.nix "linus";
+    deploy.nodes.titan = {
+      hostname = "192.168.2.108";
+      profiles.system = {
+        sshUser = "root";
+        magicRollback = false;
+        path = inputs.deploy-rs.aarch64-linux.activate.nixos inputs.self.nixosConfigurations.titan;
+      };
     };
   };
 }
