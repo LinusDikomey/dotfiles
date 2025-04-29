@@ -95,7 +95,11 @@
     };
 
     "$mod" = "SUPER";
-    bind =
+    bind = let
+      screenshot = pkgs.writeShellScript "screenshot" ''
+        ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy
+      '';
+    in
       [
         "$mod, Return, exec, ghostty"
         "$mod Shift, Return, exec, kitty" # if ghostty doesn't work
@@ -108,7 +112,7 @@
         "$mod, P, exec, spotify"
         "$mod, B, exec, speedcrunch"
 
-        "$mod SHIFT, S, exec, bash ~/dotfiles/scripts/screenshot"
+        "$mod SHIFT, S, exec, ${screenshot}"
 
         # media
         ", XF86AudioPlay, exec, playerctl play-pause"
