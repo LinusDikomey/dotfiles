@@ -5,12 +5,6 @@
   homeFolder,
   ...
 }: {
-  imports = [
-    ./gaming.nix
-    ./sddm.nix
-    ./dyndns.nix
-  ];
-
   nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];

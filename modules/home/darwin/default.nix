@@ -5,11 +5,7 @@
   ...
 }: let
 in {
-  home.packages = with pkgs; [
-    vlc-bin
-  ];
-
-  programs.nushell.extraConfig = ''
+  programs.nushell.extraConfig = lib.mkIf pkgs.stdenv.isDarwin ''
     $env.PATH = ($env.PATH
       | append $"($env.HOME)/nix-profile/bin"
       | append "/etc/profiles/per-user/${username}/bin"
@@ -18,17 +14,19 @@ in {
       | append "/usr/local/bin"
     )
   '';
-  home.extraActivationPath = with pkgs; [
-    rsync
-    dockutil
-    gawk
-  ];
-  home.activation.makeTrampolineApps = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    ${builtins.readFile ./make-app-trampolines.sh}
-      fromDir="$HOME/Applications/Home Manager Apps"
-      toDir="$HOME/Applications/Home Manager Trampolines"
-      sync_trampolines "$fromDir" "$toDir"
-  '';
+  home = lib.mkIf pkgs.stdenv.isDarwin {
+    extraActivationPath = with pkgs; [
+      rsync
+      dockutil
+      gawk
+    ];
+    activation.makeTrampolineApps = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${builtins.readFile ./make-app-trampolines.sh}
+        fromDir="$HOME/Applications/Home Manager Apps"
+        toDir="$HOME/Applications/Home Manager Trampolines"
+        sync_trampolines "$fromDir" "$toDir"
+    '';
 
-  home.file.".hushlogin".text = "";
+    file.".hushlogin".text = "";
+  };
 }

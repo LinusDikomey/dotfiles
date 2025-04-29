@@ -30,7 +30,7 @@
     '';
 in {
   age.secrets.dyndns-password = {
-    file = ../secrets/dyndns-password.age;
+    file = ../../secrets/dyndns-password.age;
     owner = "root";
   };
   systemd.services.dyndns = {

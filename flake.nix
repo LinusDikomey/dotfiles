@@ -9,7 +9,11 @@
     };
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+        darwin.follows = "nix-darwin";
+      };
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -20,42 +24,33 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  outputs = {
-    nixpkgs,
-    nix-darwin,
-    agenix,
-    ...
-  } @ inputs: let
-    username = "linus";
-  in {
-    nixosConfigurations.pc = nixpkgs.lib.nixosSystem {
+  outputs = inputs: {
+    nixosConfigurations.pc = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
-        inherit inputs username;
+        inherit inputs;
         homeFolder = "home";
+        username = "linus";
       };
       modules = [
-        ./modules
         ./hosts/linux/configuration.nix
+        ./modules
+        ./modules/nixos
         inputs.home-manager.nixosModules.default
-        agenix.nixosModules.default
+        inputs.agenix.nixosModules.default
       ];
     };
-    darwinConfigurations.LinusAir = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.LinusAir = inputs.nix-darwin.lib.darwinSystem {
       specialArgs = {
-        inherit inputs username;
+        inherit inputs;
         homeFolder = "Users";
+        username = "linus";
       };
       modules = [
-        ./modules
         ./hosts/darwin/configuration.nix
+        ./modules
+        ./modules/darwin
         inputs.home-manager.darwinModules.home-manager
-        agenix.darwinModules.default
-        {
-          home-manager.users.${username}.imports = [
-            ./modules/home/darwin
-          ];
-        }
+        inputs.agenix.darwinModules.default
       ];
     };
   };

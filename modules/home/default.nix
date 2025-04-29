@@ -1,4 +1,5 @@
 {
+  lib,
   config,
   pkgs,
   homeFolder,
@@ -9,59 +10,70 @@
   imports = [
     ./nu.nix
     ./mime.nix
-    ./linuxPackages.nix
     ./hyprlandDesktop
     ./gtkTheme.nix
     ./work.nix
+    ./darwin
   ];
 
   home.username = username;
   home.homeDirectory = "/${homeFolder}/${username}";
 
-  home.packages = with pkgs; [
-    # graphical applications
-    firefox
-    discord
-    obsidian
-    spotify
-    signal-desktop-bin
-    thunderbird
+  home.packages = with pkgs; (
+    [
+      # graphical applications
+      firefox
+      discord
+      obsidian
+      spotify
+      signal-desktop-bin
+      thunderbird
 
-    # cli tools
-    git
-    jujutsu
-    helix
-    neovim
-    wget
-    ripgrep
-    bat
-    btop
-    imagemagick
-    zip
-    unzip
-    killall
-    tmux
-    inputs.agenix.packages.${system}.default
+      # cli tools
+      git
+      jujutsu
+      helix
+      neovim
+      wget
+      ripgrep
+      bat
+      btop
+      imagemagick
+      zip
+      unzip
+      killall
+      tmux
+      inputs.agenix.packages.${system}.default
 
-    # compilers and stuff
-    clang
-    llvmPackages_19.clang-tools
-    lldb_19
-    cargo
-    rustc
-    clippy
-    rustfmt
-    rust-analyzer
-    texlive.combined.scheme-full
-    texlab
-    inkscape
-    nixd
-    alejandra
-    inputs.eye.packages.${pkgs.system}.default
+      # compilers and stuff
+      clang
+      llvmPackages_19.clang-tools
+      lldb_19
+      cargo
+      rustc
+      clippy
+      rustfmt
+      rust-analyzer
+      texlive.combined.scheme-full
+      texlab
+      inkscape
+      nixd
+      alejandra
+      inputs.eye.packages.${pkgs.system}.default
 
-    # fonts
-    pkgs.nerd-fonts.iosevka
-  ];
+      # fonts
+      pkgs.nerd-fonts.iosevka
+    ]
+    ++ lib.optionals pkgs.stdenv.isLinux [
+      unityhub
+      obs-studio
+      blueman
+      anytype
+    ]
+    ++ lib.optionals pkgs.stdenv.isDarwin [
+      vlc-bin
+    ]
+  );
 
   fonts.fontconfig.enable = true;
 
