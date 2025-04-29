@@ -27,6 +27,8 @@
 
   programs.hyprland.enable = true;
 
+  programs.nix-ld.enable = true;
+
   networking.networkmanager.enable = true;
 
   hardware.bluetooth = {

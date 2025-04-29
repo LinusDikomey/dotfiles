@@ -4,7 +4,6 @@
   homeFolder,
   username,
   inputs,
-  lib,
   ...
 }: {
   imports = [
@@ -40,6 +39,8 @@
     zip
     unzip
     killall
+    tmux
+    inputs.agenix.packages.${system}.default
 
     # compilers and stuff
     clang

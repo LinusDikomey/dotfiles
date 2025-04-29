@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   inputs,
   username,
@@ -9,6 +8,7 @@
   imports = [
     ./gaming.nix
     ./sddm.nix
+    ./dyndns.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
