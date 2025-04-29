@@ -82,6 +82,7 @@
       PermitRootLogin = "prohibit-password";
     };
   };
+  age.identityPaths = ["/home/linus/.ssh/id_ed25519"];
   services.fail2ban.enable = true;
 
   system.stateVersion = "24.11";

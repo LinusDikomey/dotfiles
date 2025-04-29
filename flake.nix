@@ -34,7 +34,7 @@
           homeFolder = "home";
         };
         modules = [
-          host-module
+          host
           ./modules
           ./modules/nixos
           inputs.home-manager.nixosModules.default

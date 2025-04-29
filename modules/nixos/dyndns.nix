@@ -29,11 +29,9 @@
       }
     '';
 in {
-  age.secrets.dyndns-password = {
-    file = ../../secrets/dyndns-password.age;
-    owner = "root";
-  };
+  age.secrets.dyndns-password.file = ../../secrets/dyndns-password.age;
   systemd.services.dyndns = {
+    enable = true;
     wantedBy = ["multi-user.target"];
     after = ["network.target"];
     description = "update dyndns for this device's ip";
