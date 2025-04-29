@@ -4,7 +4,6 @@
   pkgs,
   homeFolder,
   username,
-  inputs,
   ...
 }: {
   imports = [
@@ -22,7 +21,7 @@
 
   fonts.fontconfig.enable = true;
 
-  programs.ghostty = {
+  programs.ghostty = lib.mkIf config.dotfiles.graphical.enable {
     enable = true;
     package =
       if pkgs.stdenv.isLinux

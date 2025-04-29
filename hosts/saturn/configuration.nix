@@ -2,7 +2,9 @@
   imports = [
     ./hardware-configuration.nix
   ];
+
   networking.hostName = "saturn";
+
   home-manager.users."${username}" = {
     dotfiles = {
       graphical.enable = true;
@@ -16,6 +18,8 @@
     gaming.enable = true;
     sddm.enable = true;
   };
+
+  age.identityPaths = ["/home/linus/.ssh/id_ed25519"];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -79,6 +83,5 @@
       PermitRootLogin = "prohibit-password";
     };
   };
-  age.identityPaths = ["/home/linus/.ssh/id_ed25519"];
   services.fail2ban.enable = true;
 }

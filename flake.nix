@@ -24,6 +24,10 @@
       url = "github:LinusDikomey/eyelang";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = inputs: let
     keys.linus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOUBLt7DvAGEwZptMihw1RWYM3jEHV9U5h7ugQpb8m3s";
@@ -64,7 +68,7 @@
       profiles.system = {
         sshUser = "root";
         magicRollback = false;
-        path = inputs.deploy-rs.aarch64-linux.activate.nixos inputs.self.nixosConfigurations.titan;
+        path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos inputs.self.nixosConfigurations.titan;
       };
     };
   };

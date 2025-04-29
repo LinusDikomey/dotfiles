@@ -1,8 +1,10 @@
 {
+  lib,
   pkgs,
   config,
   ...
 }: let
+  cfg = config.dotfiles.dyndns;
   passwordPath = config.age.secrets.dyndns-password.path;
   api = "https://dynamicdns.park-your-domain.com/update";
   host = "home";
@@ -29,16 +31,19 @@
       }
     '';
 in {
-  age.secrets.dyndns-password.file = ../../secrets/dyndns-password.age;
-  systemd.services.dyndns = {
-    enable = true;
-    wantedBy = ["multi-user.target"];
-    after = ["network.target"];
-    description = "update dyndns for this device's ip";
-    serviceConfig = {
-      ExecStart = "${pkgs.nushell}/bin/nu ${script}";
-      Restart = "always";
-      RestartSec = 5;
+  options.dotfiles.dyndns.enable = lib.mkEnableOption "Enable Dyndns domain updater";
+  config = lib.mkIf cfg.enable {
+    age.secrets.dyndns-password.file = ../../secrets/dyndns-password.age;
+    systemd.services.dyndns = {
+      enable = true;
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      description = "update dyndns for this device's ip";
+      serviceConfig = {
+        ExecStart = "${pkgs.nushell}/bin/nu ${script}";
+        Restart = "always";
+        RestartSec = 5;
+      };
     };
   };
 }
