@@ -2,8 +2,7 @@
   lib,
   config,
   pkgs,
-  homeFolder,
-  username,
+  dotfiles,
   ...
 }: {
   imports = [
@@ -12,12 +11,13 @@
     ./mime.nix
     ./hyprlandDesktop
     ./gtkTheme.nix
+    ./git.nix
     ./work.nix
     ./darwin
   ];
 
-  home.username = username;
-  home.homeDirectory = "/${homeFolder}/${username}";
+  home.username = dotfiles.username;
+  home.homeDirectory = "/${dotfiles.homeFolder}/${dotfiles.username}";
 
   fonts.fontconfig.enable = true;
 
@@ -35,7 +35,7 @@
   };
 
   home.file = let
-    linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/${homeFolder}/${username}/dotfiles/config/${name}";
+    linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/${dotfiles.homeFolder}/${dotfiles.username}/dotfiles/config/${name}";
     treeSitterEye = pkgs.fetchFromGitHub {
       owner = "LinusDikomey";
       repo = "tree-sitter-eye";
@@ -45,8 +45,8 @@
   in {
     ".config/helix/config.toml".source = linkConfig "helix/config.toml";
     ".config/helix/languages.toml".source = linkConfig "helix/languages.toml";
-    ".config/helix/runtime/queries/eye/locals.scm".source = "${treeSitterEye}/queries/locals.scm";
-    ".config/helix/runtime/queries/eye/highlights.scm".source = "${treeSitterEye}/queries/highlights.scm";
+    #".config/helix/runtime/queries/eye/locals.scm".source = "${treeSitterEye}/queries/locals.scm";
+    #".config/helix/runtime/queries/eye/highlights.scm".source = "${treeSitterEye}/queries/highlights.scm";
     ".config/wlogout/".source = linkConfig "wlogout";
     ".config/wofi/".source = linkConfig "wofi";
     ".config/zed/".source = linkConfig "zed";
@@ -55,17 +55,6 @@
   home.sessionVariables = {
     EDITOR = "hx";
     TERM = "xterm-256color";
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "Linus Dikomey";
-    userEmail = "l.dikomey03@gmail.com";
-    lfs.enable = true;
-    ignores = [
-      ".obsidian"
-      ".DS_Store"
-    ];
   };
 
   programs.direnv = {

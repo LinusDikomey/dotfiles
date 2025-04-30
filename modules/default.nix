@@ -1,22 +1,20 @@
 {
   pkgs,
-  inputs,
-  username,
-  homeFolder,
+  dotfiles,
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+  nix.nixPath = ["nixpkgs=${dotfiles.inputs.nixpkgs}"];
 
   time.timeZone = "Europe/Berlin";
 
-  users.users.${username}.shell = pkgs.nushell;
+  users.users.${dotfiles.username}.shell = pkgs.nushell;
 
   home-manager = {
-    users."${username}".imports = [./home];
-    extraSpecialArgs = {inherit inputs username homeFolder;};
+    users."${dotfiles.username}".imports = [./home];
+    extraSpecialArgs = {inherit dotfiles;};
     useGlobalPkgs = true;
     useUserPackages = true;
   };

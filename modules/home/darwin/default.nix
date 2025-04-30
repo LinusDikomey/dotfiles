@@ -1,6 +1,6 @@
 {
   pkgs,
-  username,
+  dotfiles,
   lib,
   ...
 }: let
@@ -8,7 +8,7 @@ in {
   programs.nushell.extraConfig = lib.mkIf pkgs.stdenv.isDarwin ''
     $env.PATH = ($env.PATH
       | append $"($env.HOME)/nix-profile/bin"
-      | append "/etc/profiles/per-user/${username}/bin"
+      | append "/etc/profiles/per-user/${dotfiles.username}/bin"
       | append "/run/current-system/sw/bin"
       | append "/nix/var/nix/profiles/default/bin"
       | append "/usr/local/bin"

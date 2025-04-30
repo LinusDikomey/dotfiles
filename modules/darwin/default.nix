@@ -1,16 +1,14 @@
 {
   pkgs,
-  inputs,
-  username,
-  homeFolder,
+  dotfiles,
   ...
 }: {
   imports = [
     ./link-applications.nix
   ];
 
-  users.users.${username} = {
-    home = "/${homeFolder}/${username}";
+  users.users.${dotfiles.username} = {
+    home = "/${dotfiles.homeFolder}/${dotfiles.username}";
   };
 
   environment.systemPackages = with pkgs; [
@@ -34,7 +32,7 @@
     remapCapsLockToEscape = true;
   };
 
-  system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
+  system.configurationRevision = dotfiles.inputs.self.rev or dotfiles.inputs.self.dirtyRev or null;
   nixpkgs.hostPlatform = "aarch64-darwin";
   system.stateVersion = 6;
 }

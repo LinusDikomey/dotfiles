@@ -1,6 +1,6 @@
 {
   pkgs,
-  keys,
+  dotfiles,
   inputs,
   username,
   ...
@@ -16,10 +16,10 @@
   networking.hostName = "titan";
   time.timeZone = "Europe/Berlin";
   users.users.root.openssh.authorizedKeys.keys = [
-    keys.linus
+    dotfiles.users.linus.key
   ];
   users.users.linus.openssh.authorizedKeys.keys = [
-    keys.linus
+    dotfiles.users.linus.key
   ];
   services.openssh = {
     enable = true;

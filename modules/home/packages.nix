@@ -2,7 +2,7 @@
   lib,
   config,
   pkgs,
-  inputs,
+  dotfiles,
   ...
 }: {
   options.dotfiles = {
@@ -16,7 +16,7 @@
       jujutsu
       helix
       neovim
-      inputs.agenix.packages.${system}.default
+      dotfiles.inputs.agenix.packages.${system}.default
       wget
       ripgrep
       bat
@@ -52,7 +52,7 @@
       inkscape
       nixd
       alejandra
-      inputs.eye.packages.${pkgs.system}.default
+      dotfiles.inputs.eye.packages.${pkgs.system}.default
     ]
     ++ lib.optionals (pkgs.stdenv.isLinux
       && config.dotfiles.graphical.enable) [

@@ -1,4 +1,6 @@
-{username, ...}: {
+{dotfiles, ...}: let
+  inherit (dotfiles) username;
+in {
   imports = [
     ./hardware-configuration.nix
   ];

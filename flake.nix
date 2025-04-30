@@ -30,13 +30,19 @@
     };
   };
   outputs = inputs: let
-    keys.linus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOUBLt7DvAGEwZptMihw1RWYM3jEHV9U5h7ugQpb8m3s";
-    mkNixos = host: username:
+    users.linus = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOUBLt7DvAGEwZptMihw1RWYM3jEHV9U5h7ugQpb8m3s";
+      name = "Linus Dikomey";
+      email = "l.dikomey03@gmail.com";
+    };
+    dotfilesFor = user: homeFolder: {
+      inherit inputs homeFolder users;
+      username = user;
+      user = users.${user};
+    };
+    mkNixos = host: user:
       inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs keys username;
-          homeFolder = "home";
-        };
+        specialArgs.dotfiles = dotfilesFor user "home";
         modules = [
           host
           ./modules
@@ -45,12 +51,9 @@
           inputs.agenix.nixosModules.default
         ];
       };
-    mkDarwin = host: username:
+    mkDarwin = host: user:
       inputs.nix-darwin.lib.darwinSystem {
-        specialArgs = {
-          inherit inputs keys username;
-          homeFolder = "Users";
-        };
+        specialArgs.dotfiles = dotfilesFor user "Users";
         modules = [
           host
           ./modules
