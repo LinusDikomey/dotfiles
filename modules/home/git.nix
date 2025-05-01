@@ -4,7 +4,7 @@
   dotfiles,
   ...
 }: let
-  inherit (lib) mkOption types;
+  inherit (lib) types;
   cfg = config.dotfiles.git;
 in {
   options.dotfiles.git = {

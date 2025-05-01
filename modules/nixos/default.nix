@@ -4,6 +4,7 @@
     ./sddm.nix
     ./dyndns.nix
     ./ssh.nix
+    ./blocky.nix
   ];
 
   users.users.${dotfiles.username} = {

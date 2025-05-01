@@ -16,6 +16,7 @@
         linus = ["linus"];
       };
     };
+    blocky.enable = true;
   };
 
   nixpkgs.hostPlatform = "aarch64-linux";
