@@ -37,6 +37,7 @@
       spotify
       signal-desktop-bin
       thunderbird
+      qbittorrent
     ]
     ++ lib.optionals config.dotfiles.coding.enable [
       clang
@@ -60,6 +61,7 @@
       obs-studio
       blueman
       anytype
+      mullvad-vpn
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [
       vlc-bin

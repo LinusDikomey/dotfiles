@@ -27,7 +27,7 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.supportedFilesystems = ["ntfs"];
+  boot.supportedFilesystems = ["ntfs" "nfs"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   programs.hyprland.enable = true;
@@ -59,8 +59,6 @@ in {
     enable = true;
     allowedTCPPorts = [22 8000 25565];
     allowedUDPPorts = [9];
-    # used for samba network storage discovery
-    extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
   };
 
   services.samba = {
@@ -72,6 +70,14 @@ in {
   };
   services.gvfs.enable = true;
   services.avahi.enable = true;
+
+  fileSystems."/mnt/media" = {
+    device = "192.168.2.108:/media";
+    fsType = "nfs";
+  };
+
+  services.resolved.enable = true;
+  services.mullvad-vpn.enable = true;
 
   networking.interfaces.enp4s0.wakeOnLan.enable = true;
 }

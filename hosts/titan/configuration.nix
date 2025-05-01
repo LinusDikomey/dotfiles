@@ -30,30 +30,56 @@
     jellyfin-ffmpeg
   ];
 
-  # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
-  boot.loader.grub.enable = false;
-  # Enables the generation of /boot/extlinux/extlinux.conf
-  boot.loader.generic-extlinux-compatible.enable = true;
-
   services.jellyfin = {
     enable = true;
     openFirewall = true;
   };
 
+  # boot = {
+  #   kernelPackages = pkgs.linuxKernel.packages.linux_rpi3;
+  # };
+
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
+      device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "ext4";
+      options = ["noatime"];
     };
     "/media" = {
       device = "/dev/disk/by-uuid/1da8c454-61fe-4825-8867-8a62ed17a2d6";
       fsType = "ext4";
+      options = ["nofail"];
+    };
+    "/export/media" = {
+      device = "/media";
+      options = ["bind"];
     };
   };
+
+  services.nfs.server = {
+    enable = true;
+    lockdPort = 4001;
+    mountdPort = 4002;
+    statdPort = 4000;
+    extraNfsdConfig = '''';
+    exports = ''
+      /export       192.168.0.0/16(rw,no_subtree_check,fsid=0)
+      /export/media 192.168.0.0/16(rw,nohide,insecure,no_subtree_check)
+    '';
+  };
+  networking.firewall = let
+    ports = [111 2049 4000 4001 4002 20048];
+  in {
+    allowedTCPPorts = ports;
+    allowedUDPPorts = ports;
+  };
+
   swapDevices = [
     {
-      device = "/media/swapfile";
-      size = 32 * 1024;
+      device = "/swapfile";
+      size = 3 * 1024;
     }
   ];
+
+  hardware.enableRedistributableFirmware = true;
 }
