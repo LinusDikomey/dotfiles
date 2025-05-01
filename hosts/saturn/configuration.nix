@@ -19,6 +19,7 @@ in {
   dotfiles = {
     gaming.enable = true;
     sddm.enable = true;
+    ssh.enable = true;
   };
 
   age.identityPaths = ["/home/linus/.ssh/id_ed25519"];
@@ -73,17 +74,4 @@ in {
   services.avahi.enable = true;
 
   networking.interfaces.enp4s0.wakeOnLan.enable = true;
-
-  services.openssh = {
-    enable = true;
-    ports = [22];
-    settings = {
-      PasswordAuthentication = false;
-      AllowUsers = [username];
-      UseDns = false;
-      X11Forwarding = false;
-      PermitRootLogin = "prohibit-password";
-    };
-  };
-  services.fail2ban.enable = true;
 }
