@@ -1,9 +1,1 @@
-config/nushell/history.txt
-config/fish/fish_variables
-config/lazygit/state.yml
-config/helix/runtime
-config/nvim/lazy-lock.json
-config/eww/cache
 config/zed/.tmp*
-**/.DS_Store
-result
