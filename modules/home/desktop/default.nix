@@ -15,6 +15,7 @@ in {
     ./hyprlock.nix
     ./hyprpaper.nix
     ./waybar
+    ./wlogout
     ./wofi.nix
   ];
   options.dotfiles.desktop = {

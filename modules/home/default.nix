@@ -45,9 +45,8 @@
   in {
     ".config/helix/config.toml".source = linkConfig "helix/config.toml";
     ".config/helix/languages.toml".source = linkConfig "helix/languages.toml";
-    #".config/helix/runtime/queries/eye/locals.scm".source = "${treeSitterEye}/queries/locals.scm";
-    #".config/helix/runtime/queries/eye/highlights.scm".source = "${treeSitterEye}/queries/highlights.scm";
-    ".config/wlogout/".source = linkConfig "wlogout";
+    ".config/helix/runtime/queries/eye/locals.scm".source = "${treeSitterEye}/queries/locals.scm";
+    ".config/helix/runtime/queries/eye/highlights.scm".source = "${treeSitterEye}/queries/highlights.scm";
     ".config/zed/".source = linkConfig "zed";
   };
 
