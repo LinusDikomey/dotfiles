@@ -138,7 +138,7 @@ in {
             # fullscreen with super + backspace (also press shift to keep bar)
             "$mod SHIFT, Backspace, fullscreen, 1"
             "bindm = $mod, mouse:274, togglefloating"
-            "$mod, Space, exec, wofi --theme launcher --modi drun,run,window,ssh,filebrowser --show drun"
+            "$mod, Space, exec, ${pkgs.wofi}/bin/wofi --theme launcher --modi drun,run,window,ssh,filebrowser --show drun"
 
             "$mod, L, pseudo,"
             "$mod, T, togglesplit,"

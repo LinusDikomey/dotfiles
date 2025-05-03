@@ -48,7 +48,6 @@
     #".config/helix/runtime/queries/eye/locals.scm".source = "${treeSitterEye}/queries/locals.scm";
     #".config/helix/runtime/queries/eye/highlights.scm".source = "${treeSitterEye}/queries/highlights.scm";
     ".config/wlogout/".source = linkConfig "wlogout";
-    ".config/wofi/".source = linkConfig "wofi";
     ".config/zed/".source = linkConfig "zed";
   };
 
