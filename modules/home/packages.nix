@@ -59,6 +59,7 @@
       blueman
       anytype
       mullvad-vpn
+      vlc
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [
       vlc-bin
