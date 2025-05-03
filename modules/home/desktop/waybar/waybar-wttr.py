@@ -1,6 +1,9 @@
 import json
 import requests
 from datetime import datetime
+import os
+
+city = os.getenv('WTTR_CITY')
 
 WEATHER_CODES = {
     '113': '☀️',
@@ -55,8 +58,7 @@ WEATHER_CODES = {
 
 data = {}
 
-
-weather = requests.get("https://wttr.in/Aachen?format=j1").json()
+weather = requests.get(f"https://wttr.in/{city}?format=j1").json()
 
 
 def format_time(time):

@@ -31,6 +31,7 @@ in {
             scale = 1;
           }
         ];
+        city = "Aachen";
       };
       gtkTheme.enable = true;
     };

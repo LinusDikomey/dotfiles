@@ -6,6 +6,11 @@
 }: let
   cfg = config.dotfiles.desktop;
 in {
+  options.dotfiles.desktop.city = lib.mkOption {
+    type = lib.types.str;
+    description = "City used for displaying weather in status bar";
+  };
+
   config.programs.waybar = lib.mkIf cfg.enable {
     enable = true;
     systemd = {
@@ -158,8 +163,11 @@ in {
               flakeIgnore = ["E501" "F541" "E226"];
             };
             script = builtins.readFile ./waybar-wttr.py;
+            wttr = pkgs.writers.writePython3 "waybar-wttr" args script;
           in
-            pkgs.writers.writePython3 "waybar-wttr" args script;
+            pkgs.writeShellScriptBin "waybar-wttr-wrapped" ''
+              WTTR_CITY="${cfg.city}" exec ${wttr}
+            '';
           return-type = "json";
         };
       }
