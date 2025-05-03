@@ -6,14 +6,15 @@
   ...
 }: {
   imports = [
-    ./packages.nix
-    ./nu.nix
-    ./mime.nix
-    ./desktop
-    ./gtkTheme.nix
-    ./git.nix
-    ./work.nix
     ./darwin
+    ./desktop
+    ./git.nix
+    ./gtkTheme.nix
+    ./helix.nix
+    ./mime.nix
+    ./nu.nix
+    ./packages.nix
+    ./work.nix
   ];
 
   home.username = dotfiles.username;
@@ -36,17 +37,7 @@
 
   home.file = let
     linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/${dotfiles.homeFolder}/${dotfiles.username}/dotfiles/config/${name}";
-    treeSitterEye = pkgs.fetchFromGitHub {
-      owner = "LinusDikomey";
-      repo = "tree-sitter-eye";
-      rev = "96eea2d00bbb4ed06fa29d22f7f508124abe01bc";
-      sha256 = "sha256-K14lGWjIztdBuM/kgoWXTSVn1tKzKrAqX3l91cqM/Ak=";
-    };
   in {
-    ".config/helix/config.toml".source = linkConfig "helix/config.toml";
-    ".config/helix/languages.toml".source = linkConfig "helix/languages.toml";
-    ".config/helix/runtime/queries/eye/locals.scm".source = "${treeSitterEye}/queries/locals.scm";
-    ".config/helix/runtime/queries/eye/highlights.scm".source = "${treeSitterEye}/queries/highlights.scm";
     ".config/zed/".source = linkConfig "zed";
   };
 

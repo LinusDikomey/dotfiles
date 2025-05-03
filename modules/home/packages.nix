@@ -12,9 +12,7 @@
 
   config.home.packages = with pkgs; (
     [
-      git
       jujutsu
-      helix
       neovim
       dotfiles.inputs.agenix.packages.${system}.default
       wget
@@ -52,7 +50,6 @@
       texlab
       inkscape
       nixd
-      alejandra
       dotfiles.inputs.eye.packages.${pkgs.system}.default
     ]
     ++ lib.optionals (pkgs.stdenv.isLinux
