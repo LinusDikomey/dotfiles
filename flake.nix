@@ -64,8 +64,8 @@
       };
   in {
     nixosConfigurations.saturn = mkNixos ./hosts/saturn/configuration.nix "linus";
-    darwinConfigurations.mars = mkDarwin ./hosts/mars/configuration.nix "linus";
-    nixosConfigurations.titan = mkNixos ./hosts/titan/configuration.nix "linus";
+    darwinConfigurations.mars = mkDarwin ./hosts/mars.nix "linus";
+    nixosConfigurations.titan = mkNixos ./hosts/titan.nix "linus";
     deploy.nodes.titan = {
       hostname = "192.168.2.108";
       profiles.system = {

@@ -50,9 +50,10 @@ in {
   boot.supportedFilesystems = ["ntfs" "nfs"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
-  programs.hyprland.enable = true;
-
-  programs.nix-ld.enable = true;
+  programs = {
+    hyprland.enable = true;
+    nix-ld.enable = true;
+  };
 
   networking.networkmanager.enable = true;
 
@@ -61,16 +62,18 @@ in {
     powerOnBoot = true;
   };
 
-  services.printing.enable = true;
-
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-  };
-
-  services.desktopManager.plasma6 = {
-    enable = true;
-    enableQt5Integration = true;
+  services = {
+    printing.enable = true;
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+    };
+    desktopManager.plasma6 = {
+      enable = true;
+      enableQt5Integration = true;
+    };
+    resolved.enable = true;
+    mullvad-vpn.enable = true;
   };
 
   virtualisation.docker.enable = true;
@@ -80,24 +83,10 @@ in {
     allowedTCPPorts = [22 8000 25565];
     allowedUDPPorts = [9];
   };
-
-  services.samba = {
-    enable = true;
-    settings.global = {
-      "client min protocol" = "NT1";
-      "name resolve order" = "bcast host lmhosts wins";
-    };
-  };
-  services.gvfs.enable = true;
-  services.avahi.enable = true;
+  networking.interfaces.enp4s0.wakeOnLan.enable = true;
 
   fileSystems."/mnt/media" = {
     device = "192.168.2.108:/media";
     fsType = "nfs";
   };
-
-  services.resolved.enable = true;
-  services.mullvad-vpn.enable = true;
-
-  networking.interfaces.enp4s0.wakeOnLan.enable = true;
 }
