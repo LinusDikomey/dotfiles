@@ -4,51 +4,59 @@
   config,
   ...
 }: let
-  cfg = config.dotfiles.hyprlandDesktop;
+  inherit (lib) types;
+  cfg = config.dotfiles.desktop;
 in {
-  options.dotfiles.hyprlandDesktop = {
-    enable = lib.mkEnableOption "Enable Hyprland Desktop";
+  imports = [
+    ./dunst.nix
+    ./gammastep.nix
+    ./hypridle.nix
+    ./hyprland
+    ./hyprlock.nix
+    ./hyprpaper.nix
+    ./waybar
+  ];
+  options.dotfiles.desktop = {
+    enable = lib.mkEnableOption "Enable desktop support";
+    nvidia = lib.mkEnableOption "Enable support for nvidia GPU hardware";
+    desktops = lib.mkOption {
+      type = types.listOf (types.enum ["hyprland"]);
+      default = ["hyprland"];
+    };
+    monitors = lib.mkOption {
+      type = types.listOf types.attrs;
+      # TODO: more specific type for list elements like this:
+      # {
+      #   primary = types.bool;
+      #   output = types.str;
+      #   resolution = types.str;
+      #   framerate = types.int;
+      #   offset = types.str;
+      #   scale = types.float;
+      # };
+    };
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       wpa_supplicant
       networkmanagerapplet
-      wlogout
       grim
       slurp
-      pavucontrol
       wl-clipboard
-      wofi
       nautilus
       lxqt.lxqt-policykit
 
-      kitty
+      kitty #backup terminal
     ];
 
     xdg.portal = {
       enable = true;
-      configPackages = [pkgs.xdg-desktop-portal-hyprland];
       xdgOpenUsePortal = true;
     };
 
     home.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    wayland.windowManager.hyprland = import ./hyprland.nix {inherit pkgs;};
-    services.hyprpaper = {
-      enable = true;
-      settings = import ./hyprpaper.nix;
-    };
-    services.hypridle = {
-      enable = true;
-      settings = import ./hypridle.nix {inherit pkgs;};
-    };
-    services.dunst = {
-      enable = true;
-      settings = import ./dunst.nix;
-    };
-    programs.waybar = import ./waybar {inherit pkgs;};
-    services.gammastep = import ./gammastep.nix;
     services.network-manager-applet.enable = true;
     services.mpris-proxy.enable = true;
 

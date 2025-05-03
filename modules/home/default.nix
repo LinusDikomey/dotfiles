@@ -9,7 +9,7 @@
     ./packages.nix
     ./nu.nix
     ./mime.nix
-    ./hyprlandDesktop
+    ./desktop
     ./gtkTheme.nix
     ./git.nix
     ./work.nix
