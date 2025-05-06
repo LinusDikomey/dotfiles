@@ -89,5 +89,6 @@ in {
   fileSystems."/mnt/media" = {
     device = "192.168.2.108:/media";
     fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "x-systemd.idle-timeout=600"];
   };
 }
