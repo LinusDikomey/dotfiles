@@ -23,7 +23,18 @@ in {
         # put workspace 1 on the main monitor
         workspace = let
           primary = (lib.lists.findFirst (m: m.primary) null cfg.monitors).output;
-        in "1, monitor:${primary}, default:true";
+        in [
+          "1, monitor:${primary}, default:true"
+          "w[tv1], gapsout:0, gapsin:0"
+          "f[1], gapsout:0, gapsin:0"
+        ];
+
+        windowrule = [
+          "bordersize 0, floating:0, onworkspace:w[tv1]"
+          "rounding 0, floating:0, onworkspace:w[tv1]"
+          "bordersize 0, floating:0, onworkspace:f[1]"
+          "rounding 0, floating:0, onworkspace:f[1]"
+        ];
 
         exec-once = [
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -49,13 +60,11 @@ in {
         };
 
         general = {
-          gaps_in = 3;
-          gaps_out = 5;
+          gaps_in = 2;
+          gaps_out = 1;
           border_size = 2;
-          "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+          "col.active_border" = "rgba(9bd7f2ee) rgba(9bd7f2ee)";
           "col.inactive_border" = "rgba(595959aa)";
-          #col.active_border = "rgba(b4befeee) rgba(b4befeee) 45deg";
-          #col.inactive_border = "rgba(6c7086aa)";
           layout = "dwindle";
 
           # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
