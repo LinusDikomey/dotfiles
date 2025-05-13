@@ -165,7 +165,7 @@ in {
             script = builtins.readFile ./waybar-wttr.py;
             wttr = pkgs.writers.writePython3 "waybar-wttr" args script;
           in
-            pkgs.writeShellScriptBin "waybar-wttr-wrapped" ''
+            pkgs.writeShellScript "waybar-wttr-wrapped" ''
               WTTR_CITY="${cfg.city}" exec ${wttr}
             '';
           return-type = "json";

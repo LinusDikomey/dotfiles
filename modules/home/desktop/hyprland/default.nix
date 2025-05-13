@@ -132,7 +132,6 @@ in {
             "$mod, W, exec, firefox"
             "$mod, F, exec, nautilus"
             "$mod, P, exec, spotify"
-            "$mod, B, exec, speedcrunch"
 
             "$mod SHIFT, S, exec, ${screenshot}"
 

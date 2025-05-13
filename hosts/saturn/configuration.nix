@@ -14,6 +14,7 @@ in {
       desktop = {
         enable = true;
         nvidia = true;
+        gtkTheme.enable = true;
         monitors = [
           {
             primary = true;
@@ -33,7 +34,6 @@ in {
         ];
         city = "Aachen";
       };
-      gtkTheme.enable = true;
     };
   };
 

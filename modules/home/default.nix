@@ -9,7 +9,6 @@
     ./darwin
     ./desktop
     ./git.nix
-    ./gtkTheme.nix
     ./helix.nix
     ./mime.nix
     ./nu.nix

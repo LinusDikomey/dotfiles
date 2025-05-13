@@ -17,6 +17,7 @@ in {
     ./waybar
     ./wlogout
     ./wofi.nix
+    ./gtkTheme.nix
   ];
   options.dotfiles.desktop = {
     enable = lib.mkEnableOption "Enable desktop support";
