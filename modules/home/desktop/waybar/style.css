@@ -55,7 +55,7 @@
   font-weight: bold;
   color: @lavender;
   border-radius: 1rem;
-  padding: 0.4rem;
+  padding: 0.4rem 0.8rem;
   margin: 0 3px;
 }
 
@@ -79,6 +79,10 @@
   margin: 5px 5px;
   padding: 0px 15px;
   border-radius: 1rem;
+}
+
+window#waybar.empty #window {
+ background:none;
 }
 
 #custom-music,
@@ -142,7 +146,7 @@
   color: @teal;
 }
 
-#temperature {
+#custom-weather {
   color: @peach;
 }
 
@@ -160,4 +164,9 @@
 #tray {
   margin-right: 1rem;
   border-radius: 1rem;
+}
+
+tooltip {
+  background-color: @surface0;
+  border: none;
 }

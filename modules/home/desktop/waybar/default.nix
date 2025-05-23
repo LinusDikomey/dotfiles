@@ -26,7 +26,7 @@ in {
         height = 40;
         modules-left = ["hyprland/workspaces" "hyprland/mode" "hyprland/scratchpad" "custom/music"];
         modules-center = ["hyprland/window"];
-        modules-right = ["tray" "idle_inhibitor" "wireplumber" "custom/weather" "cpu" "memory" "temperature" "backlight" "battery" "battery#bat2" "clock" "custom/power"];
+        modules-right = ["tray" "idle_inhibitor" "wireplumber" "custom/weather" "cpu" "memory" "backlight" "battery" "battery#bat2" "clock" "custom/power"];
         "hyprland/workspaces".all-outputs = true;
         "keyboard-state" = {
           numlock = false;
