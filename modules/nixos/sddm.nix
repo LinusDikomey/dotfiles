@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  dotfiles,
   ...
 }: let
   cfg = config.dotfiles.sddm;
@@ -14,15 +15,17 @@ in {
     services.xserver.xkb.layout = "us";
     services.displayManager.sddm = {
       enable = true;
-
-      # kde sets the next options, override them
-      package = lib.mkForce pkgs.libsForQt5.sddm;
-      extraPackages = pkgs.lib.mkForce (with pkgs; [
-        libsForQt5.qt5.qtquickcontrols2
-        libsForQt5.qt5.qtgraphicaleffects
-        libsForQt5.qt5.qtsvg
-      ]);
-      theme = "${import ../../packages/sddm-theme.nix {inherit pkgs;}}";
+      package = lib.mkForce pkgs.kdePackages.sddm;
+      theme = "catppuccin-macchiato";
     };
+    environment.systemPackages = [
+      (pkgs.catppuccin-sddm.override {
+        flavor = "macchiato";
+        font = "Iosevka Nerd Font";
+        fontSize = "10";
+        background = "${dotfiles.wallpaper}";
+        loginBackground = true;
+      })
+    ];
   };
 }

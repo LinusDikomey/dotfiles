@@ -6,7 +6,6 @@
   nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.nixPath = ["nixpkgs=${dotfiles.inputs.nixpkgs}"];
 
   time.timeZone = "Europe/Berlin";
 

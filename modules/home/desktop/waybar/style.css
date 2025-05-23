@@ -1,228 +1,163 @@
+
+/* Source: https://github.com/rubyowo/dotfiles/blob/f925cf8e3461420a21b6dc8b8ad1190107b0cc56/config/waybar */
+
+@define-color base   #24273a;
+@define-color mantle #1e2030;
+@define-color crust  #181926;
+
+@define-color text     #cad3f5;
+@define-color subtext0 #a5adcb;
+@define-color subtext1 #b8c0e0;
+
+@define-color surface0 #363a4f;
+@define-color surface1 #494d64;
+@define-color surface2 #5b6078;
+
+@define-color overlay0 #6e738d;
+@define-color overlay1 #8087a2;
+@define-color overlay2 #939ab7;
+
+@define-color blue      #8aadf4;
+@define-color lavender  #b7bdf8;
+@define-color sapphire  #7dc4e4;
+@define-color sky       #91d7e3;
+@define-color teal      #8bd5ca;
+@define-color green     #a6da95;
+@define-color yellow    #eed49f;
+@define-color peach     #f5a97f;
+@define-color maroon    #ee99a0;
+@define-color red       #ed8796;
+@define-color mauve     #c6a0f6;
+@define-color pink      #f5bde6;
+@define-color flamingo  #f0c6c6;
+@define-color rosewater #f4dbd6;
+
 * {
-    border: none;
-    border-radius: 0;
-    font-family: "IosevkaNerdFont";
-    font-size: 22px;
-    min-height: 0;
-    margin: 0 8px;
+  font-family: "IosevkaNerdFont";
+  font-size: 22px;
+  min-height: 0;
 }
 
-window#waybar {
-    background: #1e1e2e;
-    border-bottom: 8px solid #1e1e2e;
-    color: #cdd6f4;
-}
-
-#window {
-    font-weight: bold;
-    font-family: "Roboto";
-}
-
-button {
-    all: unset;
-    background-color: #85c1dc;
-    color: #282828;
-    border: none;
-    font-weight: bold;
-    font-size: 30px;
-    border-bottom: 8px solid #6fabc6;
-    border-radius: 5px;
-    margin-left: 4px;
-    margin-bottom: 2px;
-    padding-left: 4px;
-    padding-right: 4px;
-}
-
-button.active {
-    background: inherit;
-    background-color: #9bd7f2;
-    border-top: 3px solid #c9545d;
-    border-bottom: 8px solid #85c1dc;
-}
-
-button:hover {
-    background: inherit;
-    background-color: #9bd7f2;
-    border-bottom: 8px solid #7ab6d1;
+#waybar {
+  background: transparent;
+  color: @text;
+  margin: 5px 5px;
 }
 
 #workspaces {
-    padding: 0 2px;
+  border-radius: 1rem;
+  margin: 5px 5px;
+  background-color: @surface0;
+  margin-left: 1rem;
 }
 
-
-#mode {
-    background: #64727D;
-    border-bottom: 3px solid white;
+#workspaces button {
+  font-weight: bold;
+  color: @lavender;
+  border-radius: 1rem;
+  padding: 0.4rem;
+  margin: 0 3px;
 }
 
-#clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode {
-    padding: 0 3px;
-    margin: 0 2px;
+#workspaces button.active {
+  color: @sky;
+  border-radius: 1rem;
 }
 
-#custom-power, #custom-updates {
-    color: #232634;
-    font-weight: bold;
-    background-color: #e78284;
-    border-bottom: 8px solid #cf6c70;
-    border-radius: 5px;
-    margin-left: 4px;
-    margin-bottom: 2px;
-    padding-left: 10px;
-    padding-right: 7px;
+#workspaces button:hover {
+  color: @sapphire;
+  border-radius: 1rem;
+}
+
+#custom-music {
+  color: @;
+  border-radius: 1rem;
+}
+
+#window {
+  background-color: @surface0;
+  margin: 5px 5px;
+  padding: 0px 15px;
+  border-radius: 1rem;
+}
+
+#custom-music,
+#idle_inhibitor,
+#wireplumber,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#clock,
+#battery,
+#custom-lock,
+#custom-power,
+#custom-updates,
+#tray,
+#custom-weather {
+  background-color: @surface0;
+  padding: 0.5rem 1rem;
+  margin: 5px 0;
 }
 
 #clock {
-    color: #232634;
-    font-weight: bold;
-    background-color: #a6d189;
-    border-bottom: 8px solid #8fba73;
-    border-radius: 5px;
-    margin-left: 4px;
-    margin-bottom: 2px;
-    padding: 0 10px;
+  color: @blue;
 }
-
-#temperature {
-    color: #232634;
-    font-weight: bold;
-    background-color: #81c8be;
-    border-bottom: 8px solid #6ab1a7;
-    border-radius: 5px;
-    margin-left: 4px;
-    margin-bottom: 2px;
-    padding: 0 10px;
-}
-
-#memory {
-    color: #232634;
-    font-weight: bold;
-    background-color: #ca9ee6;
-    border-bottom: 8px solid #b388cf;
-    border-radius: 5px;
-    margin-left: 4px;
-    margin-bottom: 2px;
-    padding: 0 10px;
-}
-
-#cpu {
-    color: #232634;
-    font-weight: bold;
-    background-color: #85c1dc;
-    border-bottom: 8px solid #6fabc6;
-    border-radius: 5px;
-    margin-left: 4px;
-    margin-bottom: 2px;
-    padding: 0 10px;
-}
-
-#custom-weather {
-    color: #232634;
-    font-weight: bold;
-    background-color: #89dceb;
-    border-bottom: 8px solid #6ca9ba;
-    border-radius: 5px;
-    margin-left: 4px;
-    margin-bottom: 2px;
-    padding-left: 10px;
-    padding-right: 7px;
-}
-
-#wireplumber {
-    color: #232634;
-    font-weight: bold;
-    background-color: #e5c890;
-    border-bottom: 8px solid #ceb17a;
-    border-radius: 5px;
-    margin-left: 4px;
-    margin-bottom: 2px;
-    padding-left: 10px;
-    padding-right: 7px;
-}
-
-#idle_inhibitor {
-    color: #232634;
-    font-weight: bold;
-    background-color: #85c1dc;
-    border-bottom: 8px solid #6fabc6;
-    border-radius: 5px;
-    margin-left: 4px;
-    margin-bottom: 2px;
-    padding: 0 10px;
-}
-
-#idle_inhibitor:hover {
-    background-color: #414559;
-}
-
-#tray {
-    background-color: #ef9f76;
-    border-bottom: 8px solid #d78963;
-    border-radius: 5px;
-    margin-left: 4px;
-    margin-bottom: 2px;
-    padding-left: 10px;
-    padding-right: 7px;
-}
-
 
 #battery {
-}
-
-#battery icon {
-    color: red;
+  color: @green;
 }
 
 #battery.charging {
-}
-
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: black;
-    }
+  color: @green;
 }
 
 #battery.warning:not(.charging) {
-    color: white;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  color: @red;
+}
+
+#backlight {
+  color: @yellow;
+}
+
+#backlight, #battery {
+    border-radius: 0;
+}
+
+#idle_inhibitor {
+  color: @sky;
+  border-radius: 1rem 0px 0px 1rem;
+  margin-left: 1rem;
+}
+
+#wireplumber {
+  color: @maroon;
 }
 
 #cpu {
+  color: @mauve;
 }
 
 #memory {
+  color: @teal;
 }
 
-#network {
+#temperature {
+  color: @peach;
 }
 
-#network.disconnected {
-    background: #f53c3c;
+#custom-lock {
+    border-radius: 1rem 0px 0px 1rem;
+    color: @lavender;
 }
 
-#pulseaudio {
-}
-
-#pulseaudio.muted {
+#custom-power {
+    margin-right: 1rem;
+    border-radius: 0px 1rem 1rem 0px;
+    color: @red;
 }
 
 #tray {
+  margin-right: 1rem;
+  border-radius: 1rem;
 }
-
-tooltip {
-  background-color: #181825;
-  border: none;
-  border-bottom: 8px solid #151521;
-  border-radius: 10px;
-}
-
-tooltip decoration {
-  box-shadow: none;
-}
-

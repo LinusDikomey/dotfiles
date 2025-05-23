@@ -24,8 +24,7 @@ in {
         layer = "top";
         position = "top";
         height = 40;
-        spacing = 8;
-        modules-left = ["hyprland/workspaces" "hyprland/mode" "hyprland/scratchpad" "custom/media" "custom/spotify"];
+        modules-left = ["hyprland/workspaces" "hyprland/mode" "hyprland/scratchpad" "custom/music"];
         modules-center = ["hyprland/window"];
         modules-right = ["tray" "idle_inhibitor" "wireplumber" "custom/weather" "cpu" "memory" "temperature" "backlight" "battery" "battery#bat2" "clock" "custom/power"];
         "hyprland/workspaces".all-outputs = true;
@@ -131,7 +130,7 @@ in {
           ];
           on-click-right = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
         };
-        "custom/spotify" = let
+        "custom/music" = let
           p = args: "${pkgs.playerctl}/bin/playerctl ${args}";
         in {
           format = "<span foreground='#66dc69'>󰓇 </span> {icon}  <span>{}</span>";

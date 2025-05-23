@@ -39,6 +39,7 @@
       inherit inputs homeFolder users;
       username = user;
       user = users.${user};
+      wallpaper = ./wallpaper.png;
     };
     mkNixos = host: user:
       inputs.nixpkgs.lib.nixosSystem {

@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  dotfiles,
   ...
 }: {
   programs.hyprlock = lib.mkIf config.dotfiles.desktop.enable {
@@ -9,7 +10,7 @@
     settings = {
       background = {
         monitor = "";
-        path = "$HOME/wallpaper.png";
+        path = "${dotfiles.wallpaper}";
         color = "rgba(25, 20, 20, 0.5)";
         blur_passes = 4;
         blur_size = 2;

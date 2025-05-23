@@ -31,6 +31,7 @@
       theme = "catppuccin-macchiato";
       font-family = "Iosevka Nerd Font";
       font-size = 20;
+      background-opacity = 0.8;
     };
   };
 

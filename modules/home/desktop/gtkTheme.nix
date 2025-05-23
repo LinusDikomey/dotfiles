@@ -13,13 +13,12 @@ in {
     gtk = {
       enable = true;
       theme = {
-        package = pkgs.flat-remix-gtk;
-        name = "Flat-Remix-GTK-Grey-Darkest";
+        name = "catppuccin-macchiato-blue-standard";
+        package = pkgs.catppuccin-gtk.override {
+          accents = ["blue"];
+          variant = "macchiato";
+        };
       };
-      # cursorTheme = {
-      #   name = "Bibata-Modern-Ice";
-      #   size = 24;
-      # };
       iconTheme = {
         package = pkgs.adwaita-icon-theme;
         name = "Adwaita";
