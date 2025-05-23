@@ -2,6 +2,7 @@
   lib,
   config,
   dotfiles,
+  pkgs,
   ...
 }: let
   inherit (lib) types;
@@ -14,14 +15,18 @@ in {
     };
   };
 
-  config.programs.git = lib.mkIf cfg.enable {
-    enable = true;
-    lfs.enable = true;
-    userName = dotfiles.user.name;
-    userEmail = dotfiles.user.email;
-    ignores = [
-      ".obsidian"
-      ".DS_Store"
-    ];
+  config = lib.mkIf cfg.enable {
+    home.packages = [pkgs.delta];
+    programs.git = {
+      enable = true;
+      lfs.enable = true;
+      userName = dotfiles.user.name;
+      userEmail = dotfiles.user.email;
+      ignores = [
+        ".obsidian"
+        ".DS_Store"
+      ];
+      delta.enable = true;
+    };
   };
 }

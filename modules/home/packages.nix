@@ -36,6 +36,9 @@
       signal-desktop-bin
       thunderbird
       qbittorrent
+      (ncspot.override {
+        withCover = true;
+      })
     ]
     ++ lib.optionals config.dotfiles.coding.enable [
       clang

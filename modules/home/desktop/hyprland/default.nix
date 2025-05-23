@@ -49,6 +49,8 @@ in {
           "NIXOS_OZONE_WL,1"
         ];
 
+        xwayland.force_zero_scaling = true;
+
         input = {
           kb_layout = "us";
           # kb_variant = colemak_dh_ortho
