@@ -12,7 +12,6 @@
 
   config.home.packages = with pkgs; (
     [
-      jujutsu
       neovim
       dotfiles.inputs.agenix.packages.${system}.default
       wget

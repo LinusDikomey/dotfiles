@@ -9,6 +9,7 @@
     ./darwin
     ./desktop
     ./git.nix
+    ./jujutsu.nix
     ./helix.nix
     ./mime.nix
     ./nu.nix

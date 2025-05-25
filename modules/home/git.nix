@@ -27,6 +27,9 @@ in {
         ".DS_Store"
       ];
       delta.enable = true;
+      extraConfig = {
+        init.defaultBranch = "main";
+      };
     };
   };
 }

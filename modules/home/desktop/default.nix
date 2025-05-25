@@ -60,8 +60,11 @@ in {
 
     home.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    services.network-manager-applet.enable = true;
-    services.mpris-proxy.enable = true;
+    services = {
+      gnome-keyring.enable = true;
+      network-manager-applet.enable = true;
+      mpris-proxy.enable = true;
+    };
 
     systemd.user.services.polkit-lxqt-authentication-agent = {
       Install = {
