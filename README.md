@@ -22,12 +22,12 @@ Includes a NixOS Hyprland Desktop as well as a MacOS and a Raspberry Pi Homelab 
 
 # Hosts
 
-| Name   | OS     | Description          |
-| ------ | ------ | -------------------- |
-| Saturn | NixOS  | Main PC              |
-| Mars   | Darwin | MacBook Air          |
-| Titan  | NixOS  | Homelab Raspberry Pi |
-
+| Name    | OS     | Description                        |
+| ------- | ------ | ---------------------------------- |
+| Saturn  | NixOS  | Main PC                            |
+| Mars    | Darwin | MacBook Air                        |
+| Titan   | NixOS  | Homelab Raspberry Pi               |
+| Neptune | NixOS  | Server VM for some various hosting |
 # Installation
 Before installing, note that this is my personal configuration and you probably don't want to just
 use this because everything is pretty opinionated. If you still want to try it out or use it as a

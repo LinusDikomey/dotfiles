@@ -24,8 +24,8 @@
       url = "github:LinusDikomey/eyelang";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
+    waldbot = {
+      url = "github:LinusDikomey/waldbot";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -73,6 +73,14 @@
         sshUser = "root";
         magicRollback = false;
         path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos inputs.self.nixosConfigurations.titan;
+      };
+    };
+    nixosConfigurations.neptune = mkNixos ./hosts/neptune.nix "linus";
+    deploy.nodes.neptune = {
+      hostname = "78.47.87.53";
+      profiles.system = {
+        sshUser = "root";
+        path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos inputs.self.nixosConfigurations.neptune;
       };
     };
   };
