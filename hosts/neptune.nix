@@ -12,6 +12,7 @@ in {
       enable = true;
       allowed.root = ["linus"];
       allowed.linus = ["linus"];
+      allowed.git = [];
     };
   };
 
@@ -35,8 +36,11 @@ in {
 
   services.gitea = {
     enable = true;
+    user = "git";
+    group = "git";
     settings = {
       server = {
+        SSH_USER = "git";
         SSH_DOMAIN = "areweengine2yet.xyz";
         DOMAIN = "areweengine2yet.xyz";
         ROOT_URL = "https://git.areweengine2yet.xyz/";
@@ -48,10 +52,25 @@ in {
       security.INSTALL_LOCK = true;
       service = {
         DISABLE_REGISTRATION = true;
+        DEFAULT_KEEP_EMAIL_PRIVATE = true;
+        DEFAULT_ALLOW_CREATE_ORGANIZATION = true;
+      };
+      "service.explore" = {
+        DISABLE_USERS_PAGE = true;
+        DISABLE_ORGANIZATIONS_PAGE = true;
+        DISABLE_CODE_PAGE = true;
       };
       packages.ENABLED = false;
     };
   };
+  users.users.git = {
+    shell = pkgs.bash;
+    isSystemUser = true;
+    group = "git";
+    extraGroups = ["gitea"];
+    home = "/var/lib/gitea";
+  };
+  users.groups.git = {};
 
   age.secrets.waldbot-env.file = ../secrets/waldbot-env.age;
   systemd.services.waldbot = let
