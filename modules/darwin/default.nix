@@ -15,6 +15,7 @@
     mkalias
   ];
 
+  system.primaryUser = dotfiles.username;
   system.defaults = {
     LaunchServices.LSQuarantine = false;
     NSGlobalDomain = {
