@@ -19,6 +19,8 @@
   system.defaults = {
     LaunchServices.LSQuarantine = false;
     NSGlobalDomain = {
+      InitialKeyRepeat = 20;
+      KeyRepeat = 4;
       AppleShowAllExtensions = true;
     };
     dock = {
@@ -35,5 +37,6 @@
 
   system.configurationRevision = dotfiles.inputs.self.rev or dotfiles.inputs.self.dirtyRev or null;
   nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs.config.allowBroken = true;
   system.stateVersion = 6;
 }

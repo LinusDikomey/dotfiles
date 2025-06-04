@@ -28,7 +28,14 @@ in {
       ];
       delta.enable = true;
       extraConfig = {
+        core.whitespace = "error";
         init.defaultBranch = "main";
+        status = {
+          showStash = true;
+          showUntrackedFiles = "all";
+        };
+        pull.rebase = true;
+        rebase.autoStash = true;
       };
     };
   };
