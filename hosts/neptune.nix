@@ -38,6 +38,7 @@ in {
     enable = true;
     user = "git";
     group = "git";
+    lfs.enable = true;
     settings = {
       server = {
         SSH_USER = "git";
@@ -48,7 +49,6 @@ in {
         HTTP_PORT = 3000;
         APP_DATA_PATH = "/var/lib/gitea/data";
       };
-      lfs.PATH = "/var/lib/gitea/data/lfs";
       security.INSTALL_LOCK = true;
       service = {
         DISABLE_REGISTRATION = true;

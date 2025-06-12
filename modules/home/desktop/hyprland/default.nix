@@ -114,6 +114,7 @@ in {
         misc = {
           disable_hyprland_logo = true;
           swallow_regex = "^(ghostty)$";
+          enable_anr_dialog = false; # false positives on some applications made this very annoying for me
         };
 
         "$mod" = "SUPER";
