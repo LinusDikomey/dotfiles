@@ -7,6 +7,7 @@
   cfg = config.dotfiles.desktop;
 in {
   config = lib.mkIf (cfg.enable && builtins.elem "hyprland" cfg.desktops) {
+    home.packages = with pkgs; [hyprshot];
     xdg.portal.configPackages = [pkgs.xdg-desktop-portal-hyprland];
     wayland.windowManager.hyprland = {
       enable = true;
@@ -119,9 +120,6 @@ in {
 
         "$mod" = "SUPER";
         bind = let
-          screenshot = pkgs.writeShellScript "screenshot" ''
-            ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy
-          '';
           playerctl = "${pkgs.playerctl}/bin/playerctl";
           pactl = "${pkgs.pulseaudio}/bin/pactl";
         in
@@ -136,7 +134,10 @@ in {
             "$mod, F, exec, nautilus"
             "$mod, P, exec, spotify"
 
-            "$mod SHIFT, S, exec, ${screenshot}"
+            "$mod SHIFT, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m region --freeze --clipboard-only"
+            "$mod, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m region --clipboard-only"
+            "$mod CONTROL, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m window --clipboard-only"
+            "$mod CONTROL SHIFT, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m window --freeze --clipboard-only"
 
             # media
             ", XF86AudioPlay, exec, ${playerctl} play-pause"

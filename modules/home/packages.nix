@@ -56,7 +56,6 @@
     ]
     ++ lib.optionals (pkgs.stdenv.isLinux
       && config.dotfiles.graphical.enable) [
-      unityhub
       obs-studio
       blueman
       anytype

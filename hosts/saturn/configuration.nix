@@ -7,33 +7,32 @@ in {
 
   networking.hostName = "saturn";
 
-  home-manager.users."${username}" = {
-    dotfiles = {
-      graphical.enable = true;
-      coding.enable = true;
-      desktop = {
-        enable = true;
-        nvidia = true;
-        gtkTheme.enable = true;
-        monitors = [
-          {
-            primary = true;
-            output = "DP-4";
-            resolution = "3840x2160";
-            framerate = 60;
-            offset = "0x0";
-            scale = 1.5;
-          }
-          {
-            output = "HDMI-A-5";
-            resolution = "1920x1080";
-            framerate = 60;
-            offset = "2560x720";
-            scale = 1;
-          }
-        ];
-        city = "Aachen";
-      };
+  home-manager.users."${username}".dotfiles = {
+    graphical.enable = true;
+    coding.enable = true;
+    work.enable = true;
+    desktop = {
+      enable = true;
+      nvidia = true;
+      gtkTheme.enable = true;
+      monitors = [
+        {
+          primary = true;
+          output = "DP-4";
+          resolution = "3840x2160";
+          framerate = 60;
+          offset = "0x0";
+          scale = 1.5;
+        }
+        {
+          output = "HDMI-A-5";
+          resolution = "1920x1080";
+          framerate = 60;
+          offset = "2560x720";
+          scale = 1;
+        }
+      ];
+      city = "Aachen";
     };
   };
 

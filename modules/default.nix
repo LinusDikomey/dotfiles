@@ -12,6 +12,7 @@
   users.users.${dotfiles.username}.shell = pkgs.nushell;
 
   home-manager = {
+    backupFileExtension = "bak";
     users."${dotfiles.username}".imports = [./home];
     extraSpecialArgs = {inherit dotfiles;};
     useGlobalPkgs = true;

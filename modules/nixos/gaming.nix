@@ -17,9 +17,11 @@ in {
 
     environment.systemPackages = with pkgs; [
       prismlauncher
-      # can be replaced with official package when it gets merged
-      # https://github.com/NixOS/nixpkgs/pull/309327
-      (pkgs.callPackage ../../packages/olympus/package.nix {})
+      olympus
+      (pkgs.callPackage ../../packages/waywall/package.nix {})
+      (pkgs.callPackage ../../packages/glfw-waywall/package.nix {})
+      (pkgs.callPackage ../../packages/ninjabrain-bot/package.nix {})
+      (pkgs.jdk23.override {enableJavaFX = true;})
     ];
   };
 }

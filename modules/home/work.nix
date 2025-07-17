@@ -11,10 +11,16 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      slack
-      teams
-      keepassxc
-    ];
+    home.packages = with pkgs;
+      [
+        slack
+        keepassxc
+        google-chrome
+        wireguard-tools
+        graphite-cli
+      ]
+      ++ lib.optionals pkgs.stdenv.isDarwin [
+        teams
+      ];
   };
 }
