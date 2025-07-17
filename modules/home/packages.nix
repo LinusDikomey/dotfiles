@@ -48,8 +48,6 @@
       clippy
       rustfmt
       rust-analyzer
-      texlive.combined.scheme-full
-      texlab
       inkscape
       nixd
       dotfiles.inputs.eye.packages.${pkgs.system}.default
