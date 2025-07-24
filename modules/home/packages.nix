@@ -64,4 +64,7 @@
       vlc-bin
     ]
   );
+  config.home.shellAliases = lib.mkIf config.dotfiles.coding.enable {
+    "objdump" = "objdump -M intel";
+  };
 }
