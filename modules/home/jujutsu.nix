@@ -1,4 +1,8 @@
-{dotfiles, ...}: {
+{
+  dotfiles,
+  pkgs,
+  ...
+}: {
   programs.jujutsu = {
     enable = true;
     settings = {
@@ -7,8 +11,10 @@
         email = dotfiles.user.email;
       };
       ui = {
-        paginate = "never";
         default-command = "log";
+
+        pager = "${pkgs.delta}/bin/delta";
+        diff-formatter = ":git";
       };
     };
   };
