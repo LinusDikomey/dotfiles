@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: {
   programs.nushell = {
@@ -14,8 +15,8 @@
     };
     shellAliases = {
       ":q" = "exit";
-      cat = "bat";
-      icat = "kitten icat";
+      cat = "${pkgs.bat}/bin/bat";
+      icat = "${pkgs.kitty}/bin/kitten icat";
       mv = "mv -i";
       "nix develop" = "nix develop --command nu";
       "nix shell" = "nix shell";
