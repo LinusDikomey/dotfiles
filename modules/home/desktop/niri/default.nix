@@ -52,10 +52,13 @@ in {
           enable = true;
           max-scroll-amount = "95%";
         };
-        keyboard.repeat-delay = 350;
+        keyboard = {
+          repeat-delay = 350;
+          xkb.options = "compose:rwin";
+        };
         mouse = {
           accel-profile = "flat";
-          accel-speed = 0.3;
+          accel-speed = -0.35;
         };
       };
       cursor.hide-when-typing = true;
@@ -111,6 +114,8 @@ in {
             action.focus-workspace-up = {};
             cooldown-ms = 150;
           };
+          "Mod+D".action.focus-workspace-down = {};
+          "Mod+U".action.focus-workspace-up = {};
 
           "Mod+Comma".action.consume-or-expel-window-left = {};
           "Mod+Period".action.consume-or-expel-window-right = {};
@@ -127,10 +132,15 @@ in {
           "Mod+W".action.spawn = "${pkgs.firefox}/bin/firefox";
           "Mod+F".action.spawn = "${pkgs.nautilus}/bin/nautilus";
 
-          # screenshots
+          # screenshots/screencasts
           "Mod+Shift+S".action.screenshot = {};
           "Mod+S".action.screenshot-window = {};
           "Mod+Ctrl+S".action.screenshot-screen = {};
+          "Mod+Y".action.set-dynamic-cast-monitor = {};
+          "Mod+Shift+Y".action.set-dynamic-cast-window = {};
+          "Mod+Ctrl+Y".action.clear-dynamic-cast-target = {};
+
+          # media buttons
           "XF86AudioPlay".action.spawn = [playerctl "play-pause"];
           "XF86AudioLowerVolume".action.spawn = [pactl "set-sink-volume" "@DEFAULT_SINK@" "-2%"];
           "XF86AudioRaiseVolume".action.spawn = [pactl "set-sink-volume" "@DEFAULT_SINK@" "+2%"];

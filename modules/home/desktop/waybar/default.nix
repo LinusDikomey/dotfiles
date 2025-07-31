@@ -13,10 +13,7 @@ in {
 
   config.programs.waybar = lib.mkIf cfg.enable {
     enable = true;
-    systemd = {
-      enable = true;
-      target = "hyprland-session.target";
-    };
+    systemd.enable = true;
     style = builtins.readFile ./style.css;
     settings = [
       {

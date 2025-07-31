@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: {
   programs.wlogout = lib.mkIf config.dotfiles.desktop.enable {
@@ -14,7 +15,15 @@
       }
       {
         label = "logout";
-        action = "hyprctl dispatch exit";
+        action = pkgs.writeShellScript "exit-desktop" ''
+          if [ -n "''${NIRI_SOCKET}" ]; then
+            niri msg action quit
+          elif [ -n "''${HYPRLAND_INSTANCE_SIGNATURE}" ]; then
+            hyprctl dispatch exit
+          else
+            echo "error: no desktop detected"
+          fi
+        '';
         text = "Logout";
         keybind = "e";
       }
