@@ -1,4 +1,8 @@
-{dotfiles, ...}: let
+{
+  dotfiles,
+  pkgs,
+  ...
+}: let
   inherit (dotfiles) username;
 in {
   imports = [
@@ -48,7 +52,10 @@ in {
   };
 
   nixpkgs.overlays = [dotfiles.inputs.niri.overlays.niri];
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    package = pkgs.niri-unstable;
+  };
 
   dotfiles = {
     gaming.enable = true;

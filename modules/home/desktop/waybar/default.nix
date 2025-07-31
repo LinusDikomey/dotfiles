@@ -28,8 +28,8 @@ in {
         layer = "top";
         position = "top";
         height = 40;
-        modules-left = ["hyprland/workspaces" "hyprland/mode" "hyprland/scratchpad" "custom/music"];
-        modules-center = ["hyprland/window"];
+        modules-left = ["hyprland/workspaces" "niri/workspaces" "hyprland/mode" "hyprland/scratchpad" "custom/music"];
+        modules-center = ["hyprland/window" "niri/window"];
         modules-right = ["tray" "idle_inhibitor" "wireplumber" "custom/weather" "cpu" "memory" "backlight" "battery" "battery#bat2" "clock" "custom/power"];
         "hyprland/workspaces".all-outputs = true;
         "keyboard-state" = {
