@@ -4,6 +4,7 @@
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [dotfiles.inputs.niri.overlays.niri];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 

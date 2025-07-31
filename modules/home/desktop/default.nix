@@ -12,6 +12,7 @@ in {
     ./gammastep.nix
     ./hypridle.nix
     ./hyprland
+    ./niri
     ./hyprlock.nix
     ./hyprpaper.nix
     ./waybar
@@ -23,15 +24,14 @@ in {
     enable = lib.mkEnableOption "Enable desktop support";
     nvidia = lib.mkEnableOption "Enable support for nvidia GPU hardware";
     desktops = lib.mkOption {
-      type = types.listOf (types.enum ["hyprland"]);
+      type = types.listOf (types.enum ["hyprland" "niri"]);
       default = ["hyprland"];
     };
     monitors = lib.mkOption {
-      type = types.listOf types.attrs;
+      type = types.attrsOf types.attrs;
       # TODO: more specific type for list elements like this:
       # {
       #   primary = types.bool;
-      #   output = types.str;
       #   resolution = types.str;
       #   framerate = types.int;
       #   offset = types.str;

@@ -15,6 +15,7 @@
     ./nu.nix
     ./packages.nix
     ./work.nix
+    dotfiles.inputs.niri.homeModules.niri
   ];
 
   home.username = dotfiles.username;

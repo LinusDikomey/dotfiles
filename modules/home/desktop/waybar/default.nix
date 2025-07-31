@@ -20,7 +20,11 @@ in {
     style = builtins.readFile ./style.css;
     settings = [
       {
-        output = (lib.lists.findFirst (m: m.primary) null cfg.monitors).output;
+        output =
+          lib.lists.findFirst
+          (name: cfg.monitors.${name}.primary)
+          null
+          (builtins.attrNames cfg.monitors);
         layer = "top";
         position = "top";
         height = 40;

@@ -16,14 +16,23 @@ in {
       # portalPackage = pkgs.xdg-desktop-portal-gtk;
       settings = {
         monitor =
-          (builtins.map (m: "${m.output}, ${m.resolution}@${builtins.toString m.framerate}, ${m.offset}, ${builtins.toString m.scale}") cfg.monitors)
+          (
+            builtins.map
+            (
+              name: let
+                m = cfg.monitors.${name};
+                s = builtins.toString;
+              in "${name}, ${s m.resolution.x}x${s m.resolution.y}@${s m.framerate}, ${s m.offset.x}x${s m.offset.y}, ${s m.scale}"
+            )
+            (builtins.attrNames cfg.monitors)
+          )
           ++ [
             ", preferred, auto, 1" # fallback for other monitors
           ];
 
         # put workspace 1 on the main monitor
         workspace = let
-          primary = (lib.lists.findFirst (m: m.primary) null cfg.monitors).output;
+          primary = lib.lists.findFirst (name: cfg.monitors.${name}.primary) null (builtins.attrNames cfg.monitors);
         in [
           "1, monitor:${primary}, default:true"
           "w[tv1], gapsout:0, gapsin:0"

@@ -12,29 +12,43 @@ in {
     coding.enable = true;
     work.enable = true;
     desktop = {
+      desktops = ["hyprland" "niri"];
       enable = true;
       nvidia = true;
       gtkTheme.enable = true;
-      monitors = [
-        {
+      monitors = {
+        "DP-4" = {
           primary = true;
-          output = "DP-4";
-          resolution = "3840x2160";
+          resolution = {
+            x = 3840;
+            y = 2160;
+          };
           framerate = 60;
-          offset = "0x0";
+          offset = {
+            x = 0;
+            y = 0;
+          };
           scale = 1.5;
-        }
-        {
-          output = "HDMI-A-5";
-          resolution = "1920x1080";
+        };
+        "HDMI-A-5" = {
+          resolution = {
+            x = 1920;
+            y = 1080;
+          };
           framerate = 60;
-          offset = "2560x720";
+          offset = {
+            x = 2560;
+            y = 720;
+          };
           scale = 1;
-        }
-      ];
+        };
+      };
       city = "Aachen";
     };
   };
+
+  nixpkgs.overlays = [dotfiles.inputs.niri.overlays.niri];
+  programs.niri.enable = true;
 
   dotfiles = {
     gaming.enable = true;
