@@ -15,7 +15,6 @@
 
   networking = {
     firewall.enable = true;
-    networkmanager.enable = true;
   };
 
   programs.nix-ld.enable = true;

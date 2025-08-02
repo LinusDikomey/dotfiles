@@ -74,6 +74,7 @@ in {
 
   virtualisation.docker.enable = true;
 
+  networking.networkmanager.enable = true;
   networking.firewall = {
     allowedTCPPorts = [22 8000 25565];
     allowedUDPPorts = [9];

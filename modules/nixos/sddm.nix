@@ -5,13 +5,12 @@
   dotfiles,
   ...
 }: let
-  # graphicalCfgs =
-  #   lib.mapAttrsToList
-  #   (user: hmConfig: hmConfig.dotfiles.graphical)
-  #   config.home-manager.users;
-  # enabled = lib.any (lib.map (graphical: graphical.enable or false)) graphicalCfgs;
+  enabled =
+    lib.any
+    ({value, ...}: value.dotfiles.graphical.enable or false)
+    (lib.attrsToList config.home-manager.users);
 in {
-  config = lib.mkIf false {
+  config = lib.mkIf enabled {
     services.xserver.enable = true;
     services.xserver.xkb.layout = "us";
     services.displayManager.sddm = {
