@@ -1,6 +1,6 @@
 # dotfiles
 My nix flake configuration.
-Includes a NixOS Hyprland Desktop as well as a MacOS and a Raspberry Pi Homelab configuration.
+Includes NixOS Niri and Hyprland Desktops as well as a MacOS and a Raspberry Pi Homelab configuration.
 
 # Setup/Features
 - NixOS/nix-darwin
@@ -16,7 +16,7 @@ Includes a NixOS Hyprland Desktop as well as a MacOS and a Raspberry Pi Homelab 
   - Weather
   - Calendar
   - Notifications (Dunst)
-- hyprland
+- Niri
 - sddm
 - ... and many more
 

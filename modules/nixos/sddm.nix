@@ -5,12 +5,13 @@
   dotfiles,
   ...
 }: let
-  cfg = config.dotfiles.sddm;
+  # graphicalCfgs =
+  #   lib.mapAttrsToList
+  #   (user: hmConfig: hmConfig.dotfiles.graphical)
+  #   config.home-manager.users;
+  # enabled = lib.any (lib.map (graphical: graphical.enable or false)) graphicalCfgs;
 in {
-  options.dotfiles.sddm = {
-    enable = lib.mkEnableOption "Enable SDDM Login Shell";
-  };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf false {
     services.xserver.enable = true;
     services.xserver.xkb.layout = "us";
     services.displayManager.sddm = {

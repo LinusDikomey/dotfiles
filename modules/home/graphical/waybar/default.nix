@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.dotfiles.desktop;
+  cfg = config.dotfiles.graphical;
 in {
-  options.dotfiles.desktop.city = lib.mkOption {
+  options.dotfiles.graphical.city = lib.mkOption {
     type = lib.types.str;
     description = "City used for displaying weather in status bar";
   };

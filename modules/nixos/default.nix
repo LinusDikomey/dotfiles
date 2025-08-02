@@ -5,6 +5,7 @@
     ./dyndns.nix
     ./ssh.nix
     ./blocky.nix
+    ./desktop.nix
   ];
 
   users.users.${dotfiles.username} = {
@@ -12,7 +13,12 @@
     extraGroups = ["wheel"];
   };
 
-  networking.firewall.enable = true;
+  networking = {
+    firewall.enable = true;
+    networkmanager.enable = true;
+  };
+
+  programs.nix-ld.enable = true;
 
   system.stateVersion = "24.11";
 }

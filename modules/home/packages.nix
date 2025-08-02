@@ -5,10 +5,7 @@
   dotfiles,
   ...
 }: {
-  options.dotfiles = {
-    graphical.enable = lib.mkEnableOption "Enable graphical packages";
-    coding.enable = lib.mkEnableOption "Enable coding packages";
-  };
+  options.dotfiles.coding.enable = lib.mkEnableOption "Enable coding packages";
 
   config.home.packages = with pkgs; (
     [
@@ -25,20 +22,6 @@
       tmux
       dig
     ]
-    ++ lib.optionals config.dotfiles.graphical.enable [
-      pkgs.nerd-fonts.iosevka
-
-      firefox
-      discord
-      obsidian
-      spotify
-      signal-desktop-bin
-      thunderbird
-      qbittorrent
-      (ncspot.override {
-        withCover = true;
-      })
-    ]
     ++ lib.optionals config.dotfiles.coding.enable [
       clang
       llvmPackages_19.clang-tools
@@ -51,14 +34,6 @@
       inkscape
       nixd
       dotfiles.inputs.eye.packages.${pkgs.system}.default
-    ]
-    ++ lib.optionals (pkgs.stdenv.isLinux
-      && config.dotfiles.graphical.enable) [
-      obs-studio
-      blueman
-      anytype
-      mullvad-vpn
-      vlc
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [
       vlc-bin

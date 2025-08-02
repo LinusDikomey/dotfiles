@@ -4,7 +4,7 @@
   dotfiles,
   ...
 }: {
-  programs.hyprlock = lib.mkIf config.dotfiles.desktop.enable {
+  programs.hyprlock = lib.mkIf config.dotfiles.graphical.enable {
     enable = true;
 
     settings = {

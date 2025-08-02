@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  config.services.hypridle = lib.mkIf config.dotfiles.desktop.enable {
+  config.services.hypridle = lib.mkIf config.dotfiles.graphical.enable {
     enable = true;
     settings = {
       general = {

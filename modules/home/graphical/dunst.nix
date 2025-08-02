@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  services.dunst = lib.mkIf config.dotfiles.desktop.enable {
+  services.dunst = lib.mkIf config.dotfiles.graphical.enable {
     enable = true;
     settings = {
       global = {

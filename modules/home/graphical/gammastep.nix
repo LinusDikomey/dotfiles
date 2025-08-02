@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  config.services.gammastep = lib.mkIf config.dotfiles.desktop.enable {
+  config.services.gammastep = lib.mkIf config.dotfiles.graphical.enable {
     enable = true;
 
     dawnTime = "5:00-5:30";

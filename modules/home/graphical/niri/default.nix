@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  cfg = config.dotfiles.desktop;
+  cfg = config.dotfiles.graphical;
   keys = {
     # Colemak DH home row keys
     "M" = "left";

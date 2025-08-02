@@ -1,8 +1,4 @@
-{
-  dotfiles,
-  pkgs,
-  ...
-}: let
+{dotfiles, ...}: let
   inherit (dotfiles) username;
 in {
   imports = [
@@ -12,11 +8,11 @@ in {
   networking.hostName = "saturn";
 
   home-manager.users."${username}".dotfiles = {
-    graphical.enable = true;
     coding.enable = true;
     work.enable = true;
-    desktop = {
-      desktops = ["hyprland" "niri"];
+    gaming.enable = true;
+    graphical = {
+      desktops = ["hyprland" "niri" "plasma"];
       enable = true;
       nvidia = true;
       gtkTheme.enable = true;
@@ -51,17 +47,7 @@ in {
     };
   };
 
-  nixpkgs.overlays = [dotfiles.inputs.niri.overlays.niri];
-  programs.niri = {
-    enable = true;
-    package = pkgs.niri-unstable;
-  };
-
-  dotfiles = {
-    gaming.enable = true;
-    sddm.enable = true;
-    ssh.enable = true;
-  };
+  dotfiles.ssh.enable = true;
 
   age.identityPaths = ["/home/linus/.ssh/id_ed25519"];
 
@@ -70,13 +56,6 @@ in {
 
   boot.supportedFilesystems = ["ntfs" "nfs"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
-
-  programs = {
-    hyprland.enable = true;
-    nix-ld.enable = true;
-  };
-
-  networking.networkmanager.enable = true;
 
   hardware.bluetooth = {
     enable = true;
@@ -89,10 +68,6 @@ in {
       enable = true;
       pulse.enable = true;
     };
-    desktopManager.plasma6 = {
-      enable = true;
-      enableQt5Integration = true;
-    };
     resolved.enable = true;
     mullvad-vpn.enable = true;
   };
@@ -100,7 +75,6 @@ in {
   virtualisation.docker.enable = true;
 
   networking.firewall = {
-    enable = true;
     allowedTCPPorts = [22 8000 25565];
     allowedUDPPorts = [9];
   };

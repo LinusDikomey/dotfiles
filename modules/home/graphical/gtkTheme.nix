@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.dotfiles.desktop.gtkTheme;
+  cfg = config.dotfiles.graphical.gtkTheme;
 in {
-  options.dotfiles.desktop.gtkTheme = {
+  options.dotfiles.graphical.gtkTheme = {
     enable = lib.mkEnableOption "Enable GTK theming config";
   };
   config = lib.mkIf cfg.enable {

@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  programs.wofi = lib.mkIf config.dotfiles.desktop.enable {
+  programs.wofi = lib.mkIf config.dotfiles.graphical.enable {
     enable = true;
     settings = {
       show = "drun";

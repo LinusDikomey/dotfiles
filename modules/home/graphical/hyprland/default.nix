@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  cfg = config.dotfiles.desktop;
+  cfg = config.dotfiles.graphical;
 in {
   config = lib.mkIf (cfg.enable && builtins.elem "hyprland" cfg.desktops) {
     home.packages = with pkgs; [hyprshot];

@@ -4,7 +4,7 @@
   dotfiles,
   ...
 }: {
-  config.services.hyprpaper = lib.mkIf config.dotfiles.desktop.enable {
+  config.services.hyprpaper = lib.mkIf config.dotfiles.graphical.enable {
     enable = true;
     settings = {
       preload = "${dotfiles.wallpaper}";

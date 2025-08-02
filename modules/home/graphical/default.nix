@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) types;
-  cfg = config.dotfiles.desktop;
+  cfg = config.dotfiles.graphical;
 in {
   imports = [
     ./dunst.nix
@@ -20,38 +20,50 @@ in {
     ./wofi.nix
     ./gtkTheme.nix
   ];
-  options.dotfiles.desktop = {
-    enable = lib.mkEnableOption "Enable desktop support";
+  options.dotfiles.graphical = {
+    enable = lib.mkEnableOption "Enable graphical and desktop support";
     nvidia = lib.mkEnableOption "Enable support for nvidia GPU hardware";
     desktops = lib.mkOption {
-      type = types.listOf (types.enum ["hyprland" "niri"]);
-      default = ["hyprland"];
+      type = types.listOf (types.enum ["hyprland" "niri" "plasma"]);
+      default = [];
     };
     monitors = lib.mkOption {
       type = types.attrsOf types.attrs;
-      # TODO: more specific type for list elements like this:
-      # {
-      #   primary = types.bool;
-      #   resolution = types.str;
-      #   framerate = types.int;
-      #   offset = types.str;
-      #   scale = types.float;
-      # };
     };
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      wpa_supplicant
-      networkmanagerapplet
-      grim
-      slurp
-      wl-clipboard
-      nautilus
-      lxqt.lxqt-policykit
+    home.packages = with pkgs;
+      [
+        wpa_supplicant
+        networkmanagerapplet
+        grim
+        slurp
+        wl-clipboard
+        nautilus
+        lxqt.lxqt-policykit
 
-      kitty #backup terminal
-    ];
+        kitty #backup terminal
+        pkgs.nerd-fonts.iosevka
+
+        firefox
+        discord
+        obsidian
+        spotify
+        signal-desktop-bin
+        thunderbird
+        qbittorrent
+        (ncspot.override {
+          withCover = true;
+        })
+      ]
+      ++ lib.optionals pkgs.stdenv.isLinux [
+        obs-studio
+        blueman
+        anytype
+        mullvad-vpn
+        vlc
+      ];
 
     xdg.portal = {
       enable = true;

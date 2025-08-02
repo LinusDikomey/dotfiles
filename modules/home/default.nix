@@ -7,7 +7,7 @@
 }: {
   imports = [
     ./darwin
-    ./desktop
+    ./graphical
     ./git.nix
     ./jujutsu.nix
     ./helix.nix
@@ -15,6 +15,7 @@
     ./nu.nix
     ./packages.nix
     ./work.nix
+    ./gaming.nix
     dotfiles.inputs.niri.homeModules.niri
   ];
 
