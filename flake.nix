@@ -7,6 +7,16 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lix = {
+      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
+      flake = false;
+    };
+
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.lix.follows = "lix";
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -54,6 +64,7 @@
           ./modules/nixos
           inputs.home-manager.nixosModules.default
           inputs.agenix.nixosModules.default
+          inputs.lix-module.nixosModules.default
         ];
       };
     mkDarwin = host: user:
@@ -65,6 +76,7 @@
           ./modules/darwin
           inputs.home-manager.darwinModules.home-manager
           inputs.agenix.darwinModules.default
+          inputs.lix-module.darwinModules.default
         ];
       };
   in {
