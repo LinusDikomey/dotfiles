@@ -1,9 +1,10 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
-  programs.wofi = lib.mkIf config.dotfiles.graphical.enable {
+  programs.wofi = lib.mkIf (config.dotfiles.graphical.enable && pkgs.stdenv.isLinux) {
     enable = true;
     settings = {
       show = "drun";

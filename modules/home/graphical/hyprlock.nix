@@ -2,9 +2,10 @@
   lib,
   config,
   dotfiles,
+  pkgs,
   ...
 }: {
-  programs.hyprlock = lib.mkIf config.dotfiles.graphical.enable {
+  programs.hyprlock = lib.mkIf (config.dotfiles.graphical.enable && pkgs.stdenv.isLinux) {
     enable = true;
 
     settings = {

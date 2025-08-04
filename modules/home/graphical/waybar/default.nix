@@ -11,7 +11,7 @@ in {
     description = "City used for displaying weather in status bar";
   };
 
-  config.programs.waybar = lib.mkIf cfg.enable {
+  config.programs.waybar = lib.mkIf (cfg.enable && pkgs.stdenv.isLinux) {
     enable = true;
     systemd.enable = true;
     style = builtins.readFile ./style.css;

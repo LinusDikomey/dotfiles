@@ -35,14 +35,6 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs;
       [
-        wpa_supplicant
-        networkmanagerapplet
-        grim
-        slurp
-        wl-clipboard
-        nautilus
-        lxqt.lxqt-policykit
-
         kitty #backup terminal
         pkgs.nerd-fonts.iosevka
 
@@ -58,6 +50,14 @@ in {
         })
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
+        wpa_supplicant
+        networkmanagerapplet
+        grim
+        slurp
+        wl-clipboard
+        nautilus
+        lxqt.lxqt-policykit
+
         obs-studio
         blueman
         anytype
@@ -65,20 +65,20 @@ in {
         vlc
       ];
 
-    xdg.portal = {
+    xdg.portal = lib.mkIf pkgs.stdenv.isLinux {
       enable = true;
       xdgOpenUsePortal = true;
     };
 
     home.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    services = {
+    services = lib.mkIf pkgs.stdenv.isLinux {
       gnome-keyring.enable = true;
       network-manager-applet.enable = true;
       mpris-proxy.enable = true;
     };
 
-    systemd.user.services.polkit-lxqt-authentication-agent = {
+    systemd.user.services.polkit-lxqt-authentication-agent = lib.mkIf pkgs.stdenv.isLinux {
       Install = {
         WantedBy = ["graphical-session.target"];
       };

@@ -1,9 +1,10 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: {
-  services.dunst = lib.mkIf config.dotfiles.graphical.enable {
+  services.dunst = lib.mkIf (config.dotfiles.graphical.enable && pkgs.stdenv.isLinux) {
     enable = true;
     settings = {
       global = {

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  config.services.hypridle = lib.mkIf config.dotfiles.graphical.enable {
+  config.services.hypridle = lib.mkIf (config.dotfiles.graphical.enable && pkgs.stdenv.isLinux) {
     enable = true;
     settings = {
       general = {

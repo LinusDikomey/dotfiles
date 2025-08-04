@@ -76,7 +76,7 @@
           ./modules/darwin
           inputs.home-manager.darwinModules.home-manager
           inputs.agenix.darwinModules.default
-          inputs.lix-module.darwinModules.default
+          inputs.lix-module.nixosModules.default
         ];
       };
   in {

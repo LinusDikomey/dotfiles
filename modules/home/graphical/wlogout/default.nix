@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  programs.wlogout = lib.mkIf config.dotfiles.graphical.enable {
+  programs.wlogout = lib.mkIf (config.dotfiles.graphical.enable && pkgs.stdenv.isLinux) {
     enable = true;
     layout = [
       {
