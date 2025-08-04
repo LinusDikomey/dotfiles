@@ -80,7 +80,7 @@
         ];
       };
   in {
-    nixosConfigurations.saturn = mkNixos ./hosts/saturn/configuration.nix "linus";
+    nixosConfigurations.saturn = mkNixos ./hosts/saturn.nix "linus";
     darwinConfigurations.mars = mkDarwin ./hosts/mars.nix "linus";
     nixosConfigurations.titan = mkNixos ./hosts/titan.nix "linus";
     deploy.nodes.titan = {

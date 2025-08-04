@@ -47,6 +47,7 @@ in {
       #   cfg.monitors
       # );
       prefer-no-csd = true;
+      clipboard.disable-primary = true;
       input = {
         focus-follows-mouse = {
           enable = true;

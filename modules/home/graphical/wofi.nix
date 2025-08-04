@@ -11,7 +11,8 @@
       sort_order = "default";
       width = "30%";
       hide_scroll = true;
-      lines = 8;
+      # lines = 8; # this is broken in wofi
+      height = 300;
       term = "ghostty";
       line_wrap = "word";
       allow_markup = true;
@@ -41,7 +42,7 @@
 
         #window {
           background: #11111b;
-          margin: auto;
+          margin: 0;
           padding: 10px;
           border-radius: 20px;
           border: 2px solid #89b4fa;

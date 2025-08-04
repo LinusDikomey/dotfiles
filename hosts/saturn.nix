@@ -1,10 +1,6 @@
 {dotfiles, ...}: let
   inherit (dotfiles) username;
 in {
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
   networking.hostName = "saturn";
 
   home-manager.users."${username}".dotfiles = {
@@ -74,16 +70,52 @@ in {
 
   virtualisation.docker.enable = true;
 
-  networking.networkmanager.enable = true;
-  networking.firewall = {
-    allowedTCPPorts = [22 8000 25565];
-    allowedUDPPorts = [9];
+  networking = {
+    networkmanager.enable = true;
+    firewall = {
+      allowedTCPPorts = [22 8000 25565];
+      allowedUDPPorts = [9];
+    };
+    interfaces.enp4s0.wakeOnLan.enable = true;
   };
-  networking.interfaces.enp4s0.wakeOnLan.enable = true;
 
-  fileSystems."/mnt/media" = {
-    device = "192.168.2.108:/media";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "x-systemd.idle-timeout=600"];
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/66ef51db-c6d0-4da6-a1ad-9ca9d9cd1d69";
+      fsType = "ext4";
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/644D-0E5B";
+      fsType = "vfat";
+      options = ["fmask=0022" "dmask=0022"];
+    };
+
+    "/mnt/windows" = {
+      device = "/dev/disk/by-uuid/224A39FF4A39CFF1";
+      fsType = "ntfs";
+      options = ["nofail"];
+    };
+
+    "/mnt/media" = {
+      device = "192.168.2.108:/media";
+      fsType = "nfs";
+      options = ["x-systemd.automount" "noauto" "x-systemd.idle-timeout=600"];
+    };
   };
+
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 64 * 1024;
+    }
+  ];
+
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel" "wireguard"];
+  boot.extraModulePackages = [];
+  hardware.cpu.intel.updateMicrocode = true;
+
+  nixpkgs.hostPlatform = "x86_64-linux";
 }

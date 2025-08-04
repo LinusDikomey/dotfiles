@@ -38,6 +38,9 @@
     ++ lib.optionals pkgs.stdenv.isDarwin [
       vlc-bin
     ]
+    ++ lib.optionals pkgs.stdenv.isLinux [
+      wineWowPackages.stable
+    ]
   );
   config.home.shellAliases = lib.mkIf config.dotfiles.coding.enable {
     "objdump" = "objdump -M intel";
