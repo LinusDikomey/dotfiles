@@ -53,6 +53,7 @@ in {
   boot.supportedFilesystems = ["ntfs" "nfs"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
+  hardware.enableRedistributableFirmware = true;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
