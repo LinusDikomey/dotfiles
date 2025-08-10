@@ -111,6 +111,8 @@ in {
               b = ":! git blame -L %{cursor_line},+1 %{buffer_name}";
               c = "changed_file_picker";
             };
+
+            " ".B.D = [":run-shell-command rm %{buffer_name}" ":buffer-close!"];
           };
 
           select = {
@@ -172,6 +174,11 @@ in {
               "{" = "}";
               "\"" = "\"";
             };
+            formatter = {
+              command = "eye";
+              args = ["fmt-stdin"];
+            };
+            auto-format = true;
           }
           {
             name = "gon";
