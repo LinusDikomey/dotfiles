@@ -38,12 +38,6 @@
     };
   };
 
-  home.file = let
-    linkConfig = name: config.lib.file.mkOutOfStoreSymlink "/${dotfiles.homeFolder}/${dotfiles.username}/dotfiles/config/${name}";
-  in {
-    ".config/zed/".source = linkConfig "zed";
-  };
-
   home.sessionVariables = {
     EDITOR = "hx";
     TERM = "xterm-256color";

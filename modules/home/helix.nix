@@ -37,36 +37,41 @@ in {
           whitespace.render.tab = "all";
         };
 
-        keys = {
+        keys = let
+          match_mode = {
+            h = "match_brackets";
+            s = "surround_add";
+            r = "surround_replace";
+            d = "surround_delete";
+            a = "select_textobject_around";
+            i = "select_textobject_inner";
+          };
+          g_mode = {
+            h = "no_op";
+            l = "no_op";
+            m = "goto_line_start";
+            i = "goto_line_end";
+          };
+        in {
           normal = {
-            k = "no_op";
             m = "move_char_left";
             n = "move_visual_line_down";
             N = "join_selections";
             "A-N" = "join_selections_space";
             e = "move_visual_line_up";
+            E = "keep_selections";
             i = "move_char_right";
-            l = "insert_mode";
+
             j = "search_next";
             J = "search_prev";
+            k = "move_next_word_end";
+            K = "move_next_long_word_end";
+            l = "insert_mode";
             "C-u" = "jump_forward";
             "C-y" = "jump_backward";
 
-            h = {
-              h = "match_brackets";
-              s = "surround_add";
-              r = "surround_replace";
-              d = "surround_delete";
-              a = "select_textobject_around";
-              i = "select_textobject_inner";
-            };
-
-            g = {
-              h = "no_op";
-              l = "no_op";
-              m = "goto_line_start";
-              i = "goto_line_end";
-            };
+            h = match_mode;
+            g = g_mode;
 
             z = {
               j = "no_op";
@@ -105,9 +110,6 @@ in {
           };
 
           select = {
-            h = "no_op";
-            k = "no_op";
-            l = "no_op";
             m = "extend_char_left";
             n = "extend_visual_line_down";
             e = "extend_visual_line_up";
@@ -115,12 +117,7 @@ in {
             j = "extend_search_next";
             J = "extend_search_prev";
 
-            g = {
-              h = "no_op";
-              l = "no_op";
-              m = "goto_line_start";
-              i = "goto_line_end";
-            };
+            g = g_mode;
           };
         };
       };
