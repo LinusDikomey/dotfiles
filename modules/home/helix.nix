@@ -70,6 +70,9 @@ in {
             "C-u" = "jump_forward";
             "C-y" = "jump_backward";
 
+            # it's a bit stupid but alt-d only works on mac like this because it yields √
+            "√" = "delete_selection_noyank";
+
             h = match_mode;
             g = g_mode;
 
@@ -105,6 +108,7 @@ in {
 
             " ".g = {
               u = ":reset-diff-change";
+              b = ":! git blame -L %{cursor_line},+1 %{buffer_name}";
               c = "changed_file_picker";
             };
           };

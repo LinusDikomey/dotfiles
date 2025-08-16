@@ -35,6 +35,7 @@
       font-family = "Iosevka Nerd Font";
       font-size = 20;
       background-opacity = 0.8;
+      macos-option-as-alt = lib.mkIf pkgs.stdenv.isDarwin true;
     };
   };
 
