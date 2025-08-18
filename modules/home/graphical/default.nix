@@ -10,6 +10,7 @@ in {
   imports = [
     ./dunst.nix
     ./gammastep.nix
+    ./ghostty.nix
     ./hypridle.nix
     ./hyprland
     ./niri
@@ -20,6 +21,7 @@ in {
     ./wofi.nix
     ./gtkTheme.nix
   ];
+
   options.dotfiles.graphical = {
     enable = lib.mkEnableOption "Enable graphical and desktop support";
     nvidia = lib.mkEnableOption "Enable support for nvidia GPU hardware";
@@ -30,13 +32,31 @@ in {
     monitors = lib.mkOption {
       type = types.attrsOf types.attrs;
     };
+    font = lib.mkOption {
+      type = types.submodule {
+        options = {
+          package = lib.mkOption {
+            type = types.package;
+            description = "Font package";
+          };
+          name = lib.mkOption {
+            type = types.str;
+            description = "Font family name";
+          };
+        };
+      };
+      default = {
+        package = pkgs.nerd-fonts.iosevka;
+        name = "Iosevka Nerd Font";
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs;
       [
         kitty #backup terminal
-        pkgs.nerd-fonts.iosevka
+        config.dotfiles.graphical.font.package
 
         firefox
         discord

@@ -1,10 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  dotfiles,
-  ...
-}: {
+{dotfiles, ...}: {
   imports = [
     ./darwin
     ./graphical
@@ -23,21 +17,6 @@
   home.homeDirectory = "/${dotfiles.homeFolder}/${dotfiles.username}";
 
   fonts.fontconfig.enable = true;
-
-  programs.ghostty = lib.mkIf config.dotfiles.graphical.enable {
-    enable = true;
-    package =
-      if pkgs.stdenv.isLinux
-      then pkgs.ghostty
-      else null;
-    settings = {
-      theme = "catppuccin-macchiato";
-      font-family = "Iosevka Nerd Font";
-      font-size = 20;
-      background-opacity = 0.8;
-      macos-option-as-alt = lib.mkIf pkgs.stdenv.isDarwin true;
-    };
-  };
 
   home.sessionVariables = {
     EDITOR = "hx";

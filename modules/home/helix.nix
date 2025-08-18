@@ -123,6 +123,7 @@ in {
             j = "extend_search_next";
             J = "extend_search_prev";
 
+            h = match_mode;
             g = g_mode;
           };
         };
@@ -165,8 +166,8 @@ in {
             language-servers = ["eye"];
             grammar = "eye";
             indent = {
-              tab-width = 4;
-              unit = "    ";
+              tab-width = 2;
+              unit = "  ";
             };
             auto-pairs = {
               "(" = ")";

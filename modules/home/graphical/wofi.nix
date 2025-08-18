@@ -32,7 +32,7 @@
       # css
       ''
         * {
-          font-family: Iosevka;
+          font-family: ${config.dotfiles.graphical.font.name};
           color: #cdd6f4;
         }
 

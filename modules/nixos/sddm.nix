@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  dotfiles,
   ...
 }: let
   enabled =
@@ -16,14 +15,15 @@ in {
     services.displayManager.sddm = {
       enable = true;
       package = lib.mkForce pkgs.kdePackages.sddm;
-      theme = "catppuccin-macchiato";
+      theme = "catppuccin-macchiato-mauve";
     };
     environment.systemPackages = [
       (pkgs.catppuccin-sddm.override {
         flavor = "macchiato";
         font = "Iosevka Nerd Font";
         fontSize = "10";
-        background = "${dotfiles.wallpaper}";
+        # broken :(
+        # background = "${dotfiles.wallpaper}";
         loginBackground = true;
       })
     ];
