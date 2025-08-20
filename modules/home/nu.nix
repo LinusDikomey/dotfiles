@@ -19,7 +19,6 @@
       icat = "${pkgs.kitty}/bin/kitten icat";
       mv = "mv -i";
       "nix develop" = "nix develop --command nu";
-      "nix shell" = "nix shell";
     };
     extraConfig =
       /*
@@ -37,6 +36,20 @@
             }
             | where ip != null
             | prepend {name: 'external', ip: $external }
+        }
+
+        def tokei [...args] {
+          ${pkgs.tokei}/bin/tokei ...$args
+            | lines
+            | each { str trim }
+            | where {|s| not (
+              ($s | str starts-with '━') or
+              ($s | str starts-with '─') or
+              ($s | str starts-with '|') or
+              ($s | str starts-with '('))
+            }
+            | split column -r '\s+'
+            | headers
         }
       '';
   };

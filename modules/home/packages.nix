@@ -33,6 +33,7 @@
       rust-analyzer
       inkscape
       nixd
+      nil
       dotfiles.inputs.eye.packages.${pkgs.system}.default
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [

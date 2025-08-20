@@ -65,9 +65,6 @@ in {
         signal-desktop-bin
         thunderbird
         qbittorrent
-        (ncspot.override {
-          withCover = true;
-        })
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
         wpa_supplicant
