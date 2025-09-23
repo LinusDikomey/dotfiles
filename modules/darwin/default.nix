@@ -35,6 +35,8 @@
     remapCapsLockToEscape = true;
   };
 
+  nix.linux-builder.enable = true;
+
   system.configurationRevision = dotfiles.inputs.self.rev or dotfiles.inputs.self.dirtyRev or null;
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowBroken = true;

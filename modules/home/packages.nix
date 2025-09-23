@@ -39,7 +39,7 @@
     ++ lib.optionals pkgs.stdenv.isDarwin [
       vlc-bin
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
+    ++ lib.optionals (pkgs.stdenv.isLinux && config.dotfiles.coding.enable) [
       wineWowPackages.stable
     ]
   );
