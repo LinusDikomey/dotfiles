@@ -35,7 +35,20 @@
     remapCapsLockToEscape = true;
   };
 
-  nix.linux-builder.enable = true;
+  nix.linux-builder = {
+    enable = true;
+    ephemeral = true;
+    maxJobs = 4;
+    config = {
+      virtualisation = {
+        darwin-builder = {
+          diskSize = 40 * 1024;
+          memorySize = 6 * 1024;
+        };
+        cores = 6;
+      };
+    };
+  };
 
   system.configurationRevision = dotfiles.inputs.self.rev or dotfiles.inputs.self.dirtyRev or null;
   nixpkgs.hostPlatform = "aarch64-darwin";

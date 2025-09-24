@@ -7,6 +7,7 @@
     ./helix.nix
     ./mime.nix
     ./nu.nix
+    ./yazi.nix
     ./packages.nix
     ./work.nix
     ./gaming.nix
