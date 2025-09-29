@@ -135,6 +135,9 @@ in {
             j = "extend_search_next";
             J = "extend_search_prev";
 
+            k = "extend_next_word_end";
+            K = "extend_next_long_word_end";
+
             h = match_mode;
             g = g_mode;
           };
