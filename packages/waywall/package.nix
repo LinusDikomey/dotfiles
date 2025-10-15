@@ -44,9 +44,9 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   src = fetchFromGitHub {
-    rev = "16607ea";
+    rev = "ed76c2b";
     owner = "tesselslate";
     repo = "waywall";
-    hash = "sha256-1ZlyhacDm/8qyBPvpuqQKnSg+9qx78chUK+hH7+ahIY=";
+    hash = "sha256-bLIoGLXnBrn46EVk0PkGePslKYL7V/h1mnI+s9GFSnY=";
   };
 })

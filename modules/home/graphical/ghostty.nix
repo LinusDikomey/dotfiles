@@ -11,7 +11,7 @@
       then pkgs.ghostty
       else null;
     settings = {
-      theme = "catppuccin-macchiato";
+      theme = "Catppuccin Macchiato";
       font-family = config.dotfiles.graphical.font.name;
       font-size = 20;
       background-opacity = 0.8;
