@@ -2,7 +2,7 @@
   lib,
   config,
   pkgs,
-  dotfiles,
+  inputs',
   ...
 }: {
   options.dotfiles.coding.enable = lib.mkEnableOption "Enable coding packages";
@@ -10,7 +10,7 @@
   config.home.packages = with pkgs; (
     [
       neovim
-      dotfiles.inputs.agenix.packages.${system}.default
+      inputs'.agenix.packages.default
       wget
       ripgrep
       bat
@@ -34,7 +34,7 @@
       inkscape
       nixd
       nil
-      dotfiles.inputs.eye.packages.${pkgs.system}.default
+      inputs'.eye.packages.default
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [
       vlc-bin

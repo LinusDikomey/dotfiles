@@ -16,18 +16,18 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [pkgs.delta];
     programs.git = {
       enable = true;
       lfs.enable = true;
-      userName = dotfiles.user.name;
-      userEmail = dotfiles.user.email;
       ignores = [
         ".obsidian"
         ".DS_Store"
       ];
-      delta.enable = true;
-      extraConfig = {
+      settings = {
+        user = {
+          name = dotfiles.user.name;
+          email = dotfiles.user.email;
+        };
         core.whitespace = "error";
         init.defaultBranch = "main";
         status = {
@@ -53,6 +53,10 @@ in {
             exit 0
           fi
         '';
+    };
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
     };
   };
 }

@@ -1,12 +1,17 @@
 {
   pkgs,
   dotfiles,
+  inputs,
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [dotfiles.inputs.niri.overlays.niri];
+  nixpkgs.overlays = [inputs.niri.overlays.niri];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix = {
+    settings.experimental-features = ["nix-command" "flakes"];
+    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    channel.enable = false;
+  };
 
   time.timeZone = "Europe/Berlin";
 
@@ -15,8 +20,5 @@
   home-manager = {
     backupFileExtension = "bak";
     users."${dotfiles.username}".imports = [./home];
-    extraSpecialArgs = {inherit dotfiles;};
-    useGlobalPkgs = true;
-    useUserPackages = true;
   };
 }

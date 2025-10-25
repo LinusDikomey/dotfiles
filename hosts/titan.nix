@@ -1,10 +1,10 @@
 {
   pkgs,
-  dotfiles,
+  inputs,
   ...
 }: {
   imports = [
-    "${dotfiles.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+    "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
   ];
 
   dotfiles = {
@@ -20,7 +20,6 @@
   };
 
   nixpkgs.hostPlatform = "aarch64-linux";
-  networking.hostName = "titan";
 
   age.identityPaths = ["/root/.ssh/id_ed25519"];
 

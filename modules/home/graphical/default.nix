@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  pkgs-stable,
   config,
   ...
 }: let
@@ -58,13 +59,15 @@ in {
         kitty #backup terminal
         config.dotfiles.graphical.font.package
 
-        firefox
+        pkgs-stable.firefox
         discord
         obsidian
         spotify
         signal-desktop-bin
         thunderbird
-        qbittorrent
+        # broken right now on unstable
+        pkgs-stable.qbittorrent
+        bitwarden-desktop
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
         wpa_supplicant

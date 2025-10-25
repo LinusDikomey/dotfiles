@@ -1,4 +1,8 @@
-{dotfiles, ...}: {
+{
+  dotfiles,
+  inputs,
+  ...
+}: {
   imports = [
     ./darwin
     ./graphical
@@ -11,7 +15,7 @@
     ./packages.nix
     ./work.nix
     ./gaming.nix
-    dotfiles.inputs.niri.homeModules.niri
+    inputs.niri.homeModules.niri
   ];
 
   home.username = dotfiles.username;

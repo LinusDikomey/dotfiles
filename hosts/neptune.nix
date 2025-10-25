@@ -1,12 +1,10 @@
 {
   pkgs,
-  dotfiles,
+  inputs',
   modulesPath,
   config,
   ...
-}: let
-  system = "aarch64-linux";
-in {
+}: {
   dotfiles = {
     ssh = {
       enable = true;
@@ -16,7 +14,6 @@ in {
     };
   };
 
-  networking.hostName = "neptune";
   time.timeZone = "Europe/Berlin";
 
   services.caddy = {
@@ -74,7 +71,7 @@ in {
 
   age.secrets.waldbot-env.file = ../secrets/waldbot-env.age;
   systemd.services.waldbot = let
-    waldbot = dotfiles.inputs.waldbot.packages.${system}.default;
+    waldbot = inputs'.waldbot.packages.default;
     envPath = config.age.secrets.waldbot-env.path;
   in {
     wantedBy = ["multi-user.target"];
@@ -115,5 +112,5 @@ in {
     options = ["fmask=0022" "dmask=0022"];
   };
 
-  nixpkgs.hostPlatform = system;
+  nixpkgs.hostPlatform = "aarch64-linux";
 }

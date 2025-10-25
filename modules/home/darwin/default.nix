@@ -2,9 +2,9 @@
   pkgs,
   dotfiles,
   lib,
+  inputs,
   ...
-}: let
-in {
+}: {
   programs.nushell.extraConfig = lib.mkIf pkgs.stdenv.isDarwin ''
     $env.PATH = ($env.PATH
       | append $"($env.HOME)/nix-profile/bin"
@@ -13,6 +13,7 @@ in {
       | append "/nix/var/nix/profiles/default/bin"
       | append "/usr/local/bin"
     )
+    $env.NIX_PATH = "nixpkgs=${inputs.nixpkgs}"
   '';
   home = lib.mkIf pkgs.stdenv.isDarwin {
     extraActivationPath = with pkgs; [

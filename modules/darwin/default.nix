@@ -1,6 +1,7 @@
 {
   pkgs,
   dotfiles,
+  inputs,
   ...
 }: {
   imports = [
@@ -50,8 +51,7 @@
     };
   };
 
-  system.configurationRevision = dotfiles.inputs.self.rev or dotfiles.inputs.self.dirtyRev or null;
-  nixpkgs.hostPlatform = "aarch64-darwin";
+  system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
   nixpkgs.config.allowBroken = true;
   system.stateVersion = 6;
 }

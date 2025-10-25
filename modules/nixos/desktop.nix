@@ -2,7 +2,7 @@
   lib,
   config,
   pkgs,
-  dotfiles,
+  inputs,
   ...
 }: let
   graphicalCfgs =
@@ -14,7 +14,7 @@
   niriEnabled = builtins.elem "niri" desktops;
 in {
   nixpkgs.overlays = [
-    dotfiles.inputs.niri.overlays.niri
+    inputs.niri.overlays.niri
   ];
 
   programs.niri = lib.mkIf (enabled && niriEnabled) {
