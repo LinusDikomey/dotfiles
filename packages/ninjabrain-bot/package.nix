@@ -16,12 +16,17 @@ stdenv.mkDerivation rec {
   dontUnpack = true;
 
   nativeBuildInputs = [makeWrapper];
-  buildInputs = [libxkbcommon xorg.libxcb xorg.libX11 xorg.libXt];
+  buildInputs = [
+    libxkbcommon
+    xorg.libxcb
+    xorg.libX11
+    xorg.libXt
+  ];
   installPhase = ''
     mkdir -pv $out/share/java $out/bin
     cp ${src} $out/share/java/${name}-${version}.jar
     makeWrapper ${jre}/bin/java $out/bin/Ninjabrain-Bot \
-      --add-flags "-jar $out/share/java/${name}-${version}.jar -Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel" \
-      --set LD_LIBRARY_PATH "${libxkbcommon}/lib:${xorg.libxcb}/lib:${xorg.libX11}/lib:${xorg.libXt}/lib"
+      --add-flags "-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel -jar $out/share/java/${name}-${version}.jar" \
+      --set LD_LIBRARY_PATH "${libxkbcommon}/lib:${xorg.libxcb}/lib:${xorg.libX11}/lib:${xorg.libXt}/lib:$LD_LIBRARY_PATH"
   '';
 }

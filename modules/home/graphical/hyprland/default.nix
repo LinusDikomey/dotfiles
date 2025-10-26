@@ -67,7 +67,7 @@ in {
           kb_options = "compose:rwin";
 
           follow_mouse = 1;
-          sensitivity = -0.45;
+          sensitivity = -0.5;
           accel_profile = "flat";
         };
 

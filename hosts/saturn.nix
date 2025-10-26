@@ -1,4 +1,8 @@
-{dotfiles, ...}: let
+{
+  dotfiles,
+  pkgs,
+  ...
+}: let
   inherit (dotfiles) username;
 in {
   networking.hostName = "saturn";
@@ -64,6 +68,7 @@ in {
     pipewire = {
       enable = true;
       pulse.enable = true;
+      wireplumber.enable = true;
     };
     resolved.enable = true;
     mullvad-vpn.enable = true;
@@ -78,6 +83,11 @@ in {
       allowedUDPPorts = [9];
     };
     interfaces.enp4s0.wakeOnLan.enable = true;
+  };
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [obs-pipewire-audio-capture];
   };
 
   fileSystems = {
