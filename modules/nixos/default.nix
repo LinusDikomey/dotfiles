@@ -1,7 +1,6 @@
 {
   dotfiles,
   pkgs,
-  lib,
   ...
 }: {
   imports = [
@@ -15,7 +14,6 @@
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  networking.useDHCP = lib.mkDefault true;
 
   users.users.${dotfiles.username} = {
     isNormalUser = true;

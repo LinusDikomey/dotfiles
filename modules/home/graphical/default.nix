@@ -77,7 +77,7 @@ in {
         wl-clipboard
         nautilus
         helvum
-        # lxqt.lxqt-policykit
+        # dotfiles.pkgs-stable.lxqt.lxqt-policykit
 
         blueman
         anytype
@@ -98,19 +98,19 @@ in {
       mpris-proxy.enable = true;
     };
 
-    #   systemd.user.services.polkit-lxqt-authentication-agent = lib.mkIf pkgs.stdenv.isLinux {
-    #     Install = {
-    #       WantedBy = ["graphical-session.target"];
-    #     };
-    #     Service = {
-    #       wants = ["graphical-session.target"];
-    #       after = ["graphical-session.target"];
-    #       Type = "simple";
-    #       ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
-    #       Restart = "on-failure";
-    #       RestartSec = 1;
-    #       TimeoutStopSec = 10;
-    #     };
-    #   };
+    systemd.user.services.polkit-lxqt-authentication-agent = lib.mkIf pkgs.stdenv.isLinux {
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
+      Service = {
+        wants = ["graphical-session.target"];
+        after = ["graphical-session.target"];
+        Type = "simple";
+        ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
   };
 }

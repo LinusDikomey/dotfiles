@@ -7,12 +7,16 @@
 in {
   networking.hostName = "saturn";
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "gradle-7.6.6"
+  ];
+
   home-manager.users."${username}".dotfiles = {
     coding.enable = true;
     work.enable = true;
     gaming.enable = true;
     graphical = {
-      desktops = ["hyprland" "niri" "plasma"];
+      desktops = ["hyprland" "plasma"];
       enable = true;
       nvidia = true;
       gtkTheme.enable = true;
@@ -60,7 +64,7 @@ in {
   hardware.enableRedistributableFirmware = true;
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = false;
+    powerOnBoot = true;
   };
 
   services = {
@@ -83,6 +87,7 @@ in {
       allowedUDPPorts = [9];
     };
     interfaces.enp4s0.wakeOnLan.enable = true;
+    useNetworkd = false;
   };
 
   programs.obs-studio = {

@@ -44,6 +44,8 @@ in {
           "rounding 0, floating:0, onworkspace:w[tv1]"
           "bordersize 0, floating:0, onworkspace:f[1]"
           "rounding 0, floating:0, onworkspace:f[1]"
+          "immediate, class:^(Minecraft)$"
+          "immediate, class:^(waywall)$"
         ];
 
         exec-once = [
@@ -67,7 +69,7 @@ in {
           kb_options = "compose:rwin";
 
           follow_mouse = 1;
-          sensitivity = -0.5;
+          sensitivity = -0.6;
           accel_profile = "flat";
         };
 
@@ -80,7 +82,7 @@ in {
           layout = "dwindle";
 
           # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-          allow_tearing = false;
+          allow_tearing = true;
         };
 
         decoration = {

@@ -23,6 +23,9 @@ local config = {
 		background = "#303030ff",
 		ninb_anchor = "topleft",
 	},
+	experimental = {
+		tearing = true
+	}
 }
 
 local exec_ninb = function()
@@ -193,12 +196,38 @@ local keep_keypress = function(f)
 		end
 end
 
+local oneshot_image = nil
+
+local oneshot_crosshair = function()
+	local r = 2
+	if oneshot_image ~= nil then
+		print("closing oneshot image: ")
+		oneshot_image:close()
+		print("nilling")
+		oneshot_image = nil
+		return
+	end
+	oneshot_image = waywall.image(
+		"/home/linus/mcsr/dot.png",
+		{
+			dst = {
+				x = 2560 / 2 - r,
+				y = 1440 / 2 - r,
+				w = r * 2,
+				h = r * 2,
+			},
+			depth = 0
+		}
+	)
+end
+
 config.actions = {
 	["*-grave"] = keep_keypress(resolutions.tall),
 	["*-P"] = keep_keypress(resolutions.thin),
 	["Shift-g"] = keep_keypress(resolutions.wide),
 	["Shift-7"] = keep_keypress(exec_ninb),
 	["x"] = keep_keypress(helpers.toggle_floating),
+	["o"] = oneshot_crosshair,
 }
 
 return config
