@@ -10,6 +10,7 @@
     ./jujutsu.nix
     ./helix.nix
     ./mime.nix
+    ./nh.nix
     ./nu.nix
     ./yazi.nix
     ./packages.nix
