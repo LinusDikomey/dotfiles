@@ -18,8 +18,12 @@ in {
       (pkgs.callPackage ../../packages/waywall/package.nix {})
       (pkgs.callPackage ../../packages/glfw-waywall/package.nix {})
       (pkgs.callPackage ../../packages/ninjabrain-bot/package.nix {})
-      (pkgs.jdk17.override {enableJavaFX = true;})
+      # (pkgs.jdk17.override {enableJavaFX = true;})
     ];
+
+    # nixpkgs.config.permittedInsecurePackages = [
+    #   "gradle-7.6.6"
+    # ];
 
     home.file.".config/waywall".source =
       config.lib.file.mkOutOfStoreSymlink

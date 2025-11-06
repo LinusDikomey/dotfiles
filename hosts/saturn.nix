@@ -5,12 +5,6 @@
 }: let
   inherit (dotfiles) username;
 in {
-  networking.hostName = "saturn";
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "gradle-7.6.6"
-  ];
-
   home-manager.users."${username}".dotfiles = {
     coding.enable = true;
     work.enable = true;

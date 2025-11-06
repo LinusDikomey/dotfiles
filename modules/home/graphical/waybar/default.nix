@@ -25,7 +25,10 @@ in {
         position = "top";
         height = 40;
         modules-left = ["hyprland/workspaces" "niri/workspaces" "hyprland/mode" "hyprland/scratchpad" "custom/music"];
-        modules-center = ["hyprland/window" "niri/window"];
+        modules-center = [
+          "hyprland/window"
+          # "niri/window"
+        ];
         modules-right = ["tray" "idle_inhibitor" "wireplumber" "custom/weather" "cpu" "memory" "backlight" "battery" "battery#bat2" "clock" "custom/power"];
         "hyprland/workspaces".all-outputs = true;
         "keyboard-state" = {
@@ -133,10 +136,10 @@ in {
         "custom/music" = let
           p = args: "${pkgs.playerctl}/bin/playerctl ${args}";
         in {
-          format = "<span foreground='#66dc69'>󰓇 </span> {icon}  <span>{}</span>";
+          format = "<span foreground='#66dc69'>󰓇 </span> {icon}  <span>{text}</span>";
           return-type = "json";
           max-length = 80;
-          exec = p "-p spotify metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F";
+          exec = p ''-p spotify metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F'';
           on-click = p "-p spotify play-pause";
           on-double-click = p "-p spotify next";
           on-click-right = p "-p spotify previous";

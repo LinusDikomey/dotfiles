@@ -14,8 +14,6 @@
     };
   };
 
-  time.timeZone = "Europe/Berlin";
-
   services.caddy = {
     enable = true;
     virtualHosts = {

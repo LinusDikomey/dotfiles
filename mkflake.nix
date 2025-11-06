@@ -25,7 +25,7 @@ in {
           ];
         };
       in
-        deployPkgs.deploy-rs.lib.${value.system}.activate.${value.class} inputs.self."${value.class}Configurations".${name};
+        deployPkgs.deploy-rs.lib.activate.${value.class} inputs.self."${value.class}Configurations".${name};
     };
   }) (lib.filterAttrs (_: value: value.deploy != null) systems);
   checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;

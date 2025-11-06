@@ -1,12 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
-  imports = [
-    "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-  ];
-
+{pkgs, ...}: {
   dotfiles = {
     dyndns.enable = true;
     ssh = {
@@ -17,6 +9,18 @@
       };
     };
     blocky.enable = true;
+  };
+
+  boot = {
+    supportedFilesystems = ["ext4" "vfat"];
+    loader = {
+      grub.enable = false;
+      generic-extlinux-compatible.enable = false;
+    };
+    initrd.availableKernelModules = [];
+    initrd.kernelModules = [];
+    kernelModules = [];
+    extraModulePackages = [];
   };
 
   nixpkgs.hostPlatform = "aarch64-linux";
@@ -80,5 +84,11 @@
     }
   ];
 
-  hardware.enableRedistributableFirmware = true;
+  hardware = {
+    enableRedistributableFirmware = true;
+    deviceTree = {
+      enable = true;
+      filter = "bcm2711-rpi-4*.dtb";
+    };
+  };
 }

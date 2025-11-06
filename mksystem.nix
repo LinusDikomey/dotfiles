@@ -45,7 +45,6 @@
       ++ modules
       ++ [
         ./modules
-        inputs.lix-module.nixosModules.default
         inputs.home-manager.${modulesName}.default
         inputs.agenix.${modulesName}.default
         ({config, ...}: {
@@ -106,5 +105,6 @@ in
     }
   )
   // {
-    inherit class deploy system;
+    inherit class deploy;
+    system = eval.config.nixpkgs.hostPlatform.system;
   }
