@@ -77,12 +77,12 @@ in {
         wl-clipboard
         nautilus
         helvum
-        # dotfiles.pkgs-stable.lxqt.lxqt-policykit
+        lxqt.lxqt-policykit
 
         blueman
-        anytype
         mullvad-vpn
         vlc
+        keymapp
       ];
 
     xdg.portal = lib.mkIf pkgs.stdenv.isLinux {

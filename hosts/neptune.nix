@@ -11,8 +11,10 @@
       allowed.root = ["linus"];
       allowed.linus = ["linus"];
       allowed.git = [];
+      allowed.mc = ["linus"];
     };
   };
+  users.users.mc.isNormalUser = true;
 
   services.caddy = {
     enable = true;
@@ -87,7 +89,7 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [22 80 443];
+  networking.firewall.allowedTCPPorts = [22 80 443 25565];
 
   age.identityPaths = ["/root/.ssh/id_ed25519"];
 

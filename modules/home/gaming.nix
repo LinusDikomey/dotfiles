@@ -21,10 +21,6 @@ in {
       # (pkgs.jdk17.override {enableJavaFX = true;})
     ];
 
-    # nixpkgs.config.permittedInsecurePackages = [
-    #   "gradle-7.6.6"
-    # ];
-
     home.file.".config/waywall".source =
       config.lib.file.mkOutOfStoreSymlink
       "/${dotfiles.homeFolder}/${dotfiles.username}/dotfiles/modules/home/waywall/";
