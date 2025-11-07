@@ -51,6 +51,10 @@
             | split column -r '\s+'
             | headers
         }
+
+        def --wrapped "," [program, ...args] {
+          nix run $"nixpkgs#($program)" -- ...$args
+        }
       '';
   };
 
