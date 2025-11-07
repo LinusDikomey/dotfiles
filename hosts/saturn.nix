@@ -15,7 +15,7 @@ in {
       nvidia = true;
       gtkTheme.enable = true;
       monitors = {
-        "DP-4" = {
+        "DP-3" = {
           primary = true;
           resolution = {
             x = 3840;

@@ -10,18 +10,18 @@
   enabled = lib.any (graphical: graphical.enable or false) graphicalCfgs;
   nvidia = lib.any (graphical: graphical.nvidia or false) graphicalCfgs;
 in {
-  config = lib.mkIf enabled {
-    hardware.graphics = {
+  config = {
+    hardware.graphics = lib.mkIf enabled {
       enable = true;
       enable32Bit = true;
     };
 
-    hardware.nvidia = lib.mkIf nvidia {
+    hardware.nvidia = lib.mkIf (enabled && nvidia) {
       package = config.boot.kernelPackages.nvidiaPackages.beta;
       modesetting.enable = true;
       powerManagement.enable = true;
-      powerManagement.finegrained = false;
-      open = false;
+      # powerManagement.finegrained = true;
+      open = true;
       nvidiaSettings = true;
     };
     services.xserver.videoDrivers = lib.optional nvidia "nvidia";

@@ -32,12 +32,20 @@ in {
 
         # put workspace 1 on the main monitor
         workspace = let
-          primary = lib.lists.findFirst (name: cfg.monitors.${name}.primary) null (builtins.attrNames cfg.monitors);
-        in [
-          "1, monitor:${primary}, default:true"
-          "w[tv1], gapsout:0, gapsin:0"
-          "f[1], gapsout:0, gapsin:0"
-        ];
+          monitors = builtins.attrNames cfg.monitors;
+          isPrimary = name: cfg.monitors.${name}.primary or false;
+          primary = lib.lists.findFirst isPrimary null monitors;
+          secondary = lib.lists.findFirst (name: !(isPrimary name)) null monitors;
+        in
+          [
+            "1, monitor:${primary}, default:true"
+            "w[tv1], gapsout:0, gapsin:0"
+            "f[1], gapsout:0, gapsin:0"
+          ]
+          ++ lib.optionals (secondary != null) [
+            "3, monitor:${secondary}, default:true"
+            "4, monitor:${secondary}"
+          ];
 
         windowrule = [
           "bordersize 0, floating:0, onworkspace:w[tv1]"
