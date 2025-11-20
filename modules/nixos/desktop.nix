@@ -13,18 +13,19 @@
   desktops = lib.flatten (lib.map (graphical: graphical.desktops or []) graphicalCfgs);
   niriEnabled = builtins.elem "niri" desktops;
 in {
-  nixpkgs.overlays = [
-    inputs.niri.overlays.niri
-  ];
+  config = {
+    nixpkgs.overlays = [
+      inputs.niri.overlays.niri
+    ];
 
-  programs.niri = lib.mkIf (enabled && niriEnabled) {
-    enable = true;
-    package = pkgs.niri-unstable;
-  };
-  programs.hyprland.enable = lib.mkIf (enabled && builtins.elem "hyprland" desktops) true;
-
-  services.desktopManager.plasma6 = lib.mkIf (builtins.elem "plasma" desktops) {
-    enable = true;
-    enableQt5Integration = true;
+    qt.enable = enabled;
+    programs = lib.mkIf enabled {
+      xwayland.enable = true;
+      niri = lib.mkIf niriEnabled {
+        enable = true;
+        package = pkgs.niri-unstable;
+      };
+      hyprland.enable = lib.mkIf (builtins.elem "hyprland" desktops) true;
+    };
   };
 }

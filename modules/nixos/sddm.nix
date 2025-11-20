@@ -18,6 +18,7 @@ in {
       theme = "catppuccin-macchiato-mauve";
     };
     environment.systemPackages = [
+      pkgs.nerd-fonts.iosevka
       (pkgs.catppuccin-sddm.override {
         flavor = "macchiato";
         font = "Iosevka Nerd Font";

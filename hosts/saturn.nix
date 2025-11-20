@@ -10,7 +10,7 @@ in {
     work.enable = true;
     gaming.enable = true;
     graphical = {
-      desktops = ["hyprland" "plasma"];
+      desktops = ["hyprland"];
       enable = true;
       nvidia = true;
       gtkTheme.enable = true;
@@ -110,7 +110,12 @@ in {
     "/mnt/media" = {
       device = "192.168.2.108:/media";
       fsType = "nfs";
-      options = ["x-systemd.automount" "noauto" "x-systemd.idle-timeout=600"];
+      options = [
+        "x-systemd.automount"
+        "noauto"
+        "x-systemd.idle-timeout=600"
+        "x-systemd.mount-timeout=10s"
+      ];
     };
   };
 
