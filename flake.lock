@@ -59,11 +59,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759227429,
-        "narHash": "sha256-3p5iCc2MhKjeyGPQrSWqDBoxSo6+PkD+rJ/nc6i/SSo=",
+        "lastModified": 1763650582,
+        "narHash": "sha256-hD2gYw4Wv6Y3pA6y+lzEVbuANIdxpN2CVZklpIgC/Ng=",
         "owner": "LinusDikomey",
         "repo": "eyelang",
-        "rev": "e3a2ba0faf33542846044f577860edb28316ff42",
+        "rev": "29f330a98ab024c1acded3d0b47767accc5916ea",
         "type": "github"
       },
       "original": {
