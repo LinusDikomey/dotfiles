@@ -24,28 +24,33 @@ in {
     settings = {
       environment."NIXOS_OZONE_WL" = "1";
       hotkey-overlay.skip-at-startup = true;
-      outputs."DP-4" = {
-        focus-at-startup = true;
-        position = {
-          x = 0;
-          y = 0;
-        };
-        scale = 1.5;
-      };
-      outputs."HDMI-A-5" = {
-        position = {
-          x = 2560;
-          y = 720;
-        };
-      };
-      # outputs = builtins.mapAttrs (
-      #   (name: m: {
-      #     focus-at-startup = m.primary;
-      #     position = m.offset;
-      #     scale = m.scale;
-      #   })
-      #   cfg.monitors
-      # );
+      # outputs."DP-3" = {
+      #   focus-at-startup = true;
+      #   position = {
+      #     x = 0;
+      #     y = 0;
+      #   };
+      #   scale = 1.5;
+      # };
+      # outputs."HDMI-A-5" = {
+      #   position = {
+      #     x = 2560;
+      #     y = 720;
+      #   };
+      # };
+      outputs =
+        builtins.mapAttrs
+        (name: m: {
+          focus-at-startup = m.primary or false;
+          position = m.offset;
+          mode = {
+            width = m.resolution.x;
+            height = m.resolution.y;
+            refresh = 1.0 * m.framerate;
+          };
+          scale = m.scale;
+        })
+        cfg.monitors;
       prefer-no-csd = true;
       clipboard.disable-primary = true;
       input = {

@@ -10,7 +10,7 @@ in {
     work.enable = true;
     gaming.enable = true;
     graphical = {
-      desktops = ["hyprland"];
+      desktops = ["hyprland" "niri"];
       enable = true;
       nvidia = true;
       gtkTheme.enable = true;
@@ -59,6 +59,7 @@ in {
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+    settings.General.Experimental = true;
   };
 
   services = {

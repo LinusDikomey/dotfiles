@@ -192,7 +192,7 @@ in {
             };
             formatter = {
               command = "eye";
-              args = ["fmt-stdin"];
+              args = ["fmt" "-"];
             };
             auto-format = true;
           }
