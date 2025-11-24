@@ -51,7 +51,10 @@
           config = let
             extraSpecialArgs = {
               inputs' = lib.mapAttrs (_: lib.mapAttrs (_: v: v.${config.nixpkgs.hostPlatform.system} or v)) inputs;
-              pkgs-stable = nixpkgs-stable.legacyPackages.${config.nixpkgs.hostPlatform.system};
+              pkgs-stable = import nixpkgs-stable {
+                system = config.nixpkgs.hostPlatform.system;
+                config = config.nixpkgs.config;
+              };
             };
           in {
             _module.args =

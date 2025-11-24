@@ -55,7 +55,14 @@
         def --wrapped "," [program, ...args] {
           nix run $"nixpkgs#($program)" -- ...$args
         }
+      ''
+      + lib.optionalString config.dotfiles.coding.enable ''
+        use ($nu.default-config-dir | path join mise.nu)
       '';
+    extraEnv = lib.mkIf config.dotfiles.coding.enable ''
+      let mise_path = $nu.default-config-dir | path join mise.nu
+      ${pkgs.mise}/bin/mise activate nu | save $mise_path --force
+    '';
   };
 
   programs.carapace = {

@@ -25,10 +25,7 @@
 
   fonts.fontconfig.enable = true;
 
-  home.sessionVariables = {
-    EDITOR = "hx";
-    TERM = "xterm-256color";
-  };
+  home.sessionVariables.TERM = "xterm-256color";
 
   programs.direnv = {
     enable = true;

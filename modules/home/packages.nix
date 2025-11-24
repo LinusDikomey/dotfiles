@@ -10,7 +10,6 @@
   config = {
     home.packages = with pkgs; (
       [
-        neovim
         inputs'.agenix.packages.default
         wget
         ripgrep
@@ -34,6 +33,7 @@
         (rust-bin.stable.latest.default.override {
           extensions = ["rust-analyzer" "rust-src"];
         })
+        mise
       ]
       ++ lib.optionals pkgs.stdenv.isDarwin [
         vlc-bin

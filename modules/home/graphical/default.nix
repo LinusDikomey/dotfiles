@@ -62,11 +62,19 @@ in {
         pkgs-stable.firefox
         discord
         obsidian
-        spotify
+        # broken right now on unstable, this fixes it
+        (spotify.overrideAttrs (oldAttrs: {
+          src =
+            if (stdenv.isDarwin && stdenv.isAarch64)
+            then
+              pkgs.fetchurl {
+                url = "https://web.archive.org/web/20251029235406/https://download.scdn.co/SpotifyARM64.dmg";
+                hash = "sha256-0gwoptqLBJBM0qJQ+dGAZdCD6WXzDJEs0BfOxz7f2nQ=";
+              }
+            else oldAttrs.src;
+        }))
         signal-desktop-bin
-        thunderbird
-        # broken right now on unstable
-        pkgs-stable.qbittorrent
+        qbittorrent
         bitwarden-desktop
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
