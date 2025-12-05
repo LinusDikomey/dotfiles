@@ -15,30 +15,30 @@ in {
       nvidia = true;
       gtkTheme.enable = true;
       monitors = {
-        "DP-3" = {
+        "DP-4" = {
           primary = true;
           resolution = {
             x = 3840;
             y = 2160;
           };
-          framerate = 60;
+          framerate = 144;
           offset = {
             x = 0;
             y = 0;
           };
           scale = 1.5;
         };
-        "HDMI-A-5" = {
+        "DP-3" = {
           resolution = {
-            x = 1920;
-            y = 1080;
+            x = 3840;
+            y = 2160;
           };
           framerate = 60;
           offset = {
-            x = 2560;
-            y = 720;
+            x = builtins.floor (3840 / 1.5);
+            y = 0;
           };
-          scale = 1;
+          scale = 1.5;
         };
       };
       city = "Aachen";

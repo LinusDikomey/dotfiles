@@ -16,6 +16,7 @@
     ./packages.nix
     ./work.nix
     ./gaming.nix
+    ./zed.nix
     inputs.niri.homeModules.niri
   ];
 

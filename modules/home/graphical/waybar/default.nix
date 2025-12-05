@@ -18,7 +18,7 @@ in {
       {
         output =
           lib.lists.findFirst
-          (name: cfg.monitors.${name}.primary)
+          (name: cfg.monitors.${name}.primary or false)
           null
           (builtins.attrNames cfg.monitors);
         layer = "top";
