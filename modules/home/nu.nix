@@ -14,9 +14,6 @@
       use_kitty_protocol = true;
     };
     shellAliases = {
-      ":q" = "exit";
-      cat = "${pkgs.bat}/bin/bat";
-      icat = "${pkgs.kitty}/bin/kitten icat";
       mv = "mv -i";
       "nix develop" = "nix develop --command nu";
     };
@@ -65,16 +62,5 @@
     '';
   };
 
-  programs.carapace = {
-    enable = true;
-    enableNushellIntegration = true;
-  };
-
-  programs.direnv = {
-    enable = true;
-    enableNushellIntegration = true;
-    nix-direnv.enable = true;
-  };
-
-  programs.git.ignores = lib.mkIf config.dotfiles.git.enable [".direnv/"];
+  home.shell.enableNushellIntegration = true;
 }

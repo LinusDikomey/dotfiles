@@ -324,11 +324,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750456810,
-        "narHash": "sha256-eqrRqPCP2j+R8894Fa6biPH/Y3k+5n4J8+u0qvseQI4=",
+        "lastModified": 1765524259,
+        "narHash": "sha256-JDKFwaAG0TtnTai/Ft8F0u0+e/b5KgWsN7kHQfmPG7s=",
         "owner": "LinusDikomey",
         "repo": "waldbot",
-        "rev": "ca01d8d22898328754bdf9d39f9ee19dd6e13ccf",
+        "rev": "21128b4dd71119a42909b1877ea81995044b6d66",
         "type": "github"
       },
       "original": {

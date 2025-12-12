@@ -4,45 +4,31 @@
   ...
 }: {
   imports = [
+    inputs.niri.homeModules.niri
+
     ./darwin
+    ./gaming.nix
     ./graphical
     ./git.nix
-    ./jujutsu.nix
     ./helix.nix
+    ./jujutsu.nix
     ./mime.nix
     ./nh.nix
     ./nu.nix
-    ./yazi.nix
     ./packages.nix
+    ./shell.nix
     ./work.nix
-    ./gaming.nix
+    ./yazi.nix
     ./zed.nix
-    inputs.niri.homeModules.niri
   ];
 
   home.username = dotfiles.username;
   home.homeDirectory = "/${dotfiles.homeFolder}/${dotfiles.username}";
+  home.sessionVariables.XDG_CONFIG_HOME = "/${dotfiles.homeFolder}/${dotfiles.username}/.config";
 
   fonts.fontconfig.enable = true;
 
   home.sessionVariables.TERM = "xterm-256color";
-
-  programs.direnv = {
-    enable = true;
-    enableNushellIntegration = true;
-    nix-direnv.enable = true;
-  };
-
-  programs.starship = {
-    enable = true;
-    settings = {
-      add_newline = true;
-      character = {
-        success_symbol = "[➜](bold green)";
-        error_symbol = "[➜](bold red)";
-      };
-    };
-  };
 
   programs.home-manager.enable = true;
   home.stateVersion = "24.11";

@@ -18,9 +18,23 @@ in {
         google-chrome
         wireguard-tools
         graphite-cli
+        kubectl
+        kubecolor
+        awscli
+        terraform-ls
       ]
       ++ lib.optionals pkgs.stdenv.isDarwin [
         teams
       ];
+
+    home.shellAliases.k = "kubecolor";
+    home.sessionVariables.KUBECONFIG = "${config.home.homeDirectory}/roofline/k3s.yaml";
+
+    xdg.configFile."carapace/specs/kubecolor.yaml".text = ''
+      # yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+      name: kubecolor
+      completion:
+        positionalany: ["$carapace.bridge.Cobra([kubectl])"]
+    '';
   };
 }
