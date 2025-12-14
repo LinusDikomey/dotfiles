@@ -61,13 +61,14 @@
       }
       {
         # pickers
-        context = "(vim_mode == helix_normal && !menu) || EmptyPane";
+        context = "((vim_mode == helix_normal || vim_mode == helix_select) && !menu) || EmptyPane";
         bindings = {
           "space / " = "pane::DeploySearch";
           "space f" = "file_finder::Toggle";
           "space b" = "tab_switcher::Toggle";
           "space d" = "diagnostics::DeployCurrentFile";
           "space shift-d" = "diagnostics::Deploy";
+          "space e" = "editor::Hover";
         };
       }
       {
