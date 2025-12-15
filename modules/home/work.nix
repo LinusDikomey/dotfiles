@@ -11,21 +11,17 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs;
-      [
-        slack
-        keepassxc
-        google-chrome
-        wireguard-tools
-        graphite-cli
-        kubectl
-        kubecolor
-        awscli
-        terraform-ls
-      ]
-      ++ lib.optionals pkgs.stdenv.isDarwin [
-        teams
-      ];
+    home.packages = with pkgs; [
+      slack
+      keepassxc
+      google-chrome
+      wireguard-tools
+      graphite-cli
+      kubectl
+      kubecolor
+      awscli
+      terraform-ls
+    ];
 
     home.shellAliases.k = "kubecolor";
     home.sessionVariables.KUBECONFIG = "${config.home.homeDirectory}/roofline/k3s.yaml";

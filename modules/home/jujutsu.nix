@@ -16,6 +16,7 @@
         pager = "${pkgs.delta}/bin/delta";
         diff-formatter = ":git";
       };
+      aliases.tug = ["bookmark" "move" "--from" "heads(::@- & bookmarks())" "--to" "@-"];
     };
   };
 }
