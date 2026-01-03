@@ -62,10 +62,10 @@ in {
             E = "keep_selections";
             i = "move_char_right";
 
-            j = "search_next";
-            J = "search_prev";
-            k = "move_next_word_end";
-            K = "move_next_long_word_end";
+            k = "search_next";
+            K = "search_prev";
+            j = "move_next_word_end";
+            J = "move_next_long_word_end";
             l = "insert_mode";
             "C-u" = "jump_forward";
             "C-y" = "jump_backward";

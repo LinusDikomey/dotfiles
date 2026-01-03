@@ -10,6 +10,7 @@
       "catppuccin"
     ];
     userSettings = {
+      languages.Rust.wrap_guides = [100];
       helix_mode = true;
       relative_line_numbers = "wrapped";
       disable_ai = true;
@@ -69,6 +70,7 @@
           "space d" = "diagnostics::DeployCurrentFile";
           "space shift-d" = "diagnostics::Deploy";
           "space e" = "editor::Hover";
+          "space g u" = "git::Restore";
         };
       }
       {
@@ -90,15 +92,14 @@
           e = "vim::Up";
           i = "vim::WrappingRight";
           shift-n = "vim::JoinLines";
-          shift-e = "vim::NextWordEnd";
           "g m" = "vim::StartOfLine";
           "g i" = "vim::EndOfLine";
           h = "vim::PushHelixMatch";
           j = "vim::NextWordEnd";
-          k = "vim::MoveToNextMatch";
-          l = "vim::HelixInsert";
           shift-j = ["vim::NextWordEnd" {ignore_punctuation = true;}];
+          k = "vim::MoveToNextMatch";
           shift-k = "vim::MoveToPreviousMatch";
+          l = "vim::HelixInsert";
           shift-l = "vim::InsertBefore";
         };
       }
