@@ -60,7 +60,12 @@ in {
         config.dotfiles.graphical.font.package
 
         firefox
-        discord
+        # swap in the local discord package on linux since it fixes krisp
+        (
+          if pkgs.stdenv.isLinux
+          then localPkgs.discord
+          else discord
+        )
         obsidian
         spotify
         signal-desktop-bin
