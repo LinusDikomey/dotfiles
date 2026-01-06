@@ -66,6 +66,7 @@ in {
         signal-desktop-bin
         qbittorrent
         bitwarden-desktop
+        (pkgs.callPackage ../../packages/helium.nix {})
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
         wpa_supplicant
