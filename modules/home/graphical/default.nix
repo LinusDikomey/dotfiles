@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  pkgs-stable,
+  localPkgs,
   config,
   ...
 }: let
@@ -66,7 +66,7 @@ in {
         signal-desktop-bin
         qbittorrent
         bitwarden-desktop
-        (pkgs.callPackage ../../packages/helium.nix {})
+        localPkgs.helium
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
         wpa_supplicant

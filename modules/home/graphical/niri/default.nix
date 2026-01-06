@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  localPkgs,
   ...
 }: let
   cfg = config.dotfiles.graphical;
@@ -46,7 +47,6 @@ in {
           mode = {
             width = m.resolution.x;
             height = m.resolution.y;
-            refresh = 1.0 * m.framerate;
           };
           scale = m.scale;
         })
@@ -135,7 +135,7 @@ in {
           "Mod+V".action.toggle-window-floating = {};
 
           # programs
-          "Mod+W".action.spawn = "${pkgs.firefox}/bin/firefox";
+          "Mod+W".action.spawn = "${localPkgs.helium}/bin/helium";
           "Mod+F".action.spawn = "${pkgs.nautilus}/bin/nautilus";
 
           # screenshots/screencasts

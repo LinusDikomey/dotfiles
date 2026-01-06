@@ -49,12 +49,17 @@
         inputs.agenix.${modulesName}.default
         ({config, ...}: {
           config = let
+            pkgs = import nixpkgs {
+              system = config.nixpkgs.hostPlatform.system;
+              config = config.nixpkgs.config;
+            };
             extraSpecialArgs = {
               inputs' = lib.mapAttrs (_: lib.mapAttrs (_: v: v.${config.nixpkgs.hostPlatform.system} or v)) inputs;
               pkgs-stable = import nixpkgs-stable {
                 system = config.nixpkgs.hostPlatform.system;
                 config = config.nixpkgs.config;
               };
+              localPkgs = lib.mapAttrs (_: p: pkgs.callPackage p {}) (import ./packages);
             };
           in {
             _module.args =

@@ -133,5 +133,7 @@ in {
   boot.extraModulePackages = [];
   hardware.cpu.intel.updateMicrocode = true;
 
+  services.flatpak.enable = true;
+
   nixpkgs.hostPlatform = "x86_64-linux";
 }

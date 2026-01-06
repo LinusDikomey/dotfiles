@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  localPkgs,
   dotfiles,
   ...
 }: let
@@ -15,9 +16,9 @@ in {
     home.packages = [
       prismlauncher
       olympus
-      (pkgs.callPackage ../../packages/waywall/package.nix {})
-      (pkgs.callPackage ../../packages/glfw-waywall/package.nix {})
-      (pkgs.callPackage ../../packages/ninjabrain-bot/package.nix {})
+      localPkgs.waywall
+      localPkgs.glfw-waywall
+      localPkgs.ninjabrain-bot
       # (pkgs.jdk17.override {enableJavaFX = true;})
     ];
 

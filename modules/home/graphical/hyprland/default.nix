@@ -1,5 +1,6 @@
 {
   pkgs,
+  localPkgs,
   config,
   lib,
   ...
@@ -17,12 +18,16 @@ in {
       settings = {
         monitor =
           (
-            builtins.map
+            map
             (
               name: let
                 m = cfg.monitors.${name};
-                s = builtins.toString;
-              in "${name}, ${s m.resolution.x}x${s m.resolution.y}@${s m.framerate}, ${s m.offset.x}x${s m.offset.y}, ${s m.scale}"
+                s = toString;
+                framerate =
+                  if builtins.hasAttr "framerate" m
+                  then "@${s m.framerate}"
+                  else "";
+              in "${name}, ${s m.resolution.x}x${s m.resolution.y}${framerate}, ${s m.offset.x}x${s m.offset.y}, ${s m.scale}"
             )
             (builtins.attrNames cfg.monitors)
           )
@@ -149,7 +154,7 @@ in {
             "$mod Shift, Escape, exec, ${pkgs.wlogout}/bin/wlogout"
 
             "$mod, Q, exec, discord"
-            "$mod, W, exec, firefox"
+            "$mod, W, exec, ${localPkgs.helium}/bin/helium"
             "$mod, F, exec, nautilus"
             "$mod, P, exec, spotify"
 
