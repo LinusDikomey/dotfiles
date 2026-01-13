@@ -59,20 +59,10 @@ in {
         kitty #backup terminal
         config.dotfiles.graphical.font.package
 
-        pkgs-stable.firefox
+        firefox
         discord
         obsidian
-        # broken right now on unstable, this fixes it
-        (spotify.overrideAttrs (oldAttrs: {
-          src =
-            if (stdenv.isDarwin && stdenv.isAarch64)
-            then
-              pkgs.fetchurl {
-                url = "https://web.archive.org/web/20251029235406/https://download.scdn.co/SpotifyARM64.dmg";
-                hash = "sha256-0gwoptqLBJBM0qJQ+dGAZdCD6WXzDJEs0BfOxz7f2nQ=";
-              }
-            else oldAttrs.src;
-        }))
+        spotify
         signal-desktop-bin
         qbittorrent
         bitwarden-desktop
@@ -92,6 +82,13 @@ in {
         vlc
         keymapp
       ];
+
+    programs.thunderbird = {
+      enable = true;
+      profiles.default = {
+        isDefault = true;
+      };
+    };
 
     xdg.portal = lib.mkIf pkgs.stdenv.isLinux {
       enable = true;
