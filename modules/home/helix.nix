@@ -132,11 +132,11 @@ in {
             n = "extend_visual_line_down";
             e = "extend_visual_line_up";
             i = "extend_char_right";
-            j = "extend_search_next";
-            J = "extend_search_prev";
+            k = "extend_search_next";
+            K = "extend_search_prev";
 
-            k = "extend_next_word_end";
-            K = "extend_next_long_word_end";
+            j = "extend_next_word_end";
+            J = "extend_next_long_word_end";
 
             h = match_mode;
             g = g_mode;

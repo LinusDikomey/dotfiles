@@ -4,8 +4,6 @@
   ...
 }: {
   imports = [
-    inputs.niri.homeModules.niri
-
     ./darwin
     ./gaming.nix
     ./graphical

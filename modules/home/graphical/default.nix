@@ -14,7 +14,6 @@ in {
     ./ghostty.nix
     ./hypridle.nix
     ./hyprland
-    ./niri
     ./hyprlock.nix
     ./hyprpaper.nix
     ./waybar
@@ -27,7 +26,7 @@ in {
     enable = lib.mkEnableOption "Enable graphical and desktop support";
     nvidia = lib.mkEnableOption "Enable support for nvidia GPU hardware";
     desktops = lib.mkOption {
-      type = types.listOf (types.enum ["hyprland" "niri"]);
+      type = types.listOf (types.enum ["hyprland"]);
       default = [];
     };
     monitors = lib.mkOption {
@@ -54,40 +53,65 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs;
-      [
-        kitty #backup terminal
-        config.dotfiles.graphical.font.package
-
-        firefox
-        # swap in the local discord package on linux since it fixes krisp
+    home.packages = let
+      krisp-patcher =
+        pkgs.writers.writePython3Bin "krisp-patcher"
+        {
+          libraries = with pkgs.python3Packages; [
+            capstone
+            pyelftools
+          ];
+          flakeIgnore = [
+            "E501" # line too long (82 > 79 characters)
+            "F403" # 'from module import *' used; unable to detect undefined names
+            "F405" # name may be undefined, or defined from star imports: module
+          ];
+        }
         (
-          if pkgs.stdenv.isLinux
-          then localPkgs.discord
-          else discord
-        )
-        obsidian
-        spotify
-        signal-desktop-bin
-        qbittorrent
-        bitwarden-desktop
-        localPkgs.helium
-      ]
-      ++ lib.optionals pkgs.stdenv.isLinux [
-        wpa_supplicant
-        networkmanagerapplet
-        grim
-        slurp
-        wl-clipboard
-        nautilus
-        helvum
-        lxqt.lxqt-policykit
+          builtins.readFile (
+            pkgs.fetchurl {
+              url = "https://pastebin.com/raw/8tQDsMVd";
+              sha256 = "sha256-IdXv0MfRG1/1pAAwHLS2+1NESFEz2uXrbSdvU9OvdJ8=";
+            }
+          )
+        );
+    in
+      with pkgs;
+        [
+          kitty #backup terminal
+          config.dotfiles.graphical.font.package
 
-        blueman
-        mullvad-vpn
-        vlc
-        keymapp
-      ];
+          firefox
+          # # swap in the local discord package on linux since it fixes krisp
+          # (
+          #   if pkgs.stdenv.isLinux
+          #   then localPkgs.discord
+          #   else discord
+          # )
+          discord
+          krisp-patcher
+          obsidian
+          spotify
+          signal-desktop-bin
+          qbittorrent
+          bitwarden-desktop
+          localPkgs.helium
+        ]
+        ++ lib.optionals pkgs.stdenv.isLinux [
+          wpa_supplicant
+          networkmanagerapplet
+          grim
+          slurp
+          wl-clipboard
+          nautilus
+          helvum
+          lxqt.lxqt-policykit
+
+          blueman
+          mullvad-vpn
+          vlc
+          keymapp
+        ];
 
     programs.thunderbird = {
       enable = true;
@@ -101,27 +125,16 @@ in {
       xdgOpenUsePortal = true;
     };
 
-    home.sessionVariables.NIXOS_OZONE_WL = "1";
+    home.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      SDL_VIDEODRIVER = "wayland";
+    };
 
     services = lib.mkIf pkgs.stdenv.isLinux {
+      polkit-gnome.enable = true;
       gnome-keyring.enable = true;
       network-manager-applet.enable = true;
       mpris-proxy.enable = true;
-    };
-
-    systemd.user.services.polkit-lxqt-authentication-agent = lib.mkIf pkgs.stdenv.isLinux {
-      Install = {
-        WantedBy = ["graphical-session.target"];
-      };
-      Service = {
-        wants = ["graphical-session.target"];
-        after = ["graphical-session.target"];
-        Type = "simple";
-        ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
     };
   };
 }

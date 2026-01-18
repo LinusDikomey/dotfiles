@@ -9,7 +9,17 @@
 in {
   config = lib.mkIf (cfg.enable && builtins.elem "hyprland" cfg.desktops) {
     home.packages = with pkgs; [hyprshot];
-    xdg.portal.configPackages = [pkgs.xdg-desktop-portal-hyprland];
+    xdg.portal = {
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-wlr
+      ];
+      config = {
+        common.default = ["hyprland"];
+        hyprland.default = ["hyprland"];
+      };
+    };
     wayland.windowManager.hyprland = {
       enable = true;
       # use packages from NixOS module
@@ -27,7 +37,11 @@ in {
                   if builtins.hasAttr "framerate" m
                   then "@${s m.framerate}"
                   else "";
-              in "${name}, ${s m.resolution.x}x${s m.resolution.y}${framerate}, ${s m.offset.x}x${s m.offset.y}, ${s m.scale}"
+                nameOrDesc =
+                  if builtins.hasAttr "desc" m
+                  then "desc:${m.desc}"
+                  else name;
+              in "${nameOrDesc}, ${s m.resolution.x}x${s m.resolution.y}${framerate}, ${s m.offset.x}x${s m.offset.y}, ${s m.scale}, bitdepth, 8"
             )
             (builtins.attrNames cfg.monitors)
           )
@@ -82,7 +96,7 @@ in {
           kb_options = "compose:rwin";
 
           follow_mouse = 1;
-          sensitivity = -0.6;
+          sensitivity = -0.75;
           accel_profile = "flat";
         };
 

@@ -10,13 +10,18 @@ in {
     work.enable = true;
     gaming.enable = true;
     graphical = {
-      desktops = ["hyprland" "niri"];
+      desktops = ["hyprland"];
       enable = true;
       nvidia = true;
       gtkTheme.enable = true;
-      monitors = {
-        "DP-4" = {
+      monitors = rec {
+        DP-4 = {
+          desc = "GIGA-BYTE TECHNOLOGY CO. LTD. M28U 25070B000727";
           primary = true;
+          # resolution = {
+          #   x = 2560;
+          #   y = 1440;
+          # };
           resolution = {
             x = 3840;
             y = 2160;
@@ -28,14 +33,15 @@ in {
           };
           scale = 1.5;
         };
-        "DP-3" = {
+        DP-3 = {
+          desc = "Samsung Electric Company U28E590 H4LN302568";
           resolution = {
             x = 3840;
             y = 2160;
           };
           framerate = 60;
           offset = {
-            x = builtins.floor (3840 / 1.5);
+            x = builtins.floor (DP-4.resolution.x / DP-4.scale);
             y = 0;
           };
           scale = 1.5;
@@ -60,17 +66,6 @@ in {
     enable = true;
     powerOnBoot = true;
     settings.General.Experimental = true;
-  };
-
-  services = {
-    printing.enable = true;
-    pipewire = {
-      enable = true;
-      pulse.enable = true;
-      wireplumber.enable = true;
-    };
-    resolved.enable = true;
-    mullvad-vpn.enable = true;
   };
 
   virtualisation.docker.enable = true;
