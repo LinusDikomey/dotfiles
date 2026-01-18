@@ -13,8 +13,6 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       slack
-      keepassxc
-      google-chrome
       wireguard-tools
       graphite-cli
       kubectl

@@ -12,18 +12,25 @@ in {
     enable = lib.mkEnableOption "Enable packages and programs for gaming";
   };
 
-  config = lib.mkIf cfg.enable (with pkgs; {
-    home.packages = [
-      prismlauncher
-      olympus
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      (
+        prismlauncher.override
+        {
+          jdks = [jdk8 jdk17 jdk25];
+        }
+      )
       localPkgs.waywall
-      localPkgs.glfw-waywall
       localPkgs.ninjabrain-bot
-      # (pkgs.jdk17.override {enableJavaFX = true;})
+      olympus
+      jemalloc
     ];
 
-    home.file.".config/waywall".source =
-      config.lib.file.mkOutOfStoreSymlink
-      "/${dotfiles.homeFolder}/${dotfiles.username}/dotfiles/modules/home/waywall/";
-  });
+    home.file = let
+      mk = p: config.lib.file.mkOutOfStoreSymlink "/${dotfiles.homeFolder}/${dotfiles.username}/dotfiles/${p}";
+    in {
+      ".config/xkb/symbols/mc".source = mk "config/waywall/mc";
+      ".config/waywall".source = mk "config/waywall/";
+    };
+  };
 }

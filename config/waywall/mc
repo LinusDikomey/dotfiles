@@ -1,0 +1,26 @@
+default partial alphanumeric_keys
+xkb_symbols "basic" {
+
+    include "us(basic)"
+    name[Group1] = "US (q→Backspace, f→ẹ)";
+
+    // q → Backspace
+    key <AC04> { [ U1EB9, U1EB8 ] }; // f > ẹ
+
+    key <AC01> { [ o, O ] }; // a > o
+    key <AD09> { [ a, A ] }; // o > a
+
+    // key <AD05> { [ n, N ] }; // t > n
+
+    key <AB02> { [ m, M ] }; // x > m
+    key <AB07> { [ x, X ] }; // m > x
+
+    key <AB03> { [ i, I ] }; // c > i
+    key <AD08> { [ c, C ] }; // i > c
+
+    key <AC03> { [ k, K ] }; // d > k
+    key <AC08> { [ d, D ] }; // k > d
+
+    key <AC05> { [ p, P ] }; // g > p
+    key <AD10> { [ g, G ] }; // p > g
+};
