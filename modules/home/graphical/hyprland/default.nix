@@ -57,22 +57,25 @@ in {
           secondary = lib.lists.findFirst (name: !(isPrimary name)) null monitors;
         in
           [
-            "1, monitor:${primary}, default:true"
+            "1, monitor:desc:${cfg.monitors.${primary}.desc}, default:true"
             "w[tv1], gapsout:0, gapsin:0"
             "f[1], gapsout:0, gapsin:0"
           ]
           ++ lib.optionals (secondary != null) [
-            "3, monitor:${secondary}, default:true"
-            "4, monitor:${secondary}"
+            "3, monitor:desc:${cfg.monitors.${secondary}.desc}, default:true"
+            "4, monitor:desc:${cfg.monitors.${secondary}.desc}"
           ];
 
         windowrule = [
-          # "bordersize 0, floating:0, onworkspace:w[tv1]"
-          # "rounding 0, floating:0, onworkspace:w[tv1]"
-          # "bordersize 0, floating:0, onworkspace:f[1]"
-          # "rounding 0, floating:0, onworkspace:f[1]"
-          # "immediate, class:^(Minecraft)$"
-          # "immediate, class:^(waywall)$"
+          # smart gaps
+          "border_size 0, match:float 0, match:workspace w[tv1]"
+          "rounding 0, match:float 0, match:workspace w[tv1]"
+          "border_size 0, match:float 0, match:workspace f[1]"
+          "rounding 0, match:float 0, match:workspace f[1]"
+
+          # enable tearing for some games
+          "match:class Minecraft, immediate on"
+          "match:class waywall, immediate on"
         ];
 
         exec-once = [
@@ -167,10 +170,10 @@ in {
             "bind = $mod SHIFT, Q, killactive,"
             "$mod Shift, Escape, exec, ${pkgs.wlogout}/bin/wlogout"
 
-            "$mod, Q, exec, discord"
+            "$mod, Q, exec, [workspace 3] discord"
             "$mod, W, exec, ${localPkgs.helium}/bin/helium"
             "$mod, F, exec, nautilus"
-            "$mod, P, exec, spotify"
+            "$mod, P, exec, [workspace 4] spotify"
 
             "$mod SHIFT, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m region --freeze --clipboard-only"
             "$mod, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m region --clipboard-only"
