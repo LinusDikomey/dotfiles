@@ -27,7 +27,10 @@
         root * /www/linus.exposed/
         file_server
       '';
-      "git.areweengine2yet.xyz".extraConfig = "reverse_proxy 127.0.0.1:3000";
+      "git.areweengine2yet.xyz".extraConfig = ''
+        redir https://git.exspelledgame.com
+      '';
+      "git.exspelledgame.com".extraConfig = "reverse_proxy 127.0.0.1:3000";
     };
   };
 
@@ -39,9 +42,9 @@
     settings = {
       server = {
         SSH_USER = "git";
-        SSH_DOMAIN = "areweengine2yet.xyz";
-        DOMAIN = "areweengine2yet.xyz";
-        ROOT_URL = "https://git.areweengine2yet.xyz/";
+        SSH_DOMAIN = "exspelledgame.com";
+        DOMAIN = "exspelledgame.com";
+        ROOT_URL = "https://git.exspelledgame.com/";
         HTTP_ADDR = "127.0.0.1";
         HTTP_PORT = 3000;
         APP_DATA_PATH = "/var/lib/gitea/data";
@@ -97,8 +100,6 @@
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.availableKernelModules = ["xhci_pci" "virtio_scsi" "sr_mod"];
 
   fileSystems."/" = {

@@ -55,18 +55,8 @@ in {
 
   age.identityPaths = ["/home/linus/.ssh/id_ed25519"];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   boot.supportedFilesystems = ["ntfs" "nfs"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
-
-  hardware.enableRedistributableFirmware = true;
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings.General.Experimental = true;
-  };
 
   virtualisation.docker.enable = true;
 
@@ -78,11 +68,6 @@ in {
     };
     interfaces.enp4s0.wakeOnLan.enable = true;
     useNetworkd = false;
-  };
-
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs.obs-studio-plugins; [obs-pipewire-audio-capture];
   };
 
   fileSystems = {
@@ -127,8 +112,6 @@ in {
   boot.kernelModules = ["kvm-intel" "wireguard"];
   boot.extraModulePackages = [];
   hardware.cpu.intel.updateMicrocode = true;
-
-  services.flatpak.enable = true;
 
   nixpkgs.hostPlatform = "x86_64-linux";
 }

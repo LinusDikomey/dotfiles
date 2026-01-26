@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-stable,
   dotfiles,
   lib,
   inputs,
@@ -19,7 +20,7 @@
     home = {
       extraActivationPath = with pkgs; [
         rsync
-        dockutil
+        pkgs-stable.dockutil
         gawk
       ];
       activation.makeTrampolineApps = lib.hm.dag.entryAfter ["writeBoundary"] ''

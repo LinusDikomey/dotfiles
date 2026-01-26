@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  localPkgs,
+  pkgs-stable,
   config,
   ...
 }: let
@@ -81,7 +81,11 @@ in {
           kitty #backup terminal
           config.dotfiles.graphical.font.package
 
-          firefox
+          (
+            if pkgs.stdenv.isDarwin
+            then pkgs-stable.firefox # firefox is currently broken on darwin unstable
+            else firefox
+          )
           discord
           krisp-patcher
           obsidian

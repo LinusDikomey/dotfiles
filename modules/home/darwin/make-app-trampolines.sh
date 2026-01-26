@@ -83,11 +83,7 @@ function sync_dock() {
 
 			if [ -n "$current_dock_item" ]; then
 				# The app is currently in the Dock, attempt to replace it
-				echo "Updating $app_name in Dock..."
 				dockutil --add "$resolved_path" --replacing "$current_dock_item" --no-restart
-			else
-				# The app is not in the Dock; you might choose to add it or do nothing
-				echo "$app_name is not currently in the Dock."
 			fi
 		else
 			echo "Warning: Provided path $app_path is not valid."

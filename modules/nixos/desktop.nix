@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   graphicalCfgs =
@@ -15,8 +16,14 @@ in {
     programs = lib.mkIf enabled {
       xwayland.enable = true;
       hyprland.enable = lib.mkIf (builtins.elem "hyprland" desktops) true;
+      obs-studio = {
+        enable = true;
+        plugins = with pkgs.obs-studio-plugins; [obs-pipewire-audio-capture];
+      };
     };
+
     services = {
+      flatpak.enable = true;
       printing.enable = true;
       pipewire = {
         enable = true;
@@ -25,6 +32,13 @@ in {
       };
       resolved.enable = true;
       mullvad-vpn.enable = true;
+    };
+
+    hardware.enableRedistributableFirmware = true;
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings.General.Experimental = true;
     };
   };
 }
