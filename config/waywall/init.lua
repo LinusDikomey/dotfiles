@@ -1,12 +1,11 @@
 local waywall = require("waywall")
 local helpers = require("waywall.helpers")
 
--- folder with Ninjabrain-Bot.jar and overlay.png. No trailing slash!
-local mcsrFolder = "~/.config/waywall"
-
--- local resolution = { x = 2560, y = 1440 }
+---------------------------------------------------------------------------------------------------
+-- path to the folder containing this file after being symlinked into .config
+local folder = os.getenv("HOME") .. "/.config/waywall/"
 local resolution = { x = 3840, y = 2160 }
-local scale = resolution.y / 1440.0 -- config was originally made for 1440p, this scales everything
+local eye_projector_width = 30
 
 local remaps = {
 	["MB5"] = "F3",
@@ -16,11 +15,23 @@ local remaps = {
 	["n"] = "t",
 	["q"] = "backspace",
 	["backspace"] = "q",
-	-- ["LeftShift"] = "LeftCtrl",
-	-- ["LeftCtrl"] = "LeftShift",
 	["LeftAlt"] = "L",
 	["L"] = "LeftAlt",
 }
+
+-- colors taken from Catppuccin Macchiato theme
+local colors = {
+	background = "#24273a", -- base
+	blockentities = "#f5a97f", -- peach
+	ecount = "#91d7e3", -- sky
+}
+
+---------------------------------------------------------------------------------------------------
+
+-- values are done in 1080p scale and then scaled to the actual resolution as needed
+local scale = resolution.y / 1080.0
+
+
 
 local config = {
 	window = {
@@ -29,8 +40,8 @@ local config = {
 	},
 	input = {
 		layout = "mc",
-		repeat_rate = 35,
-		repeat_delay = 250,
+		repeat_rate = 30,
+		repeat_delay = 200,
 
 		sensitivity = 4.0,
 		confine_pointer = true,
@@ -38,9 +49,9 @@ local config = {
 		remaps = remaps,
 	},
 	theme = {
-		background = "#303030ff",
+		background = colors.background,
 		ninb_anchor = "topright",
-		ninb_opacity = 0.65,
+		ninb_opacity = 0.7,
 	},
 	experimental = {
 		tearing = true,
@@ -107,42 +118,45 @@ local scaled = function(rect)
 	}
 end
 
-local eye_zoom_rect = scaled({ x = 0, y = 500, w = 1120, h = 650 })
+local tall_width = 340
+local tall_proj_width = (resolution.x - tall_width) / 2
+local eye_zoom_rect = { x = 0, y = 370 * scale, w = tall_proj_width, h = tall_proj_width * (9 / 16) * 0.75 }
 
 local ecount_scale = 1.5
 
 local mirrors = {
 	eye_measure = make_mirror({
-		src = { x = 130, y = 7902, w = 60, h = 580 },
+		src = { x = (tall_width / 2) - (eye_projector_width / 2), y = 7902, w = eye_projector_width, h = 580 },
 		dst = eye_zoom_rect,
 	}),
 
 	f3_ecount = make_mirror({
-		src = { x = 0, y = 36, w = 50, h = 11 },
-		dst = { x = 1200, y = 600, w = 250 * ecount_scale, h = 55 * ecount_scale },
+		src = { x = 0, y = 37, w = 50, h = 9 },
+		-- dst = scaled({ x = 600, y = 300, w = 125 * scale, h = 25 * ecount_scale }),
+		dst = scaled({ x = 600, y = 400, w = 4 * 50, h = 4 * 9 }),
 		color_key = {
 			input = "#dddddd",
-			output = "#ffffff",
+			output = colors.ecount,
 		},
 	}),
 
-	thin_pie = make_mirror({
+	tall_pie = make_mirror({
 		src = { x = 0, y = 15965, w = 310, h = 240 },
-		dst = scaled({ x = 1450, y = 1000, w = 400, h = 310 }),
+		dst = scaled({ x = 1130, y = 750, w = 300, h = 232 }),
 	}),
 
-	thin_pie_blockentities_percent = make_mirror({
+	tall_pie_blockentities_percent = make_mirror({
 		src = { x = 220, y = 16160, w = 50, h = 60 },
-		dst = scaled({ x = 1500, y = 800, w = 200, h = 240 }),
+		dst = scaled({ x = 1125, y = 600, w = 150, h = 180 }),
 		color_key = {
 			input = "#E96D4D",
-			output = "#E96D4D",
+			output = colors.blockentities,
 		},
 	}),
 }
 
 local images = {
-	overlay = make_image(mcsrFolder .. "/overlay.png", {
+	overlay = make_image(folder .. "overlay.png", {
 		dst = eye_zoom_rect,
 	}),
 }
@@ -155,12 +169,12 @@ local show_mirrors = function(eye, f3, thin, pie)
 
 	mirrors.f3_ecount(f3)
 
-	mirrors.thin_pie(pie)
-	mirrors.thin_pie_blockentities_percent(pie)
+	mirrors.tall_pie(pie)
+	mirrors.tall_pie_blockentities_percent(pie)
 end
 
 local thin_enable = function()
-	show_mirrors(false, true, true, false)
+	show_mirrors(talle, true, true, false)
 end
 
 local tall_enable = function()
@@ -184,28 +198,26 @@ local eyezoom_disable = function()
 end
 
 local resolutions = {
-	thin = make_res(400 * scale, 1440 * scale - 4, thin_enable, generic_disable),
-	tall = make_res(320, 16384, tall_enable, generic_disable),
-	eyezoom = make_res(320, 16384, eyezoom_enable, eyezoom_disable),
-	wide = make_res(2560 * scale - 4, 360 * scale, wide_enable, generic_disable),
+	thin = make_res(315 * scale, 1080 * scale - 4, thin_enable, generic_disable),
+	tall = make_res(tall_width, 16384, tall_enable, generic_disable),
+	eyezoom = make_res(tall_width, 16384, eyezoom_enable, eyezoom_disable),
+	wide = make_res(1920 * scale, 340 * scale, wide_enable, generic_disable),
 }
 
 local oneshot_image = nil
 local oneshot_crosshair = function()
-	local r = 2
+	local r = 3
 	if oneshot_image ~= nil then
-		print("closing oneshot image: ")
 		oneshot_image:close()
-		print("nilling")
 		oneshot_image = nil
 		return
 	end
 	oneshot_image = waywall.image(
-		mcsrFolder .. "/dot.png",
+		folder .. "dot.png",
 		{
 			dst = {
-				x = (2560 / 2 - r) * scale,
-				y = (1440 / 2 - r) * scale,
+				x = (1920 / 2 - r) * scale,
+				y = (1080 / 2 - r) * scale,
 				w = r * 2 * scale,
 				h = r * 2 * scale,
 			},
@@ -223,7 +235,7 @@ local toggle_keymap = function()
 		chatting_text = nil
 	else
     chatting_text = waywall.text("*", {
-        x = 10, y = 1300,
+        x = 10, y = 1000 * scale,
         color = "#ee4444", size = 5,
     })
 		print("Toggling keymap to us")

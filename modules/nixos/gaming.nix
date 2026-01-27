@@ -9,35 +9,39 @@
     lib.any
     ({value, ...}: value.dotfiles.gaming.enable or false)
     (lib.attrsToList config.home-manager.users);
-  tmpfs-mc = pkgs.writeShellScriptBin "tmpfs-mc" ''
-    echo "Setting up ..."
-    SRC="/home/${dotfiles.username}/mcsr/saves"
-    DIR="/tmpfs/mc/saves"
-    KEEP=10
+  tmpfs-mc =
+    pkgs.writers.writeNuBin "tmpfs-mc"
+    # nu
+    ''
+      echo "Setting up ..."
+      let src = "/home/${dotfiles.username}/mcsr/saves"
+      let dir = "/tmpfs/mc/saves"
+      let keep = 10
 
-    mkdir -p "$SRC"
-    mkdir -p "$DIR"
-    for item in "$SRC"/*; do
-      ln -sfn "$item" "$DIR/$(basename "$item")"
-    done
-    chown "${dotfiles.username}" -R "$DIR"
+      mkdir $src
+      mkdir $dir
 
-    cd "$DIR" || exit 1
+      cd $dir
 
-    while true; do
-      for save in $(
-        find . -maxdepth 1 -mindepth 1 ! -type l \
-          -printf '%T@ %f\n' \
-        | sort -nr \
-        | ${pkgs.gawk}/bin/awk '{print $2}' \
-        | tail -n +11
-      ); do
-        echo "Deleting" "$save"
-        rm -rf -- "$save"
-      done
-      sleep 300
-    done
-  '';
+      for $item in (ls $src) {
+        let name = $item.name | path basename
+        ln -sfn $item.name $name
+      }
+
+      chown "${dotfiles.username}" -R $dir
+
+      loop {
+        ls
+          | where type != symlink
+          | sort-by -r modified
+          | skip $keep
+          | each {
+            print $"Deleting ($in.name)"
+            rm -rf $in.name
+          }
+        sleep 300sec
+      }
+    '';
 in {
   config = lib.mkIf enabled {
     programs.steam = {
