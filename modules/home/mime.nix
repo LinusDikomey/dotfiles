@@ -6,7 +6,7 @@
   xdg.mimeApps = lib.mkIf pkgs.stdenv.isLinux {
     enable = true;
     defaultApplications = let
-      browser = "helium.desktop";
+      browser = "firefox.desktop";
     in {
       "image/png" = browser;
       "text/html" = browser;

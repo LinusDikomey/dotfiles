@@ -82,12 +82,6 @@ in {
           config.dotfiles.graphical.font.package
 
           firefox
-          # # swap in the local discord package on linux since it fixes krisp
-          # (
-          #   if pkgs.stdenv.isLinux
-          #   then localPkgs.discord
-          #   else discord
-          # )
           discord
           krisp-patcher
           obsidian
@@ -95,7 +89,6 @@ in {
           signal-desktop-bin
           qbittorrent
           bitwarden-desktop
-          localPkgs.helium
         ]
         ++ lib.optionals pkgs.stdenv.isLinux [
           wpa_supplicant

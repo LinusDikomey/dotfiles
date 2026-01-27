@@ -171,7 +171,7 @@ in {
             "$mod Shift, Escape, exec, ${pkgs.wlogout}/bin/wlogout"
 
             "$mod, Q, exec, [workspace 3] discord"
-            "$mod, W, exec, ${localPkgs.helium}/bin/helium"
+            "$mod, W, exec, firefox"
             "$mod, F, exec, nautilus"
             "$mod, P, exec, [workspace 4] spotify"
 
