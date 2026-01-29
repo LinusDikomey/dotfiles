@@ -4,6 +4,8 @@
   inputs,
   ...
 }: {
+  imports = [./theme.nix];
+
   nixpkgs.overlays = [
     inputs.rust-overlay.overlays.default
     (final: prev: {
@@ -24,6 +26,9 @@
 
   home-manager = {
     backupFileExtension = "bak";
-    users."${dotfiles.username}".imports = [./home];
+    users."${dotfiles.username}".imports = [
+      ./home
+      ./theme.nix
+    ];
   };
 }

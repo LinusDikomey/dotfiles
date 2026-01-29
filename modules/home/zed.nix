@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   programs.zed-editor = {
     enable = config.dotfiles.coding.enable;
 
@@ -40,7 +44,7 @@
         diagnostics = false;
         metrics = false;
       };
-      theme = "Catppuccin Macchiato";
+      theme = "Catppuccin ${lib.toSentenceCase config.dotfiles.theme.variant}";
       ui_font_size = 20;
       vim_mode = true;
     };

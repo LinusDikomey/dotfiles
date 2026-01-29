@@ -113,7 +113,8 @@ in {
             };
 
             " ".B.D = [":run-shell-command rm %{buffer_name}" ":buffer-close!"];
-            " ".e = [
+            " ".e = "hover";
+            " ".o = [
               ":sh rm -f /tmp/files2open"
               ":set mouse false"
               ":insert-output ${pkgs.yazi}/bin/yazi \"%{buffer_name}\" --chooser-file=/tmp/files2open"

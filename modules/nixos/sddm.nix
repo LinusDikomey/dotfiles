@@ -15,15 +15,13 @@ in {
     services.displayManager.sddm = {
       enable = true;
       package = lib.mkForce pkgs.kdePackages.sddm;
-      theme = "catppuccin-macchiato-mauve";
+      theme = "catppuccin-${config.dotfiles.theme.variant}-mauve";
     };
     environment.systemPackages = [
-      pkgs.nerd-fonts.iosevka
       (pkgs.catppuccin-sddm.override {
-        flavor = "macchiato";
-        font = "Iosevka Nerd Font";
+        flavor = config.dotfiles.theme.variant;
+        font = config.dotfiles.theme.font.name;
         fontSize = "10";
-        # broken :(
         # background = "${dotfiles.wallpaper}";
         loginBackground = true;
       })

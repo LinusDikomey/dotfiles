@@ -94,6 +94,9 @@ in {
       options = [
         "x-systemd.automount"
         "noauto"
+        "nofail"
+        "noatime"
+        "bg"
         "x-systemd.idle-timeout=600"
         "x-systemd.mount-timeout=10s"
       ];

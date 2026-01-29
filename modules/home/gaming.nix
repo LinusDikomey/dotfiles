@@ -24,6 +24,8 @@ in {
       localPkgs.ninjabrain-bot
       olympus
       jemalloc
+      xdotool
+      xorg.xwininfo
     ];
 
     home.file = let

@@ -10,6 +10,7 @@
 in {
   imports = [
     ./dunst.nix
+    ./swaync.nix
     ./gammastep.nix
     ./ghostty.nix
     ./hypridle.nix
@@ -31,24 +32,6 @@ in {
     };
     monitors = lib.mkOption {
       type = types.attrsOf types.attrs;
-    };
-    font = lib.mkOption {
-      type = types.submodule {
-        options = {
-          package = lib.mkOption {
-            type = types.package;
-            description = "Font package";
-          };
-          name = lib.mkOption {
-            type = types.str;
-            description = "Font family name";
-          };
-        };
-      };
-      default = {
-        package = pkgs.nerd-fonts.iosevka;
-        name = "Iosevka Nerd Font";
-      };
     };
   };
 
@@ -79,7 +62,7 @@ in {
       with pkgs;
         [
           kitty #backup terminal
-          config.dotfiles.graphical.font.package
+          config.dotfiles.theme.font.package
 
           (
             if pkgs.stdenv.isDarwin

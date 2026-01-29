@@ -37,7 +37,7 @@
           | skip $keep
           | each {
             print $"Deleting ($in.name)"
-            rm -rf $in.name
+            rm -rf --permanent $in.name
           }
         sleep 300sec
       }

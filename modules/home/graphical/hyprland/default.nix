@@ -76,6 +76,7 @@ in {
           # enable tearing for some games
           "match:class Minecraft, immediate on"
           "match:class waywall, immediate on"
+          "match:class discord xwayland:0 forceinput"
         ];
 
         exec-once = [
@@ -217,6 +218,9 @@ in {
             # Scroll through existing workspaces with mainMod + scroll
             "$mod, mouse_down, workspace, e+1"
             "$mod, mouse_up, workspace, e-1"
+
+            # toggle swaync pannel
+            "$mod, X, exec, swaync-client --toggle-panel"
           ]
           ++ (
             builtins.concatLists (builtins.genList (i: let
@@ -230,7 +234,13 @@ in {
                 "$mod SHIFT, ${key}, movetoworkspace, ${ws}"
               ])
               10)
-          );
+          )
+          # global shortcuts
+          ++ [
+            # discord mute / deafen
+            "$mod, y, sendshortcut, CONTROL SHIFT, M, class:^(discord)$"
+            "$mod, Semicolon, sendshortcut, CONTROL SHIFT, D, class:^(discord)$"
+          ];
         bindm = [
           # Move/resize windows with mainMod + LMB/RMB and dragging
           "$mod, mouse:272, movewindow"

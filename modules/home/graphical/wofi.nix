@@ -32,7 +32,7 @@
       # css
       ''
         * {
-          font-family: ${config.dotfiles.graphical.font.name};
+          font-family: ${config.dotfiles.theme.font.name};
           color: #cdd6f4;
         }
 

@@ -24,11 +24,25 @@ in {
         layer = "top";
         position = "top";
         height = 40;
-        modules-left = ["hyprland/workspaces" "hyprland/mode" "hyprland/scratchpad" "custom/music"];
+        modules-left = [
+          "hyprland/workspaces"
+          "custom/music"
+        ];
         modules-center = [
           "hyprland/window"
         ];
-        modules-right = ["tray" "idle_inhibitor" "wireplumber" "custom/weather" "cpu" "memory" "backlight" "battery" "battery#bat2" "clock" "custom/power"];
+        modules-right = [
+          "tray"
+          "idle_inhibitor"
+          "wireplumber"
+          "custom/weather"
+          "cpu"
+          "memory"
+          "backlight"
+          "battery"
+          "clock"
+          "custom/notifications"
+        ];
         "hyprland/workspaces".all-outputs = true;
         "keyboard-state" = {
           numlock = false;
@@ -138,7 +152,15 @@ in {
           format = "<span foreground='#66dc69'>󰓇 </span> {icon}  <span>{text}</span>";
           return-type = "json";
           max-length = 80;
-          exec = p ''-p spotify metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F'';
+          exec = let
+            cmd = p ''-p spotify metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F'';
+          in
+            pkgs.writers.writeNu "waybar-music"
+            #nu
+            ''
+              if (swaync-client --get-dnd) == "true" { return }
+              ${cmd}
+            '';
           on-click = p "-p spotify play-pause";
           on-double-click = p "-p spotify next";
           on-click-right = p "-p spotify previous";
@@ -150,9 +172,16 @@ in {
             Paused = "<span foreground='#928374'>󰏥 </span>";
           };
         };
-        "custom/power" = {
-          format = "⏻ ";
-          on-click = "${pkgs.wlogout}/bin/wlogout";
+        "custom/notifications" = {
+          exec =
+            pkgs.writers.writeNu "dnd" #nu
+            
+            ''
+              if (swaync-client --get-dnd) == "true" {print " "} else {print " "}
+            '';
+          interval = 5;
+          on-click = "swaync-client --toggle-panel";
+          on-click-right = "swaync-client --toggle-dnd";
         };
         "custom/weather" = {
           format = "{}";
@@ -173,87 +202,56 @@ in {
         };
       }
     ];
-    style =
-      # Source: https://github.com/rubyowo/dotfiles/blob/f925cf8e3461420a21b6dc8b8ad1190107b0cc56/config/waybar
+    style = let
+      colors = config.dotfiles.theme.colors;
+    in
       /*
       css
       */
       ''
-        @define-color base   #24273a;
-        @define-color mantle #1e2030;
-        @define-color crust  #181926;
-
-        @define-color text     #cad3f5;
-        @define-color subtext0 #a5adcb;
-        @define-color subtext1 #b8c0e0;
-
-        @define-color surface0 #363a4f;
-        @define-color surface1 #494d64;
-        @define-color surface2 #5b6078;
-
-        @define-color overlay0 #6e738d;
-        @define-color overlay1 #8087a2;
-        @define-color overlay2 #939ab7;
-
-        @define-color blue      #8aadf4;
-        @define-color lavender  #b7bdf8;
-        @define-color sapphire  #7dc4e4;
-        @define-color sky       #91d7e3;
-        @define-color teal      #8bd5ca;
-        @define-color green     #a6da95;
-        @define-color yellow    #eed49f;
-        @define-color peach     #f5a97f;
-        @define-color maroon    #ee99a0;
-        @define-color red       #ed8796;
-        @define-color mauve     #c6a0f6;
-        @define-color pink      #f5bde6;
-        @define-color flamingo  #f0c6c6;
-        @define-color rosewater #f4dbd6;
-
         * {
-          font-family: ${config.dotfiles.graphical.font.name};
+          font-family: ${config.dotfiles.theme.font.name};
           font-size: 22px;
           min-height: 0;
         }
 
         #waybar {
           background: transparent;
-          color: @text;
+          color: ${colors.text};
           margin: 5px 5px;
         }
 
         #workspaces {
           border-radius: 1rem;
           margin: 5px 5px;
-          background-color: @surface0;
+          background-color: ${colors.surface0};
           margin-left: 1rem;
         }
 
         #workspaces button {
           font-weight: bold;
-          color: @lavender;
+          color: ${colors.lavender};
           border-radius: 1rem;
           padding: 0.4rem 0.8rem;
           margin: 0 3px;
         }
 
         #workspaces button.active {
-          color: @sky;
+          color: ${colors.sky};
           border-radius: 1rem;
         }
 
         #workspaces button:hover {
-          color: @sapphire;
+          color: ${colors.sapphire};
           border-radius: 1rem;
         }
 
         #custom-music {
-          color: @;
           border-radius: 1rem;
         }
 
         #window {
-          background-color: @surface0;
+          background-color: ${colors.surface0};
           margin: 5px 5px;
           padding: 0px 15px;
           border-radius: 1rem;
@@ -261,6 +259,12 @@ in {
 
         window#waybar.empty #window {
          background:none;
+        }
+
+        #custom-notifications,
+        #idle-inhibitor,
+        #custom-music {
+          color: ${colors.text};
         }
 
         #custom-music,
@@ -273,37 +277,13 @@ in {
         #clock,
         #battery,
         #custom-lock,
-        #custom-power,
         #custom-updates,
         #tray,
-        #custom-weather {
-          background-color: @surface0;
+        #custom-weather,
+        #custom-notifications {
+          background-color: ${colors.surface0};
           padding: 0.5rem 1rem;
           margin: 5px 0;
-        }
-
-        #clock {
-          color: @blue;
-        }
-
-        #battery {
-          color: @green;
-        }
-
-        #battery.charging {
-          color: @green;
-        }
-
-        #battery.warning:not(.charging) {
-          color: @red;
-        }
-
-        #backlight {
-          color: @yellow;
-        }
-
-        #backlight, #battery {
-            border-radius: 0;
         }
 
         #idle_inhibitor {
@@ -312,31 +292,57 @@ in {
           margin-left: 1rem;
         }
 
+        #custom-notifications {
+            margin-right: 1rem;
+            border-radius: 0px 1rem 1rem 0px;
+            color: ${colors.red};
+        }
+
+        #idle-inhibitor {
+          border-radius: 1rem 0px 0px 1rem;
+          margin-left: 1rem;
+        }
+
+        #clock {
+          color: ${colors.blue};
+        }
+
+        #battery {
+          color: ${colors.green};
+        }
+
+        #battery.charging {
+          color: ${colors.green};
+        }
+
+        #battery.warning:not(.charging) {
+          color: ${colors.red};
+        }
+
+        #backlight {
+          color: ${colors.yellow};
+        }
+
+        #backlight, #battery {
+            border-radius: 0;
+        }
+
+
+
         #wireplumber {
-          color: @maroon;
+          color: ${colors.maroon};
         }
 
         #cpu {
-          color: @mauve;
+          color: ${colors.mauve};
         }
 
         #memory {
-          color: @teal;
+          color: ${colors.teal};
         }
 
         #custom-weather {
-          color: @peach;
-        }
-
-        #custom-lock {
-            border-radius: 1rem 0px 0px 1rem;
-            color: @lavender;
-        }
-
-        #custom-power {
-            margin-right: 1rem;
-            border-radius: 0px 1rem 1rem 0px;
-            color: @red;
+          color: ${colors.peach};
         }
 
         #tray {
@@ -345,7 +351,7 @@ in {
         }
 
         tooltip {
-          background-color: @surface0;
+          background-color: ${colors.surface0};
           border: none;
         }
       '';
