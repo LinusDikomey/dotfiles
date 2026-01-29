@@ -4,23 +4,36 @@ xkb_symbols "basic" {
     include "us(basic)"
     name[Group1] = "US (q→Backspace, f→ẹ)";
 
-    // q → Backspace
+    key <AE01> { [f, F] }; // 1 -> f
+    key <AE02> { [u, U] }; // 2 -> u
+    key <AE03> { [t, T] }; // 3 -> t
+    key <AE04> { [p, P] }; // 4 -> p
+    key <AD10> { [y, Y] }; // p -> y (thin)
+
+    key <DELE> { [ U00FA, U00DA] }; // delete > ú 
+    key <AD01> { [ e, E ] }; // q > e
+
     key <AC04> { [ U1EB9, U1EB8 ] }; // f > ẹ
 
-    key <AC01> { [ o, O ] }; // a > o
-    key <AD09> { [ a, A ] }; // o > a
+
+    // key <AC01> { [ U00EC, U00CC ] }; // u (RMB) > ì
 
     // key <AD05> { [ n, N ] }; // t > n
 
-    key <AB02> { [ m, M ] }; // x > m
-    key <AB07> { [ x, X ] }; // m > x
+    key <AB01> { [ U00EC, U00CC ] }; // z > ì
+
+    key <AB02> { [ k, K ] }; // x > k
+    key <AC08> { [ x, X ] }; // k > x
 
     key <AB03> { [ i, I ] }; // c > i
     key <AD08> { [ c, C ] }; // i > c
 
-    key <AC03> { [ k, K ] }; // d > k
-    key <AC08> { [ d, D ] }; // k > d
+    key <AC03> { [ b, B ] }; // d > b
+    key <AB05> { [ g, G ] }; // b > g
+    key <AC05> { [ a, A ] }; // g > a
+    key <AC01> { [ o, O ] }; // a > o
+    key <AD09> { [ a, A ] }; // o > d
 
-    key <AC05> { [ p, P ] }; // g > p
-    key <AD10> { [ g, G ] }; // p > g
+    // key <AC05> { [ b, B ] }; // g > b
+    // key <AB05> { [ g, G ] }; // b > g
 };

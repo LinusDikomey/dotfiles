@@ -8,16 +8,18 @@ local resolution = { x = 3840, y = 2160 }
 local eye_projector_width = 30
 
 local remaps = {
+	["mmb"] = "RightShift",
 	["MB5"] = "F3",
+	["MB4"] = "backspace",
 	["V"] = "0",
 	["0"] = "v",
 	["t"] = "n",
 	["n"] = "t",
-	["q"] = "backspace",
-	["backspace"] = "q",
 	["LeftAlt"] = "L",
 	["L"] = "LeftAlt",
 }
+
+local reset_ninbot = "H"
 
 -- colors taken from Catppuccin Macchiato theme
 local colors = {
@@ -57,6 +59,9 @@ local config = {
 		tearing = true,
 	},
 }
+
+-- state
+local ninb_permanent = false
 
 local exec_ninb = function()
 	print("starting Ninjabrain Bot")
@@ -190,6 +195,8 @@ local generic_disable = function()
 end
 
 local eyezoom_enable = function()
+	waywall.show_floating(true)
+	ninb_permanent = true
 	show_mirrors(true, false, false, false)
 end
 
@@ -206,7 +213,7 @@ local resolutions = {
 
 local oneshot_image = nil
 local oneshot_crosshair = function()
-	local r = 3
+	local r = 1.5
 	if oneshot_image ~= nil then
 		oneshot_image:close()
 		oneshot_image = nil
@@ -255,15 +262,46 @@ local action = function(f)
 end
 
 
+-- local show_ninb_if_f3 = function()
+-- 	if waywall.get_key("F3") and not waywall.floating_shown() and not ninb_permanent then
+-- 		waywall.show_floating(true)
+-- 		waywall.sleep(f3_ninbot_seconds * 1000)
+-- 		if not ninb_permanent then
+-- 			waywall.show_floating(false)
+-- 		end
+-- 	end
+-- end
+
+-- resets and hides ninjabrain bot
+local clear_ninb = function()
+	local screen = waywall.state().screen
+	if screen ~= "inworld" then
+		ninb_permanent = false
+		print(waywall.exec("xdotool key " .. reset_ninbot))
+		waywall.show_floating(false)
+	end
+end
+
+local toggle_ninb = function()
+	ninb_permanent = not ninb_permanent
+	waywall.show_floating(ninb_permanent)
+end
+
+-- auto hide ninbot on quit
+waywall.listen("state", clear_ninb)
+
+
 config.actions = {
 	["*-Equal"] = action(resolutions.wide),
 	["*-P"] = action(resolutions.thin),
 	["*-Alt_l"] = action(resolutions.tall),
 	["Grave"] = action(resolutions.eyezoom),
 	["Shift-7"] = action(exec_ninb),
-	["Shift-Grave"] = action(helpers.toggle_floating),
+	["Shift-Grave"] = action(toggle_ninb),
 	["o"] = action(oneshot_crosshair),
 	["Ctrl-n"] = toggle_keymap,
+	-- ["*-C"] = action(show_ninb_if_f3),
+	["L"] = action(clear_ninb),
 }
 
 return config
