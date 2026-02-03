@@ -1,8 +1,4 @@
-{
-  dotfiles,
-  pkgs,
-  ...
-}: let
+{dotfiles, ...}: let
   inherit (dotfiles) username;
 in {
   home-manager.users."${username}".dotfiles = {
@@ -10,7 +6,7 @@ in {
     work.enable = true;
     gaming.enable = true;
     graphical = {
-      desktops = ["hyprland"];
+      desktops = ["niri"];
       enable = true;
       nvidia = true;
       gtkTheme.enable = true;
@@ -18,15 +14,11 @@ in {
         DP-4 = {
           desc = "GIGA-BYTE TECHNOLOGY CO. LTD. M28U 25070B000727";
           primary = true;
-          # resolution = {
-          #   x = 2560;
-          #   y = 1440;
-          # };
           resolution = {
             x = 3840;
             y = 2160;
           };
-          framerate = 144;
+          framerate = 143.999;
           offset = {
             x = 0;
             y = 0;
@@ -39,7 +31,7 @@ in {
             x = 3840;
             y = 2160;
           };
-          framerate = 60;
+          framerate = 60.0;
           offset = {
             x = builtins.floor (DP-4.resolution.x / DP-4.scale);
             y = 0;
@@ -88,19 +80,19 @@ in {
       options = ["nofail"];
     };
 
-    "/mnt/media" = {
-      device = "192.168.2.108:/media";
-      fsType = "nfs";
-      options = [
-        "x-systemd.automount"
-        "noauto"
-        "nofail"
-        "noatime"
-        "bg"
-        "x-systemd.idle-timeout=600"
-        "x-systemd.mount-timeout=10s"
-      ];
-    };
+    # "/mnt/media" = {
+    #   device = "192.168.2.108:/media";
+    #   fsType = "nfs";
+    #   options = [
+    #     "x-systemd.automount"
+    #     "noauto"
+    #     "nofail"
+    #     "noatime"
+    #     "bg"
+    #     "x-systemd.idle-timeout=600"
+    #     "x-systemd.mount-timeout=10s"
+    #   ];
+    # };
   };
 
   swapDevices = [

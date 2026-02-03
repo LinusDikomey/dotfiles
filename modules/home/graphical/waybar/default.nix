@@ -26,10 +26,12 @@ in {
         height = 40;
         modules-left = [
           "hyprland/workspaces"
+          "niri/workspaces"
           "custom/music"
         ];
         modules-center = [
           "hyprland/window"
+          "niri/window"
         ];
         modules-right = [
           "tray"

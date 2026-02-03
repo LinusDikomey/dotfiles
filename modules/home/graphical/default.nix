@@ -17,6 +17,7 @@ in {
     ./hyprland
     ./hyprlock.nix
     ./hyprpaper.nix
+    ./niri.nix
     ./waybar
     ./wlogout
     ./wofi.nix
@@ -27,7 +28,7 @@ in {
     enable = lib.mkEnableOption "Enable graphical and desktop support";
     nvidia = lib.mkEnableOption "Enable support for nvidia GPU hardware";
     desktops = lib.mkOption {
-      type = types.listOf (types.enum ["hyprland"]);
+      type = types.listOf (types.enum ["hyprland" "niri"]);
       default = [];
     };
     monitors = lib.mkOption {

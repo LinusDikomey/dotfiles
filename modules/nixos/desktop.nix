@@ -25,6 +25,10 @@ in {
         plugins = with pkgs.obs-studio-plugins; [obs-pipewire-audio-capture];
       };
       ydotool.enable = true;
+      niri = lib.mkIf (builtins.elem "niri" desktops) {
+        enable = true;
+        package = pkgs.niri-unstable;
+      };
     };
 
     services = {
@@ -46,5 +50,8 @@ in {
       powerOnBoot = true;
       settings.General.Experimental = true;
     };
+    boot.extraModprobeConfig = ''
+      options snd-usb-audio autosuspend=0
+    '';
   };
 }

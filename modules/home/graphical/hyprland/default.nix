@@ -1,6 +1,5 @@
 {
   pkgs,
-  localPkgs,
   config,
   lib,
   ...
@@ -9,22 +8,10 @@
 in {
   config = lib.mkIf (cfg.enable && builtins.elem "hyprland" cfg.desktops) {
     home.packages = with pkgs; [hyprshot];
-    xdg.portal = {
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-hyprland
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
-      ];
-      config = {
-        common.default = ["hyprland"];
-        hyprland.default = ["hyprland"];
-      };
-    };
     wayland.windowManager.hyprland = {
       enable = true;
       # use packages from NixOS module
       package = null;
-      # portalPackage = pkgs.xdg-desktop-portal-gtk;
       settings = {
         monitor =
           (
