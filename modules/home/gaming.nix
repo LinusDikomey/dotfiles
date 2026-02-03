@@ -26,6 +26,7 @@ in {
       jemalloc
       xdotool
       xorg.xwininfo
+      jdk25
     ];
 
     home.file = let

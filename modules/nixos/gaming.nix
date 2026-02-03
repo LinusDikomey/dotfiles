@@ -16,7 +16,6 @@
       echo "Setting up ..."
       let src = "/home/${dotfiles.username}/mcsr/saves"
       let dir = "/tmpfs/mc/saves"
-      let keep = 10
 
       mkdir $src
       mkdir $dir
@@ -29,18 +28,20 @@
       }
 
       chown "${dotfiles.username}" -R $dir
-
-      loop {
-        ls
-          | where type != symlink
-          | sort-by -r modified
-          | skip $keep
-          | each {
-            print $"Deleting ($in.name)"
-            rm -rf --permanent $in.name
-          }
-        sleep 300sec
-      }
+    '';
+  tmpfs-mc-cleanworlds =
+    pkgs.writers.writeNuBin "tmpfs-mc-cleanworlds"
+    # nu
+    ''
+      let keep = 10
+      ls /tmpfs/mc/saves
+        | where type != symlink
+        | sort-by -r modified
+        | skip $keep
+        | each {
+          print $"Deleting ($in.name)"
+          rm -rf --permanent $in.name
+        }
     '';
 in {
   config = lib.mkIf enabled {
@@ -71,12 +72,14 @@ in {
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
+        Type = "oneshot";
         ExecStart = "${tmpfs-mc}/bin/tmpfs-mc";
-        Restart = "always";
-        RestartSec = 5;
-        TimeoutSec = 0;
+        RemainAfterExit = true;
       };
     };
-    environment.systemPackages = [tmpfs-mc];
+    environment.systemPackages = [
+      tmpfs-mc
+      tmpfs-mc-cleanworlds
+    ];
   };
 }

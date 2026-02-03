@@ -10,13 +10,17 @@ local eye_projector_width = 30
 local remaps = {
 	["mmb"] = "RightShift",
 	["MB5"] = "F3",
-	["MB4"] = "backspace",
+	["MB4"] = "home",
+	["delete"] = "backspace",
 	["V"] = "0",
 	["0"] = "v",
 	["t"] = "n",
 	["n"] = "t",
-	["LeftAlt"] = "L",
+	["LeftAlt"] = "Equal",
 	["L"] = "LeftAlt",
+	["A"] = "Y",
+	["Y"] = "A",
+	-- ["Equal"] = "Home",
 }
 
 local reset_ninbot = "H"
@@ -69,6 +73,10 @@ local exec_ninb = function()
 		helpers.toggle_floating()
 	end
 	waywall.exec("Ninjabrain-Bot")
+end
+
+local exec_paceman = function()
+	waywall.exec("java -jar " .. os.getenv("HOME") .. "/mcsr/paceman-tracker.jar --nogui")
 end
 
 local make_image = function(path, dst)
@@ -183,6 +191,7 @@ local thin_enable = function()
 end
 
 local tall_enable = function()
+	waywall.show_floating(false)
 	show_mirrors(false, true, false, true)
 end
 
@@ -287,6 +296,14 @@ local toggle_ninb = function()
 	waywall.show_floating(ninb_permanent)
 end
 
+local rsg_reset = function()
+	if waywall.get_key("RightShift") then
+		waywall.press_key("F10")
+			waywall.set_resolution(0, 0)
+			generic_disable()
+	end
+end
+
 -- auto hide ninbot on quit
 waywall.listen("state", clear_ninb)
 
@@ -297,10 +314,11 @@ config.actions = {
 	["*-Alt_l"] = action(resolutions.tall),
 	["Grave"] = action(resolutions.eyezoom),
 	["Shift-7"] = action(exec_ninb),
-	["Shift-Grave"] = action(toggle_ninb),
+	["Shift-9"] = action(exec_paceman),
+	["Ctrl-Grave"] = action(toggle_ninb),
 	["o"] = action(oneshot_crosshair),
 	["Ctrl-n"] = toggle_keymap,
-	-- ["*-C"] = action(show_ninb_if_f3),
+	["bracketright"] = action(rsg_reset),
 	["L"] = action(clear_ninb),
 }
 
