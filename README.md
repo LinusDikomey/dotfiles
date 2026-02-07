@@ -1,6 +1,6 @@
 # dotfiles
 My nix flake configuration.
-Includes NixOS Niri and Hyprland Desktops as well as a MacOS and a Raspberry Pi Homelab configuration.
+Includes NixOS with a Niri Desktop as well as a MacOS and a Raspberry Pi Homelab configuration.
 
 # Setup/Features
 - NixOS/nix-darwin
@@ -8,6 +8,7 @@ Includes NixOS Niri and Hyprland Desktops as well as a MacOS and a Raspberry Pi 
 - Keybindings optimized for the Colemak DH Layout
 
 ## Programs
+- Niri
 - Helix
 - Nushell
 - ghostty
@@ -15,8 +16,8 @@ Includes NixOS Niri and Hyprland Desktops as well as a MacOS and a Raspberry Pi 
   - Power Menu
   - Weather
   - Calendar
-  - Notifications (Dunst)
-- Niri
+  - Notifications (swaync)
+- Zed
 - sddm
 - ... and many more
 
@@ -28,6 +29,7 @@ Includes NixOS Niri and Hyprland Desktops as well as a MacOS and a Raspberry Pi 
 | Mars    | Darwin | MacBook Air                        |
 | Titan   | NixOS  | Homelab Raspberry Pi               |
 | Neptune | NixOS  | Server VM for some various hosting |
+
 # Installation
 Before installing, note that this is my personal configuration and you probably don't want to just
 use this because everything is pretty opinionated. If you still want to try it out or use it as a

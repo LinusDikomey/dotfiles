@@ -25,12 +25,10 @@ in {
         position = "top";
         height = 40;
         modules-left = [
-          "hyprland/workspaces"
           "niri/workspaces"
           "custom/music"
         ];
         modules-center = [
-          "hyprland/window"
           "niri/window"
         ];
         modules-right = [
@@ -45,7 +43,7 @@ in {
           "clock"
           "custom/notifications"
         ];
-        "hyprland/workspaces".all-outputs = true;
+        "niri/workspaces".all-outputs = true;
         "keyboard-state" = {
           numlock = false;
           capslock = true;
@@ -54,14 +52,6 @@ in {
             locked = "";
             unlocked = "";
           };
-        };
-        "hyprland/mode".format = "<span style=\"italic\">{}</span>";
-        "hyprland/scratchpad" = {
-          "format" = "{icon} {count}";
-          "show-empty" = false;
-          "format-icons" = ["" ""];
-          "tooltip" = true;
-          "tooltip-format" = "{app}: {title}";
         };
         idle_inhibitor = {
           format = "{icon}";

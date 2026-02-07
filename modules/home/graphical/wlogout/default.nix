@@ -9,7 +9,7 @@
     layout = [
       {
         label = "lock";
-        action = "hyprlock";
+        action = "swaylock --daemonize";
         text = "Lock";
         keybind = "l";
       }
@@ -18,8 +18,6 @@
         action = pkgs.writeShellScript "exit-desktop" ''
           if [ -n "''${NIRI_SOCKET}" ]; then
             niri msg action quit
-          elif [ -n "''${HYPRLAND_INSTANCE_SIGNATURE}" ]; then
-            hyprctl dispatch exit
           else
             echo "error: no desktop detected"
           fi
@@ -54,7 +52,7 @@
     ];
     style =
       (builtins.readFile ./style.css)
-      + lib.strings.concatStrings (builtins.map (
+      + lib.strings.concatStrings (map (
         x: let
           url = "url(\"${./icons}/${x}.png\")";
         in ''

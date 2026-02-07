@@ -13,10 +13,9 @@ in {
     ./swaync.nix
     ./gammastep.nix
     ./ghostty.nix
-    ./hypridle.nix
-    ./hyprland
-    ./hyprlock.nix
-    ./hyprpaper.nix
+    ./swayidle.nix
+    ./swaylock.nix
+    ./swaybg.nix
     ./niri.nix
     ./waybar
     ./wlogout
@@ -28,7 +27,7 @@ in {
     enable = lib.mkEnableOption "Enable graphical and desktop support";
     nvidia = lib.mkEnableOption "Enable support for nvidia GPU hardware";
     desktops = lib.mkOption {
-      type = types.listOf (types.enum ["hyprland" "niri"]);
+      type = types.listOf (types.enum ["niri"]);
       default = [];
     };
     monitors = lib.mkOption {
