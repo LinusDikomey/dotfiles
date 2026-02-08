@@ -16,11 +16,13 @@ in {
     ./swayidle.nix
     ./swaylock.nix
     ./swaybg.nix
+    ./modkeys.nix
     ./niri.nix
     ./waybar
     ./wlogout
     ./wofi.nix
     ./gtkTheme.nix
+    ./zed.nix
   ];
 
   options.dotfiles.graphical = {

@@ -4,7 +4,7 @@
   ...
 }: {
   programs.zed-editor = {
-    enable = config.dotfiles.coding.enable;
+    enable = config.dotfiles.coding.enable && config.dotfiles.graphical.enable;
 
     # only allow this file as a single source of truth
     mutableUserSettings = false;

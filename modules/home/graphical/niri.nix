@@ -4,13 +4,13 @@
   pkgs,
   ...
 }: let
+  inherit (config.dotfiles) keymap;
   cfg = config.dotfiles.graphical;
   keys = {
-    # Colemak DH home row keys
-    "M" = "left";
-    "N" = "down";
-    "E" = "up";
-    "I" = "right";
+    ${keymap.left} = "left";
+    ${keymap.down} = "down";
+    ${keymap.up} = "up";
+    ${keymap.right} = "right";
     # arrow keys
     "Left" = "left";
     "Down" = "down";
@@ -75,23 +75,11 @@ in {
         pactl = "${pkgs.pulseaudio}/bin/pactl";
       in
         {
-          "Mod+Space".action.spawn = [
-            "${pkgs.wofi}/bin/wofi"
-            "--theme"
-            "launcher"
-            "--modi"
-            "drun,run,window,ssh,filebrowser"
-            "--show"
-            "drun"
-          ];
-
           "Mod+Shift+Q" = {
             action.close-window = {};
             repeat = false;
           };
 
-          "Mod+Return".action.spawn = "${pkgs.ghostty}/bin/ghostty";
-          "Mod+Shift+Escape".action.spawn = "${pkgs.wlogout}/bin/wlogout";
           "Mod+Shift+Slash".action.show-hotkey-overlay = {};
 
           "Mod+O" = {
@@ -108,28 +96,26 @@ in {
           };
           "Mod+D".action.focus-workspace-down = {};
           "Mod+U".action.focus-workspace-up = {};
+          "Mod+Shift+D".action.move-column-to-workspace-down = {};
+          "Mod+Shift+U".action.move-column-to-workspace-up = {};
 
           "Mod+Comma".action.consume-or-expel-window-left = {};
           "Mod+Period".action.consume-or-expel-window-right = {};
           "Mod+R".action.switch-preset-column-width = {};
-          "Mod+K".action.maximize-column = {};
-          "Mod+H".action.expand-column-to-available-width = {};
-          "Mod+C".action.center-column = {};
+          "Mod+${keymap.next}".action.maximize-column = {};
+          "Mod+${keymap.match}".action.expand-column-to-available-width = {};
+          "Mod+a".action.center-column = {};
           "Mod+Shift+C".action.center-visible-columns = {};
           "Mod+Backspace".action.fullscreen-window = {};
           "Mod+T".action.toggle-column-tabbed-display = {};
           "Mod+V".action.toggle-window-floating = {};
 
-          # programs
-          "Mod+W".action.spawn = "${pkgs.firefox}/bin/firefox";
-          "Mod+F".action.spawn = "${pkgs.nautilus}/bin/nautilus";
-
           # screenshots/screencasts
           "Mod+Shift+S".action.screenshot = {};
           "Mod+S".action.screenshot-window = {};
           "Mod+Ctrl+S".action.screenshot-screen = {};
-          "Mod+Y".action.set-dynamic-cast-monitor = {};
-          "Mod+Shift+Y".action.set-dynamic-cast-window = {};
+          "Mod+Y".action.set-dynamic-cast-window = {};
+          "Mod+Shift+Y".action.set-dynamic-cast-monitor = {};
           "Mod+Ctrl+Y".action.clear-dynamic-cast-target = {};
 
           # media buttons
@@ -137,11 +123,8 @@ in {
           "XF86AudioLowerVolume".action.spawn = [pactl "set-sink-volume" "@DEFAULT_SINK@" "-2%"];
           "XF86AudioRaiseVolume".action.spawn = [pactl "set-sink-volume" "@DEFAULT_SINK@" "+2%"];
           "XF86AudioMute".action.spawn = [pactl "set-sink-mute" "@DEFAULT_SINK@" "toggle"];
-
-          # swaync panel
-          "Mod+X".action.spawn = ["swaync-client" "--toggle-panel"];
         }
-        // builtins.listToAttrs (lib.lists.flatten (builtins.genList (i: [
+        // builtins.listToAttrs (builtins.concatLists (builtins.genList (i: [
             {
               name = "Mod+${toString i}";
               value.action.focus-workspace = i;
@@ -155,8 +138,9 @@ in {
         // (lib.foldl' lib.recursiveUpdate {} (map (
             key: let
               dir = keys.${key};
+              lr = builtins.elem dir ["left" "right"];
               cw =
-                if builtins.elem dir ["left" "right"]
+                if lr
                 then "column"
                 else "window";
             in {
@@ -166,7 +150,18 @@ in {
               "Mod+Ctrl+${key}".action."focus-monitor-${dir}" = {};
             }
           )
-          (builtins.attrNames keys)));
+          (builtins.attrNames keys)))
+        // (lib.mapAttrs'
+          (key: action: let
+            first = builtins.substring 0 1 key;
+            shifted = lib.toUpper first == first;
+          in
+            lib.nameValuePair "Mod+${
+              lib.optionalString shifted "Shift+"
+            }${key}" {action.spawn = action;})
+          (import ./which-key.nix {
+            inherit lib pkgs config;
+          }));
       xwayland-satellite = {
         enable = true;
         path = lib.getExe pkgs.xwayland-satellite-unstable;

@@ -43,7 +43,6 @@ in {
           "clock"
           "custom/notifications"
         ];
-        "niri/workspaces".all-outputs = true;
         "keyboard-state" = {
           numlock = false;
           capslock = true;

@@ -12,6 +12,7 @@
     ./git.nix
     ./helix.nix
     ./jujutsu.nix
+    ./keymap.nix
     ./mime.nix
     ./nh.nix
     ./nu.nix
@@ -19,7 +20,6 @@
     ./shell.nix
     ./work.nix
     ./yazi.nix
-    ./zed.nix
   ];
 
   home.username = dotfiles.username;

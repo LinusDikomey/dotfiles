@@ -38,74 +38,97 @@ in {
         };
 
         keys = let
+          inherit (lib) toUpper;
+          inherit (config.dotfiles) keymap;
           match_mode = {
-            h = "match_brackets";
+            ${keymap.match} = "match_brackets";
             s = "surround_add";
             r = "surround_replace";
             d = "surround_delete";
             a = "select_textobject_around";
             i = "select_textobject_inner";
           };
-          g_mode = {
-            h = "no_op";
-            l = "no_op";
-            m = "goto_line_start";
-            i = "goto_line_end";
-          };
+          g_mode =
+            {
+              h = "no_op";
+              l = "no_op";
+            }
+            // {
+              ${keymap.left} = "goto_line_start";
+              ${keymap.right} = "goto_line_end";
+            };
         in {
           normal = {
-            m = "move_char_left";
-            n = "move_visual_line_down";
-            N = "join_selections";
-            "A-N" = "join_selections_space";
-            e = "move_visual_line_up";
-            E = "keep_selections";
-            i = "move_char_right";
+            ${keymap.left} = "move_char_left";
+            ${keymap.down} = "move_visual_line_down";
+            ${toUpper keymap.down} = "join_selections";
+            "A-${toUpper keymap.down}" = "join_selections_space";
+            ${keymap.up} = "move_visual_line_up";
+            ${toUpper keymap.up} = "keep_selections";
+            ${keymap.right} = "move_char_right";
 
-            k = "search_next";
-            K = "search_prev";
-            j = "move_next_word_end";
-            J = "move_next_long_word_end";
-            l = "insert_mode";
+            ${keymap.next} = "search_next";
+            ${toUpper keymap.next} = "search_prev";
+            ${keymap.end} = "move_next_word_end";
+            ${toUpper keymap.end} = "move_next_long_word_end";
+            ${keymap.insert} = "insert_mode";
             "C-u" = "jump_forward";
             "C-y" = "jump_backward";
 
             # it's a bit stupid but alt-d only works on mac like this because it yields √
             "√" = "delete_selection_noyank";
 
-            h = match_mode;
+            ${keymap.match} = match_mode;
             g = g_mode;
 
-            z = {
-              j = "no_op";
-              k = "no_op";
-              n = "scroll_down";
-              e = "scroll_up";
-            };
+            z =
+              {
+                j = "no_op";
+                k = "no_op";
+              }
+              // {
+                ${keymap.down} = "scroll_down";
+                ${keymap.up} = "scroll_up";
+              };
 
-            "C-w" = {
-              h = "no_op";
-              j = "no_op";
-              k = "no_op";
-              l = "no_op";
-              H = "no_op";
-              J = "no_op";
-              K = "no_op";
-              L = "no_op";
-              "C-h" = "no_op";
-              "C-j" = "no_op";
-              "C-k" = "no_op";
-              "C-l" = "no_op";
-              m = "jump_view_left";
-              n = "jump_view_down";
-              e = "jump_view_up";
-              i = "jump_view_right";
-              M = "swap_view_left";
-              N = "swap_view_down";
-              E = "swap_view_up";
-              I = "swap_view_right";
-            };
-
+            "C-w" = let
+              defaultHomeRow = ["h" "j" "k" "l"];
+              directions = ["left" "down" "up" "right"];
+            in
+              builtins.listToAttrs (
+                builtins.concatMap (key: [
+                  {
+                    name = key;
+                    value = "no_op";
+                  }
+                  {
+                    name = toUpper key;
+                    value = "no_op";
+                  }
+                  {
+                    name = "C-${key}";
+                    value = "no_op";
+                  }
+                ])
+                defaultHomeRow
+              )
+              // builtins.listToAttrs (
+                builtins.concatMap (dir: [
+                  {
+                    name = keymap.${dir};
+                    value = "jump_view_${dir}";
+                  }
+                  {
+                    name = toUpper keymap.${dir};
+                    value = "swap_view_${dir}";
+                  }
+                  {
+                    name = "C-${keymap.${dir}}";
+                    value = "swap_view_${dir}";
+                  }
+                ])
+                directions
+              );
             " ".g = {
               u = ":reset-diff-change";
               b = ":! git blame -L %{cursor_line},+1 %{buffer_name}";
@@ -129,17 +152,17 @@ in {
           };
 
           select = {
-            m = "extend_char_left";
-            n = "extend_visual_line_down";
-            e = "extend_visual_line_up";
-            i = "extend_char_right";
-            k = "extend_search_next";
-            K = "extend_search_prev";
+            ${keymap.left} = "extend_char_left";
+            ${keymap.down} = "extend_visual_line_down";
+            ${keymap.up} = "extend_visual_line_up";
+            ${keymap.right} = "extend_char_right";
+            ${keymap.next} = "extend_search_next";
+            ${toUpper keymap.next} = "extend_search_prev";
 
-            j = "extend_next_word_end";
-            J = "extend_next_long_word_end";
+            ${keymap.end} = "extend_next_word_end";
+            ${toUpper keymap.end} = "extend_next_long_word_end";
 
-            h = match_mode;
+            ${keymap.match} = match_mode;
             g = g_mode;
           };
         };
