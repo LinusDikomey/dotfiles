@@ -20,7 +20,6 @@ local remaps = {
 	["L"] = "LeftAlt",
 	["A"] = "Y",
 	["Y"] = "A",
-	-- ["Equal"] = "Home",
 }
 
 local reset_ninbot = "H"
@@ -36,8 +35,6 @@ local colors = {
 
 -- values are done in 1080p scale and then scaled to the actual resolution as needed
 local scale = resolution.y / 1080.0
-
-
 
 local config = {
 	window = {
@@ -56,7 +53,11 @@ local config = {
 	},
 	theme = {
 		background = colors.background,
-		ninb_anchor = "topright",
+		ninb_anchor = {
+			position = "topright",
+			x = -5,
+			y = 50,
+		},
 		ninb_opacity = 0.7,
 	},
 	experimental = {

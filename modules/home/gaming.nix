@@ -17,16 +17,37 @@ in {
       (
         prismlauncher.override
         {
-          jdks = [jdk8 jdk17 jdk25];
+          jdks = [
+            jdk8
+            jdk21
+            graalvmPackages.graalvm-oracle_17
+          ];
+          additionalLibs = [
+            libxkbcommon
+            libxkbfile
+            libx11
+            libxcb
+            libxinerama
+            libxt
+            libxtst
+            libxau
+            libxdmcp
+            libxext
+            libsm
+            libice
+            libbsd
+            libuuid
+          ];
         }
       )
       localPkgs.waywall
       localPkgs.ninjabrain-bot
+      localPkgs.advancely
       olympus
       jemalloc
       xdotool
       xorg.xwininfo
-      jdk25
+      jdk21
     ];
 
     home.file = let

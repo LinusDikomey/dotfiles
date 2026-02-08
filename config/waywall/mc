@@ -17,12 +17,12 @@ xkb_symbols "custom" {
     key <AD04> { [ s, N ] };
     key <AC02> { [ v, B ] };
     key <AB06> { [ p, J ] };
-    key <AC05> { [ U00E5, U00C5 ] };
+    key <AC05> { [ aring, Aring] };
 
     // Z X C D
     // key <AB01> { [ n, N ] };
     // key <AB02> { [ i, I ] };
-    key <AB03> { [ U00F8, U00F8 ] };
+    key <AB03> { [ oslash, oslash] };
     // key <AC03> { [ d, D ] };
 
     key <AB07> { [h] };
