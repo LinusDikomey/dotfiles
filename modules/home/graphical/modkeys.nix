@@ -36,10 +36,10 @@
     lib.mkDefault {
       w = "${pkgs.firefox}/bin/firefox";
       f = "${pkgs.nautilus}/bin/nautilus";
-      x = ["swaync-client --toggle-panel"];
+      b = ["swaync-client" "--toggle-panel"];
       return = "${pkgs.ghostty}/bin/ghostty";
       Escape = "${pkgs.wlogout}/bin/wlogout";
-      c = builtins.listToAttrs (builtins.genList (i: let
+      R = builtins.listToAttrs (builtins.genList (i: let
           percent =
             if i == 0
             then "100"

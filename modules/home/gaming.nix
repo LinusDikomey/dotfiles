@@ -46,7 +46,7 @@ in {
       olympus
       jemalloc
       xdotool
-      xorg.xwininfo
+      xwininfo
       jdk21
     ];
 

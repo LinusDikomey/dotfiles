@@ -72,8 +72,6 @@ in {
             ${keymap.end} = "move_next_word_end";
             ${toUpper keymap.end} = "move_next_long_word_end";
             ${keymap.insert} = "insert_mode";
-            "C-u" = "jump_forward";
-            "C-y" = "jump_backward";
 
             # it's a bit stupid but alt-d only works on mac like this because it yields √
             "√" = "delete_selection_noyank";

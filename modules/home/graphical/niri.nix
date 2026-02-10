@@ -42,10 +42,12 @@ in {
       input = {
         focus-follows-mouse = {
           enable = true;
-          max-scroll-amount = "95%";
+          max-scroll-amount = "49%";
         };
+        warp-mouse-to-focus.enable = true;
         keyboard = {
-          repeat-delay = 350;
+          repeat-delay = 200;
+          repeat-rate = 30;
           xkb.options = "compose:rwin";
         };
         mouse = {
@@ -57,32 +59,33 @@ in {
       gestures.hot-corners.enable = false;
       layout = {
         focus-ring.width = 2.5;
-        gaps = 6;
+        gaps = 4;
         struts = {
-          left = 2;
-          right = 2;
-          top = 2;
-          bottom = 2;
+          left = 1;
+          right = 1;
+          top = 1;
+          bottom = 1;
         };
         preset-column-widths = [
           {proportion = 1. / 3.;}
           {proportion = 1. / 2.;}
           {proportion = 2. / 3.;}
         ];
+        default-column-width.proportion = 0.5;
       };
       binds = let
         playerctl = "${pkgs.playerctl}/bin/playerctl";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
       in
         {
-          "Mod+Shift+Q" = {
+          "Mod+Shift+q" = {
             action.close-window = {};
             repeat = false;
           };
 
-          "Mod+Shift+Slash".action.show-hotkey-overlay = {};
+          "Mod+Shift+slash".action.show-hotkey-overlay = {};
 
-          "Mod+O" = {
+          "Mod+g" = {
             action.toggle-overview = {};
             repeat = false;
           };
@@ -94,29 +97,38 @@ in {
             action.focus-workspace-up = {};
             cooldown-ms = 150;
           };
-          "Mod+D".action.focus-workspace-down = {};
-          "Mod+U".action.focus-workspace-up = {};
-          "Mod+Shift+D".action.move-column-to-workspace-down = {};
-          "Mod+Shift+U".action.move-column-to-workspace-up = {};
+          "Mod+d".action.focus-workspace-down = {};
+          "Mod+u".action.focus-workspace-up = {};
+          "Mod+Shift+d".action.move-column-to-workspace-down = {};
+          "Mod+Shift+u".action.move-column-to-workspace-up = {};
 
-          "Mod+Comma".action.consume-or-expel-window-left = {};
-          "Mod+Period".action.consume-or-expel-window-right = {};
-          "Mod+R".action.switch-preset-column-width = {};
-          "Mod+${keymap.next}".action.maximize-column = {};
+          "Mod+comma".action.consume-or-expel-window-left = {};
+          "Mod+period".action.consume-or-expel-window-right = {};
+          "Mod+r".action.switch-preset-column-width = {};
+          "Mod+bracketleft".action.set-column-width = "-${toString (100. / 9.)}%";
+          "Mod+bracketright".action.set-column-width = "+${toString (100. / 9.)}%";
+          "Mod+x".action.maximize-column = {};
           "Mod+${keymap.match}".action.expand-column-to-available-width = {};
-          "Mod+a".action.center-column = {};
-          "Mod+Shift+C".action.center-visible-columns = {};
-          "Mod+Backspace".action.fullscreen-window = {};
-          "Mod+T".action.toggle-column-tabbed-display = {};
-          "Mod+V".action.toggle-window-floating = {};
+          "Mod+c".action.center-column = {};
+          "Mod+Shift+c".action.center-visible-columns = {};
+          "Mod+backspace".action.fullscreen-window = {};
+          "Mod+t".action.toggle-column-tabbed-display = {};
+          "Mod+v".action.toggle-window-floating = {};
 
           # screenshots/screencasts
-          "Mod+Shift+S".action.screenshot = {};
-          "Mod+S".action.screenshot-window = {};
-          "Mod+Ctrl+S".action.screenshot-screen = {};
-          "Mod+Y".action.set-dynamic-cast-window = {};
-          "Mod+Shift+Y".action.set-dynamic-cast-monitor = {};
-          "Mod+Ctrl+Y".action.clear-dynamic-cast-target = {};
+          "Mod+Shift+s".action.screenshot = {};
+          "Mod+s".action.screenshot-window = {};
+          "Mod+Ctrl+s".action.screenshot-screen = {};
+          "Mod+y".action.set-dynamic-cast-window = {};
+          "Mod+Shift+y".action.set-dynamic-cast-monitor = {};
+          "Mod+Ctrl+y".action.clear-dynamic-cast-target = {};
+
+          # pick color to clipboard
+          "Mod+p".action.spawn = [
+            "nu"
+            "-c"
+            ''((niri msg pick-color | lines).1 | split row " ").1 | wl-copy''
+          ];
 
           # media buttons
           "XF86AudioPlay".action.spawn = [playerctl "play-pause"];

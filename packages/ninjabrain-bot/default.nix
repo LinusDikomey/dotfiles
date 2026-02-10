@@ -4,7 +4,9 @@
   makeWrapper,
   fetchurl,
   libxkbcommon,
-  xorg,
+  libxcb,
+  libx11,
+  libxt,
 }:
 stdenv.mkDerivation rec {
   name = "Ninjabrain-Bot";
@@ -18,15 +20,15 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [makeWrapper];
   buildInputs = [
     libxkbcommon
-    xorg.libxcb
-    xorg.libX11
-    xorg.libXt
+    libxcb
+    libx11
+    libxt
   ];
   installPhase = ''
     mkdir -pv $out/share/java $out/bin
     cp ${src} $out/share/java/${name}-${version}.jar
     makeWrapper ${jre}/bin/java $out/bin/Ninjabrain-Bot \
       --add-flags "-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel -jar $out/share/java/${name}-${version}.jar" \
-      --set LD_LIBRARY_PATH "${libxkbcommon}/lib:${xorg.libxcb}/lib:${xorg.libX11}/lib:${xorg.libXt}/lib:$LD_LIBRARY_PATH"
+      --set LD_LIBRARY_PATH "${libxkbcommon}/lib:${libxcb}/lib:${libx11}/lib:${libxt}/lib:$LD_LIBRARY_PATH"
   '';
 }

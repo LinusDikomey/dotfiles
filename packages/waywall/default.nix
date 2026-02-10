@@ -10,7 +10,7 @@
   wayland,
   xwayland,
   wayland-scanner,
-  xorg,
+  libxcb,
   libxkbcommon,
   kdePackages,
   pkg-config,
@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     wayland
     xwayland
     wayland-scanner
-    xorg.libxcb
+    libxcb
     libxkbcommon
     kdePackages.wayland-protocols
     pkg-config
