@@ -18,6 +18,7 @@
         imagemagick
         zip
         unzip
+        file
         killall
         tmux
         dig

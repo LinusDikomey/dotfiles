@@ -196,9 +196,7 @@ in {
     style = let
       colors = config.dotfiles.theme.colors;
     in
-      /*
-      css
-      */
+      # css
       ''
         * {
           font-family: ${config.dotfiles.theme.font.name};

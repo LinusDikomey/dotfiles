@@ -20,9 +20,14 @@ local remaps = {
 	["L"] = "LeftAlt",
 	["A"] = "Y",
 	["Y"] = "A",
+	["F1"] = "6",
+	["6"] = "F1",
+	["F2"] = "7",
+	["7"] = "F2",
 }
 
-local reset_ninbot = "H"
+-- seems to not work (maybe depending on keyboard layout, one of them should always work hopefully)
+local reset_ninbot = "h"
 
 -- colors taken from Catppuccin Macchiato theme
 local colors = {
@@ -68,13 +73,52 @@ local config = {
 -- state
 local ninb_permanent = false
 
+
+local is_ninb_running = function()
+    local handle = io.popen("pgrep -f 'Ninjabrain.*jar'")
+    local result = handle:read("*l")
+    handle:close()
+    return result ~= nil
+end
+
 local exec_ninb = function()
-	print("starting Ninjabrain Bot")
-	if not helpers.floating_shown then
-		helpers.toggle_floating()
+	if is_ninb_running() then
+		return
 	end
 	waywall.exec("Ninjabrain-Bot")
 end
+
+-- resets and hides ninjabrain bot
+-- also starts it if not running already
+local clear_ninb = function()
+	exec_ninb()
+	ninb_permanent = false
+	waywall.exec("xdotool key " .. reset_ninbot)
+	waywall.show_floating(false)
+end
+
+-- auto hide ninbot on quit
+waywall.listen("state", function()
+	local screen = waywall.state().screen
+	if screen ~= "inworld" then
+		clear_ninb()
+	end
+end)
+
+local toggle_ninb = function()
+	ninb_permanent = not ninb_permanent
+	waywall.show_floating(ninb_permanent)
+end
+
+-- local show_ninb_if_f3 = function()
+-- 	if waywall.get_key("F3") and not waywall.floating_shown() and not ninb_permanent then
+-- 		waywall.show_floating(true)
+-- 		waywall.sleep(f3_ninbot_seconds * 1000)
+-- 		if not ninb_permanent then
+-- 			waywall.show_floating(false)
+-- 		end
+-- 	end
+-- end
 
 local exec_paceman = function()
 	waywall.exec("java -jar " .. os.getenv("HOME") .. "/mcsr/paceman-tracker.jar --nogui")
@@ -271,42 +315,15 @@ local action = function(f)
 		end
 end
 
-
--- local show_ninb_if_f3 = function()
--- 	if waywall.get_key("F3") and not waywall.floating_shown() and not ninb_permanent then
--- 		waywall.show_floating(true)
--- 		waywall.sleep(f3_ninbot_seconds * 1000)
--- 		if not ninb_permanent then
--- 			waywall.show_floating(false)
--- 		end
--- 	end
--- end
-
--- resets and hides ninjabrain bot
-local clear_ninb = function()
-	local screen = waywall.state().screen
-	if screen ~= "inworld" then
-		ninb_permanent = false
-		print(waywall.exec("xdotool key " .. reset_ninbot))
-		waywall.show_floating(false)
-	end
-end
-
-local toggle_ninb = function()
-	ninb_permanent = not ninb_permanent
-	waywall.show_floating(ninb_permanent)
-end
-
 local rsg_reset = function()
 	if waywall.get_key("RightShift") then
+		clear_ninb()
 		waywall.press_key("F10")
 			waywall.set_resolution(0, 0)
 			generic_disable()
 	end
 end
 
--- auto hide ninbot on quit
-waywall.listen("state", clear_ninb)
 
 
 config.actions = {
@@ -320,7 +337,6 @@ config.actions = {
 	["o"] = action(oneshot_crosshair),
 	["Ctrl-n"] = toggle_keymap,
 	["bracketright"] = action(rsg_reset),
-	["L"] = action(clear_ninb),
 }
 
 return config

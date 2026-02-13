@@ -72,7 +72,8 @@
           desc = "Bluetooth";
         };
         m = "prismlauncher";
-        o = "obs";
+        r = "obs";
+        o = "obsidian";
         s = "steam";
         v = {
           cmd = "${pkgs.pavucontrol}/bin/pavucontrol";

@@ -4,6 +4,7 @@
   config,
   ...
 }: let
+  inherit (config.dotfiles.theme) variant accent;
   cfg = config.dotfiles.graphical.gtkTheme;
 in {
   options.dotfiles.graphical.gtkTheme = {
@@ -18,10 +19,10 @@ in {
     gtk = {
       enable = true;
       theme = {
-        name = "catppuccin-macchiato-blue-standard";
+        name = "catppuccin-${variant}-${accent}-standard";
         package = pkgs.catppuccin-gtk.override {
-          accents = ["blue"];
-          variant = "macchiato";
+          inherit variant;
+          accents = [accent];
         };
       };
       iconTheme = {

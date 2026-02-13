@@ -25,5 +25,5 @@ xkb_symbols "custom" {
     key <AB03> { [ oslash, oslash] };
     // key <AC03> { [ d, D ] };
 
-    key <AB07> { [h] };
+    key <AC06> { [h] };
 };

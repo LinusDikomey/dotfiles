@@ -92,6 +92,7 @@ in {
           blueman
           mullvad-vpn
           vlc
+          kdePackages.kdenlive
           keymapp
         ];
 

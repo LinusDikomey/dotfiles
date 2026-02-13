@@ -20,6 +20,7 @@ in {
     environment.systemPackages = [
       (pkgs.catppuccin-sddm.override {
         flavor = config.dotfiles.theme.variant;
+        accent = config.dotfiles.theme.accent;
         font = config.dotfiles.theme.font.name;
         fontSize = "10";
         # background = "${dotfiles.wallpaper}";

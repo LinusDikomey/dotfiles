@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  dotfiles,
   ...
 }: let
   graphicalCfgs =
@@ -24,7 +25,6 @@ in {
         enable = true;
         plugins = with pkgs.obs-studio-plugins; [obs-pipewire-audio-capture];
       };
-      ydotool.enable = true;
       niri = lib.mkIf (builtins.elem "niri" desktops) {
         enable = true;
         package = pkgs.niri-unstable;

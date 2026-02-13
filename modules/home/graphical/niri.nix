@@ -25,17 +25,19 @@ in {
       environment."NIXOS_OZONE_WL" = "1";
       hotkey-overlay.skip-at-startup = true;
       outputs =
-        builtins.mapAttrs
-        (name: m: {
-          focus-at-startup = m.primary or false;
-          position = m.offset;
-          mode = {
-            width = m.resolution.x;
-            height = m.resolution.y;
-            refresh = m.framerate;
-          };
-          scale = m.scale;
-        })
+        lib.mapAttrs'
+        (name: m:
+          lib.nameValuePair (m.desc or name) {
+            focus-at-startup = m.primary or false;
+            variable-refresh-rate = m.vrr or false;
+            position = m.offset;
+            mode = {
+              width = m.resolution.x;
+              height = m.resolution.y;
+              refresh = m.framerate;
+            };
+            scale = m.scale;
+          })
         cfg.monitors;
       prefer-no-csd = true;
       clipboard.disable-primary = true;
@@ -73,6 +75,7 @@ in {
         ];
         default-column-width.proportion = 0.5;
       };
+      debug.honor-xdg-activation-with-invalid-serial = true;
       binds = let
         playerctl = "${pkgs.playerctl}/bin/playerctl";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
@@ -97,10 +100,12 @@ in {
             action.focus-workspace-up = {};
             cooldown-ms = 150;
           };
-          "Mod+d".action.focus-workspace-down = {};
-          "Mod+u".action.focus-workspace-up = {};
-          "Mod+Shift+d".action.move-column-to-workspace-down = {};
-          "Mod+Shift+u".action.move-column-to-workspace-up = {};
+          "Mod+${keymap.above_down}".action.focus-workspace-down = {};
+          "Mod+${keymap.above_up}".action.focus-workspace-up = {};
+          "Mod+Shift+${keymap.above_down}".action.move-column-to-workspace-down = {};
+          "Mod+Shift+${keymap.above_up}".action.move-column-to-workspace-up = {};
+          "Mod+Ctrl+${keymap.above_down}".action.move-workspace-down = {};
+          "Mod+Ctrl+${keymap.above_up}".action.move-workspace-up = {};
 
           "Mod+comma".action.consume-or-expel-window-left = {};
           "Mod+period".action.consume-or-expel-window-right = {};
@@ -167,10 +172,15 @@ in {
           (key: action: let
             first = builtins.substring 0 1 key;
             shifted = lib.toUpper first == first;
+            ctrlRemoved = lib.strings.removePrefix "C-" key;
+            ctrl = ctrlRemoved != key;
+            rawKey = lib.toLower ctrlRemoved;
           in
             lib.nameValuePair "Mod+${
+              lib.optionalString ctrl "Ctrl+"
+            }${
               lib.optionalString shifted "Shift+"
-            }${key}" {action.spawn = action;})
+            }${rawKey}" {action.spawn = action;})
           (import ./which-key.nix {
             inherit lib pkgs config;
           }));

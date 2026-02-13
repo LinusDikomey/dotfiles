@@ -19,7 +19,7 @@ in {
       enable = true;
       defaultEditor = cfg.defaultEditor;
       settings = {
-        theme = "catppuccin_macchiato";
+        theme = "catppuccin_${config.dotfiles.theme.variant}";
 
         editor = {
           line-number = "relative";
@@ -72,6 +72,7 @@ in {
             ${keymap.end} = "move_next_word_end";
             ${toUpper keymap.end} = "move_next_long_word_end";
             ${keymap.insert} = "insert_mode";
+            ${toUpper keymap.insert} = "insert_at_line_start";
 
             # it's a bit stupid but alt-d only works on mac like this because it yields √
             "√" = "delete_selection_noyank";

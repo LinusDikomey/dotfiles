@@ -59,6 +59,10 @@ in {
       type = types.enum (builtins.attrNames variants);
       default = "macchiato";
     };
+    accent = lib.mkOption {
+      type = types.str;
+      default = "mauve";
+    };
     colors = lib.mkOption {
       default = variants.${config.dotfiles.theme.variant};
     };

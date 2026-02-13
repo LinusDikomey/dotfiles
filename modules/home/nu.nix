@@ -18,9 +18,7 @@
       "nix develop" = "nix develop --command nu";
     };
     extraConfig =
-      /*
-      nu
-      */
+      # nu
       ''
         def ips [] {
           let external = http get https://checkip.amazonaws.com | str trim
