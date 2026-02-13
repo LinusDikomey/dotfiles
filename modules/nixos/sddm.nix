@@ -15,7 +15,7 @@ in {
     services.displayManager.sddm = {
       enable = true;
       package = lib.mkForce pkgs.kdePackages.sddm;
-      theme = "catppuccin-${config.dotfiles.theme.variant}-mauve";
+      theme = "catppuccin-${config.dotfiles.theme.variant}-${config.dotfiles.theme.accent}";
     };
     environment.systemPackages = [
       (pkgs.catppuccin-sddm.override {

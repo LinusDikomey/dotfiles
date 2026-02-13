@@ -16,8 +16,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "LNXSeus";
     repo = "Advancely";
-    rev = "fe88c9dd3cd31906dede677ac01dc9de8ab6f0eb";
-    sha256 = "sha256-+DUkh0GUkeoG8sAwgS5RzG9vHYGiGdfgLT+B6A4bmhg=";
+    rev = "aa91934454ba2f349643f5f0244629952d39afe4";
+    sha256 = "sha256-50vxr8bYWpBHDBKmwlzWO/ystj1xOB1dfuhlDXoBmUo=";
   };
 
   postPatch = ''

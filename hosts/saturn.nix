@@ -12,13 +12,14 @@ in {
       gtkTheme.enable = true;
       monitors = rec {
         DP-4 = {
-          desc = "GIGA-BYTE TECHNOLOGY CO. LTD. M28U 25070B000727";
+          desc = "GIGA-BYTE TECHNOLOGY CO., LTD. M28U 25070B000727";
           primary = true;
           resolution = {
             x = 3840;
             y = 2160;
           };
           framerate = 143.999;
+          vrr = true;
           offset = {
             x = 0;
             y = 0;

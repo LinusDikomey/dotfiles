@@ -31,16 +31,16 @@
         nixd
         nil
         inputs'.eye.packages.default
-        (rust-bin.stable.latest.default.override {
-          extensions = ["rust-analyzer" "rust-src"];
-        })
+        # (rust-bin.stable.latest.default.override {
+        #   extensions = ["rust-analyzer" "rust-src"];
+        # })
         mise
       ]
       ++ lib.optionals pkgs.stdenv.isDarwin [
         vlc-bin
       ]
       ++ lib.optionals (pkgs.stdenv.isLinux && config.dotfiles.coding.enable) [
-        wineWowPackages.stable
+        wineWow64Packages.stable
       ]
     );
     home.shellAliases = lib.mkIf config.dotfiles.coding.enable {

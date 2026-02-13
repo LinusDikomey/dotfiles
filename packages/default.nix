@@ -1,5 +1,5 @@
 {
   advancely = ./advancely.nix;
-  waywall = ./waywall;
-  ninjabrain-bot = ./ninjabrain-bot;
+  waywall = ./waywall.nix;
+  ninjabrain-bot = ./ninjabrain-bot.nix;
 }

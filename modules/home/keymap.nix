@@ -18,6 +18,8 @@
     match = key "m";
     next = key "n";
     end = key "e";
+    above_down = key "u";
+    above_up = key "i";
 
     layout.colemak_dh = lib.mkOption {
       description = "Enable Colemak DH default layout";
@@ -34,5 +36,7 @@
     match = "h";
     next = "k";
     end = "j";
+    above_down = "l";
+    above_up = "u";
   };
 }

@@ -61,7 +61,7 @@ in {
     };
     accent = lib.mkOption {
       type = types.str;
-      default = "mauve";
+      default = "blue";
     };
     colors = lib.mkOption {
       default = variants.${config.dotfiles.theme.variant};
