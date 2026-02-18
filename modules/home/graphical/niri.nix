@@ -128,13 +128,6 @@ in {
           "Mod+Shift+y".action.set-dynamic-cast-monitor = {};
           "Mod+Ctrl+y".action.clear-dynamic-cast-target = {};
 
-          # pick color to clipboard
-          "Mod+p".action.spawn = [
-            "nu"
-            "-c"
-            ''((niri msg pick-color | lines).1 | split row " ").1 | wl-copy''
-          ];
-
           # media buttons
           "XF86AudioPlay".action.spawn = [playerctl "play-pause"];
           "XF86AudioLowerVolume".action.spawn = [pactl "set-sink-volume" "@DEFAULT_SINK@" "-2%"];

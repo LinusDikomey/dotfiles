@@ -83,5 +83,24 @@
         y = website "YouTube" "https://youtube.com";
         t = website "Twitch" "https://twitch.tv";
       };
+      # pickers
+      p = {
+        c = {
+          cmd = [
+            "nu"
+            "-c"
+            ''((niri msg pick-color | lines).1 | split row " ").1 | wl-copy''
+          ];
+          desc = "Pick color";
+        };
+        r = {
+          cmd = [
+            "nu"
+            "-c"
+            ''${pkgs.slurp}/bin/slurp | wl-copy''
+          ];
+          desc = "Pick region";
+        };
+      };
     };
 }
