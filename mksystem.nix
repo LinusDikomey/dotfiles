@@ -3,7 +3,6 @@
   lib ? inputs.nixpkgs.lib,
   users,
   defaultUser ? null,
-  nixpkgs-stable ? throw "nixpkgs-stable not provided to mksystem.nix",
 }: name: {
   modules ? [],
   specialArgs ? {},
@@ -16,7 +15,8 @@
   deploy ? null,
 }: let
   nixpkgs = inputs.nixpkgs or (throw "No nixpkgs input found");
-  nix-darwin = inputs.nix-darwin or (throw "Nox nix-darwin input found");
+  nixpkgs-stable = inputs.nixpkgs-stable or (throw "No nixpkgs-stable input found");
+  nix-darwin = inputs.nix-darwin or (throw "No nix-darwin input found");
 
   modulesPath =
     if class == "nixos"

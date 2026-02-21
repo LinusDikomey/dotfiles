@@ -75,7 +75,7 @@ in {
           krisp-patcher
           obsidian
           spotify
-          signal-desktop-bin
+          signal-desktop
           qbittorrent
           bitwarden-desktop
         ]

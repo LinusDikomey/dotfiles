@@ -55,7 +55,6 @@
         email = "l.dikomey03@gmail.com";
       };
       defaultUser = "linus";
-      nixpkgs-stable = inputs.nixpkgs-stable;
     };
     mkFlake = import ./mkflake.nix {
       inherit inputs;
