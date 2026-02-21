@@ -25,15 +25,13 @@ in {
         position = "top";
         height = 40;
         modules-left = [
-          "niri/workspaces"
           "custom/music"
         ];
         modules-center = [
-          "niri/window"
+          "niri/workspaces"
         ];
         modules-right = [
           "tray"
-          "idle_inhibitor"
           "wireplumber"
           "custom/weather"
           "cpu"
@@ -137,6 +135,9 @@ in {
           ];
           on-click-right = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
         };
+        "niri/workspaces" = {
+          format = " ";
+        };
         "custom/music" = let
           p = args: "${pkgs.playerctl}/bin/playerctl ${args}";
         in {
@@ -164,15 +165,23 @@ in {
           };
         };
         "custom/notifications" = {
-          exec =
-            pkgs.writers.writeNu "dnd" #nu
-            
-            ''
-              if (swaync-client --get-dnd) == "true" {print " "} else {print " "}
-            '';
-          interval = 5;
-          on-click = "swaync-client --toggle-panel";
-          on-click-right = "swaync-client --toggle-dnd";
+          tooltip = true;
+          format = "<span size='16pt'>{icon}</span>";
+          format-icons = {
+            notification = "󱅫 ";
+            none = "󰂜 ";
+            dnd-notification = "󰂠 ";
+            dnd-none = "󰪓 ";
+            inhibited-notification = "󰂛 ";
+            inhibited-none = "󰪑 ";
+            dnd-inhibited-notification = "󰂛 ";
+            dnd-inhibited-none = "󰪑 ";
+          };
+          return-type = "json";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client --toggle-panel -sw";
+          on-click-right = "swaync-client --toggle-dnd -sw";
+          escape = true;
         };
         "custom/weather" = {
           format = "{}";
@@ -214,15 +223,15 @@ in {
           border-radius: 1rem;
           margin: 5px 5px;
           background-color: ${colors.surface0};
-          margin-left: 1rem;
         }
 
         #workspaces button {
           font-weight: bold;
           color: ${colors.lavender};
           border-radius: 1rem;
-          padding: 0.4rem 0.8rem;
-          margin: 0 3px;
+          padding: 0.2rem;
+          /* padding: 0.4rem 0.8rem;
+          margin: 0 3px; */
         }
 
         #workspaces button.active {
@@ -237,6 +246,7 @@ in {
 
         #custom-music {
           border-radius: 1rem;
+          margin-left: 4px;
         }
 
         #window {
@@ -251,13 +261,10 @@ in {
         }
 
         #custom-notifications,
-        #idle-inhibitor,
         #custom-music {
           color: ${colors.text};
         }
 
-        #custom-music,
-        #idle_inhibitor,
         #wireplumber,
         #cpu,
         #memory,
@@ -269,27 +276,25 @@ in {
         #custom-updates,
         #tray,
         #custom-weather,
-        #custom-notifications {
+        #custom-notifications,
+        #custom-music {
           background-color: ${colors.surface0};
-          padding: 0.5rem 1rem;
-          margin: 5px 0;
+          padding: 0.5rem 0.75rem;
+          margin-top: 4px;
+          margin-bottom: 4px;
         }
 
-        #idle_inhibitor {
-          color: @sky;
+        /* leftmost module */
+        #wireplumber {
           border-radius: 1rem 0px 0px 1rem;
-          margin-left: 1rem;
+          margin-left: 4px;
         }
 
+        /* rightmost module */
         #custom-notifications {
-            margin-right: 1rem;
+            margin-right: 4px;
             border-radius: 0px 1rem 1rem 0px;
             color: ${colors.red};
-        }
-
-        #idle-inhibitor {
-          border-radius: 1rem 0px 0px 1rem;
-          margin-left: 1rem;
         }
 
         #clock {
@@ -335,7 +340,7 @@ in {
         }
 
         #tray {
-          margin-right: 1rem;
+          margin-right: 4px;
           border-radius: 1rem;
         }
 

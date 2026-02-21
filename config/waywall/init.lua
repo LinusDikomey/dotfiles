@@ -106,6 +106,7 @@ local clear_ninb = function()
 end
 
 local toggle_ninb = function()
+	exec_ninb()
 	ninb_permanent = not ninb_permanent
 	waywall.show_floating(ninb_permanent)
 end

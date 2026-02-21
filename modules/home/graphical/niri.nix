@@ -119,6 +119,7 @@ in {
           "Mod+backspace".action.fullscreen-window = {};
           "Mod+t".action.toggle-column-tabbed-display = {};
           "Mod+v".action.toggle-window-floating = {};
+          "Mod+d".action.switch-focus-between-floating-and-tiling = {};
 
           # screenshots/screencasts
           "Mod+Shift+s".action.screenshot = {};

@@ -55,6 +55,10 @@ in {
         name = "Iosevka Nerd Font";
       };
     };
+    wallpaper = lib.mkOption {
+      type = types.path;
+      default = ../wallpapers/sagittarius_a.png;
+    };
     variant = lib.mkOption {
       type = types.enum (builtins.attrNames variants);
       default = "macchiato";

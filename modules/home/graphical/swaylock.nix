@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  dotfiles,
   pkgs,
   ...
 }: {
@@ -13,7 +12,7 @@
       clock = true;
       fade-in = 0.5;
       grace = 10;
-      image = "${dotfiles.wallpaper}";
+      image = "${config.dotfiles.theme.wallpaper}";
       effect-blur = "7x5";
       font = config.dotfiles.theme.font.name;
       indicator-idle-visible = true;

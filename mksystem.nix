@@ -29,7 +29,6 @@
     inherit homeFolder users;
     username = user;
     user = users.${user};
-    wallpaper = ./wallpaper.png;
   };
   commonSpecialArgs = {
     inherit inputs dotfiles;

@@ -48,6 +48,7 @@ in {
       xdotool
       xwininfo
       jdk21
+      ckan
     ];
 
     home.file = let

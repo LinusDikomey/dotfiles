@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     mkdir -pv $out/share/java $out/bin
     cp ${src} $out/share/java/${name}-${version}.jar
     makeWrapper ${jre}/bin/java $out/bin/Ninjabrain-Bot \
-      --add-flags "-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel -jar $out/share/java/${name}-${version}.jar" \
+      --add-flags "-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel -Dawt.useSystemAAFontSettings=on -jar $out/share/java/${name}-${version}.jar" \
       --set LD_LIBRARY_PATH "${libxkbcommon}/lib:${libxcb}/lib:${libx11}/lib:${libxt}/lib:$LD_LIBRARY_PATH"
   '';
 }

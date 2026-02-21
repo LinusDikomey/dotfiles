@@ -16,12 +16,16 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "LNXSeus";
     repo = "Advancely";
-    rev = "aa91934454ba2f349643f5f0244629952d39afe4";
-    sha256 = "sha256-50vxr8bYWpBHDBKmwlzWO/ystj1xOB1dfuhlDXoBmUo=";
+    rev = "6f70bec29eb0eba16df12ae5a3a1e89b0c5b1b2c";
+    sha256 = "sha256-TTm5tDNQiSOkD6IVHDQ7udsYp01N3ee0m7lBRPfp9SM=";
   };
 
   postPatch = ''
     mv resources/gui/Advancely_Logo_NoText.png resources/gui/Advancely_Logo_NoText_512_Linux.png
+  '';
+  postInstall = ''
+    substituteInPlace $out/bin/advancely \
+      --replace-fail '/usr/share/advancely' "$out/share/advancely"
   '';
 
   nativeBuildInputs = [

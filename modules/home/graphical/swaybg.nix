@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  dotfiles,
   pkgs,
   ...
 }: {
@@ -12,7 +11,7 @@
       After = ["graphical-session.target"];
     };
     Service = {
-      ExecStart = "${pkgs.swaybg}/bin/swaybg --image ${dotfiles.wallpaper}";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg --image ${config.dotfiles.theme.wallpaper}";
       Restart = "always";
       RestartSec = 5;
     };
