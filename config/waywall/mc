@@ -12,12 +12,13 @@ xkb_symbols "custom" {
     key <AD02> { [ u, A ] };
     key <AC04> { [ e, H ] };
 
-    // A(Y) R S T(N) G
+    // A(Y) R S T(N) G M
     key <AD06> { [ n, R ] };
     key <AD04> { [ s, N ] };
     key <AC02> { [ v, B ] };
     key <AB06> { [ p, J ] };
     key <AC05> { [ aring, Aring] };
+    key <AB07> { [ m, M] };
 
     // Z X C D
     // key <AB01> { [ n, N ] };

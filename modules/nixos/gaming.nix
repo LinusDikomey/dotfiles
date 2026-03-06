@@ -47,12 +47,23 @@ in {
   config = lib.mkIf enabled {
     programs.steam = {
       enable = true;
+      package = pkgs.steam.override {
+        extraEnv = {
+          PROTON_ENABLE_WAYLAND = 1;
+          SDL_VIDEODRIVER = "wayland";
+        };
+      };
       gamescopeSession.enable = true;
       extraCompatPackages = with pkgs; [
         proton-ge-bin
       ];
     };
-    programs.gamemode.enable = true;
+    users.users.${dotfiles.username}.extraGroups = ["gamemode"];
+    programs.gamemode = {
+      enable = true;
+      enableRenice = true;
+      settings.general.renice = 10;
+    };
     services.libinput.enable = true;
     environment.etc."libinput/local-overrides.quirks".text = ''
       [Never Debounce]

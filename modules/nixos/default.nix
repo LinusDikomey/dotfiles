@@ -25,7 +25,12 @@
   };
 
   security.rtkit.enable = true;
-  security.sudo-rs.enable = true;
+  security.sudo-rs = {
+    enable = true;
+    extraConfig = ''
+      Defaults pwfeedback
+    '';
+  };
 
   programs.nix-ld.enable = true;
 

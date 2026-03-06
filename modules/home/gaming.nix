@@ -21,6 +21,7 @@ in {
             jdk8
             jdk21
             graalvmPackages.graalvm-oracle_17
+            jdk25
           ];
           additionalLibs = [
             libxkbcommon

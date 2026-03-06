@@ -38,7 +38,7 @@
     };
   in
     lib.mkDefault {
-      w = "${pkgs.firefox}/bin/firefox";
+      w = "firefox";
       f = "${pkgs.nautilus}/bin/nautilus";
       b = ["swaync-client" "--toggle-panel"];
       return = "${pkgs.ghostty}/bin/ghostty";

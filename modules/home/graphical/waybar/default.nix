@@ -64,7 +64,25 @@ in {
         clock = {
           format = "{:%d.%m. %H:%M}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+          calendar = {
+            mode = "month";
+            mode-mon-col = 3;
+            iso8601 = true;
+            format = {
+              months = "<span color='#1976d2'><b>{}</b></span>";
+              weekdays = "<span color='#1976d2'><b>{}</b></span>";
+              days = "<span color='#fafafa'><b>{}</b></span>";
+              today = "<span color='#1976d2'><b>{}</b></span>";
+              weeks = "<span color='#1976d2'><b>{}</b></span>";
+            };
+            weeks-pos = "right";
+            on-scroll = 1;
+          };
           format-alt = "{:%Y-%m-%d}";
+          actions = {
+            on-scroll-up = "shift_up";
+            on-scroll-down = "shift_down";
+          };
         };
         cpu = {
           format = "{usage}%  ";
@@ -137,6 +155,7 @@ in {
         };
         "niri/workspaces" = {
           format = " ";
+          all-outputs = true;
         };
         "custom/music" = let
           p = args: "${pkgs.playerctl}/bin/playerctl ${args}";
@@ -320,8 +339,6 @@ in {
         #backlight, #battery {
             border-radius: 0;
         }
-
-
 
         #wireplumber {
           color: ${colors.maroon};

@@ -28,7 +28,7 @@ in {
     };
     wallpaper = lib.mkOption {
       type = types.path;
-      default = ../wallpapers/sagittarius_a.png;
+      default = ../../wallpapers/sagittarius_a.png;
     };
     variant = lib.mkOption {
       type = types.enum (builtins.attrNames variants);

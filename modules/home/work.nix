@@ -20,6 +20,7 @@ in {
       awscli
       terraform-ls
       google-chrome
+      coder
     ];
 
     home.shellAliases.k = "kubecolor";

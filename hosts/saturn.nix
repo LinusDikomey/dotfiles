@@ -1,4 +1,8 @@
-{dotfiles, ...}: let
+{
+  dotfiles,
+  pkgs,
+  ...
+}: let
   inherit (dotfiles) username;
 in {
   home-manager.users."${username}".dotfiles = {
@@ -44,6 +48,10 @@ in {
     };
   };
 
+  environment.systemPackages = [
+    pkgs.unityhub
+  ];
+
   dotfiles.ssh.enable = true;
 
   age.identityPaths = ["/home/linus/.ssh/id_ed25519"];
@@ -67,6 +75,7 @@ in {
     "/" = {
       device = "/dev/disk/by-uuid/66ef51db-c6d0-4da6-a1ad-9ca9d9cd1d69";
       fsType = "ext4";
+      options = ["noatime"];
     };
 
     "/boot" = {
@@ -78,7 +87,7 @@ in {
     "/mnt/windows" = {
       device = "/dev/disk/by-uuid/224A39FF4A39CFF1";
       fsType = "ntfs";
-      options = ["nofail"];
+      options = ["nofail" "noatime"];
     };
 
     # "/mnt/media" = {

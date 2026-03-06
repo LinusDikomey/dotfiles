@@ -9,17 +9,19 @@
 in {
   imports = [
     ./swaync.nix
+    ./firefox.nix
     ./gammastep.nix
     ./ghostty.nix
+    ./gtkTheme.nix
+    ./swaybg.nix
     ./swayidle.nix
     ./swaylock.nix
-    ./swaybg.nix
+    ./swaync.nix
     ./modkeys.nix
     ./niri.nix
     ./waybar
     ./wlogout
     ./wofi.nix
-    ./gtkTheme.nix
     ./zed.nix
   ];
 
@@ -64,7 +66,6 @@ in {
           kitty #backup terminal
           config.dotfiles.theme.font.package
 
-          firefox
           discord
           krisp-patcher
           obsidian
@@ -79,7 +80,7 @@ in {
           networkmanagerapplet
           wl-clipboard
           nautilus
-          helvum
+          crosspipe
           lxqt.lxqt-policykit
 
           blueman
