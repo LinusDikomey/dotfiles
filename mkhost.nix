@@ -59,6 +59,11 @@
                 config = config.nixpkgs.config;
               };
               localPkgs = lib.mapAttrs (_: p: pkgs.callPackage p {}) (import ./packages);
+              callHomeless = path:
+                import path {
+                  inherit lib pkgs;
+                  inherit (config.dotfiles) theme keymap;
+                };
             };
           in {
             _module.args =

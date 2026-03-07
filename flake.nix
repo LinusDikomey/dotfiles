@@ -47,7 +47,7 @@
     };
   };
   outputs = inputs: let
-    mkSystem = import ./mksystem.nix {
+    mkHost = import ./mkhost.nix {
       inherit inputs;
       users.linus = {
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOUBLt7DvAGEwZptMihw1RWYM3jEHV9U5h7ugQpb8m3s";
@@ -60,19 +60,33 @@
       inherit inputs;
     };
   in
-    mkFlake (builtins.mapAttrs mkSystem {
-      saturn.modules = [./hosts/saturn.nix];
-      titan = {
-        modules = [./hosts/titan.nix];
-        deploy.hostname = "192.168.2.108";
+    mkFlake {
+      hosts = builtins.mapAttrs mkHost {
+        saturn.modules = [./hosts/saturn.nix];
+        titan = {
+          modules = [./hosts/titan.nix];
+          deploy.hostname = "192.168.2.108";
+        };
+        neptune = {
+          modules = [./hosts/neptune.nix];
+          deploy.hostname = "78.47.87.53";
+        };
+        mars = {
+          class = "darwin";
+          modules = [./hosts/mars.nix];
+        };
       };
-      neptune = {
-        modules = [./hosts/neptune.nix];
-        deploy.hostname = "78.47.87.53";
+      outputs = {
+        formatter = pkgs: pkgs.nixpkgs-fmt;
+        packages = import ./homeless;
+        devShells = pkgs: {
+          default = pkgs.mkShellNoCC {
+            packages =
+              pkgs.lib.attrsets.mapAttrsToList
+              (name: value: value)
+              inputs.self.packages.${pkgs.stdenv.hostPlatform.system};
+          };
+        };
       };
-      mars = {
-        class = "darwin";
-        modules = [./hosts/mars.nix];
-      };
-    });
+    };
 }

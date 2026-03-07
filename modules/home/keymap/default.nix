@@ -27,16 +27,5 @@
       type = lib.types.bool;
     };
   };
-  config.dotfiles.keymap = lib.mkIf config.dotfiles.keymap.layout.colemak_dh {
-    left = "m";
-    down = "n";
-    up = "e";
-    right = "i";
-    insert = "l";
-    match = "h";
-    next = "k";
-    end = "j";
-    above_down = "l";
-    above_up = "u";
-  };
+  config.dotfiles.keymap = lib.mkIf config.dotfiles.keymap.layout.colemak_dh (import ./colemak_dh.nix);
 }

@@ -10,9 +10,9 @@
     ./gaming.nix
     ./graphical
     ./git.nix
-    ./helix.nix
+    ./helix
     ./jujutsu.nix
-    ./keymap.nix
+    ./keymap
     ./mime.nix
     ./nh.nix
     ./nu.nix

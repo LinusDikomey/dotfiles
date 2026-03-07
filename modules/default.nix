@@ -4,7 +4,7 @@
   inputs,
   ...
 }: {
-  imports = [./theme.nix];
+  imports = [./theme];
 
   nixpkgs.overlays = [
     inputs.rust-overlay.overlays.default
@@ -29,7 +29,7 @@
     backupFileExtension = "bak";
     users."${dotfiles.username}".imports = [
       ./home
-      ./theme.nix
+      ./theme
     ];
   };
 }
