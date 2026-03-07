@@ -4,10 +4,6 @@
   inputs,
   ...
 }: {
-  imports = [
-    ./link-applications.nix
-  ];
-
   users.users.${dotfiles.username} = {
     home = "/${dotfiles.homeFolder}/${dotfiles.username}";
   };

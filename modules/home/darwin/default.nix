@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgs-stable,
   dotfiles,
   lib,
   inputs,
@@ -17,20 +16,6 @@
       )
       $env.NIX_PATH = "nixpkgs=${inputs.nixpkgs}"
     '';
-    home = {
-      extraActivationPath = with pkgs; [
-        rsync
-        pkgs-stable.dockutil
-        gawk
-      ];
-      activation.makeTrampolineApps = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        ${builtins.readFile ./make-app-trampolines.sh}
-          fromDir="$HOME/Applications/Home Manager Apps"
-          toDir="$HOME/Applications/Home Manager Trampolines"
-          sync_trampolines "$fromDir" "$toDir"
-      '';
-
-      file.".hushlogin".text = "";
-    };
+    home.file.".hushlogin".text = "";
   };
 }
