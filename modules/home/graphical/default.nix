@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  pkgs-stable,
   config,
   ...
 }: let
@@ -9,7 +8,6 @@
   cfg = config.dotfiles.graphical;
 in {
   imports = [
-    ./dunst.nix
     ./swaync.nix
     ./gammastep.nix
     ./ghostty.nix
@@ -66,24 +64,19 @@ in {
           kitty #backup terminal
           config.dotfiles.theme.font.package
 
-          (
-            if pkgs.stdenv.isDarwin
-            then pkgs-stable.firefox # firefox is currently broken on darwin unstable
-            else firefox
-          )
+          firefox
           discord
           krisp-patcher
           obsidian
           spotify
           signal-desktop
           qbittorrent
-          bitwarden-desktop
+          keymapp
+          # bitwarden-desktop
         ]
         ++ lib.optionals pkgs.stdenv.isLinux [
           wpa_supplicant
           networkmanagerapplet
-          grim
-          slurp
           wl-clipboard
           nautilus
           helvum
@@ -93,7 +86,6 @@ in {
           mullvad-vpn
           vlc
           kdePackages.kdenlive
-          keymapp
         ];
 
     programs.thunderbird = {

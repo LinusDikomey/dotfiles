@@ -32,6 +32,10 @@
       cmd = "firefox ${url}";
       desc = name;
     };
+    nu-cmd = desc: cmd: {
+      inherit desc;
+      cmd = ["nu" "-c" cmd];
+    };
   in
     lib.mkDefault {
       w = "${pkgs.firefox}/bin/firefox";
@@ -85,22 +89,8 @@
       };
       # pickers
       p = {
-        c = {
-          cmd = [
-            "nu"
-            "-c"
-            ''((niri msg pick-color | lines).1 | split row " ").1 | wl-copy''
-          ];
-          desc = "Pick color";
-        };
-        r = {
-          cmd = [
-            "nu"
-            "-c"
-            ''${pkgs.slurp}/bin/slurp | wl-copy''
-          ];
-          desc = "Pick region";
-        };
+        c = nu-cmd "Pick color" ''((niri msg pick-color | lines).1 | split row " ").1 | wl-copy'';
+        r = nu-cmd "Pick region" ''${pkgs.slurp}/bin/slurp | wl-copy'';
       };
     };
 }

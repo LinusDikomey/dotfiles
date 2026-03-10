@@ -31,5 +31,11 @@ in {
       completion:
         positionalany: ["$carapace.bridge.Cobra([kubectl])"]
     '';
+    programs.git.includes = [
+      {
+        condition = "gitdir:~/roofline/**";
+        contents.user.email = "dikomey@roofline.ai";
+      }
+    ];
   };
 }

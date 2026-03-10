@@ -15,7 +15,6 @@
   deploy ? null,
 }: let
   nixpkgs = inputs.nixpkgs or (throw "No nixpkgs input found");
-  nixpkgs-stable = inputs.nixpkgs-stable or (throw "No nixpkgs-stable input found");
   nix-darwin = inputs.nix-darwin or (throw "No nix-darwin input found");
 
   modulesPath =
@@ -48,21 +47,15 @@
         inputs.agenix.${modulesName}.default
         ({config, ...}: {
           config = let
-            pkgs = import nixpkgs {
-              system = config.nixpkgs.hostPlatform.system;
-              config = config.nixpkgs.config;
-            };
+            pkgs = nixpkgs.legacyPackages.${config.nixpkgs.hostPlatform.system};
             extraSpecialArgs = {
               inputs' = lib.mapAttrs (_: lib.mapAttrs (_: v: v.${config.nixpkgs.hostPlatform.system} or v)) inputs;
-              pkgs-stable = import nixpkgs-stable {
-                system = config.nixpkgs.hostPlatform.system;
-                config = config.nixpkgs.config;
-              };
               localPkgs = lib.mapAttrs (_: p: pkgs.callPackage p {}) (import ./packages);
               callHomeless = path:
                 import path {
                   inherit lib pkgs;
-                  inherit (config.dotfiles) theme keymap;
+                  inherit (config.dotfiles) theme;
+                  inherit (config.home-manager.users."${defaultUser}".dotfiles) keymap;
                 };
             };
           in {

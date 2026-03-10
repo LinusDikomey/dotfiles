@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nix-darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -81,10 +80,7 @@
         packages = import ./homeless;
         devShells = pkgs: {
           default = pkgs.mkShellNoCC {
-            packages =
-              pkgs.lib.attrsets.mapAttrsToList
-              (name: value: value)
-              inputs.self.packages.${pkgs.stdenv.hostPlatform.system};
+            packages = builtins.attrValues inputs.self.packages.${pkgs.stdenv.hostPlatform.system};
           };
         };
       };
