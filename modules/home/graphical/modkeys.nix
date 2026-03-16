@@ -41,7 +41,7 @@
       w = "firefox";
       f = "${pkgs.nautilus}/bin/nautilus";
       b = ["swaync-client" "--toggle-panel"];
-      return = "${pkgs.ghostty}/bin/ghostty";
+      return = "${pkgs.kitty}/bin/kitty";
       Escape = "${pkgs.wlogout}/bin/wlogout";
       R = builtins.listToAttrs (builtins.genList (i: let
           percent =
@@ -69,7 +69,7 @@
           ];
           desc = "Search Apps ...";
         };
-        d = "discord";
+        d = "vesktop";
         p = "spotify";
         b = {
           cmd = "blueman-manager";

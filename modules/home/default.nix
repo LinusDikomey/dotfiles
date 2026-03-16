@@ -1,6 +1,8 @@
 {
   dotfiles,
   inputs,
+  pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -13,6 +15,7 @@
     ./helix
     ./jujutsu.nix
     ./keymap
+    ./less.nix
     ./mime.nix
     ./nh.nix
     ./nu.nix
@@ -29,6 +32,21 @@
   fonts.fontconfig.enable = true;
 
   home.sessionVariables.TERM = "xterm-256color";
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    enableJujutsuIntegration = true;
+  };
+  home.packages = [
+    (pkgs.writers.writeNuBin "rgd"
+      #nu
+      ''
+        def --wrapped main [...rest] {
+          ${lib.getExe pkgs.ripgrep} ...$rest --json | ${lib.getExe pkgs.delta}
+        }
+      '')
+  ];
 
   programs.home-manager.enable = true;
   home.stateVersion = "26.05";

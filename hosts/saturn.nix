@@ -90,19 +90,19 @@ in {
       options = ["nofail" "noatime"];
     };
 
-    # "/mnt/media" = {
-    #   device = "192.168.2.108:/media";
-    #   fsType = "nfs";
-    #   options = [
-    #     "x-systemd.automount"
-    #     "noauto"
-    #     "nofail"
-    #     "noatime"
-    #     "bg"
-    #     "x-systemd.idle-timeout=600"
-    #     "x-systemd.mount-timeout=10s"
-    #   ];
-    # };
+    "/mnt/media" = {
+      device = "192.168.2.108:/media";
+      fsType = "nfs";
+      options = [
+        "x-systemd.automount"
+        "noauto"
+        "nofail"
+        "noatime"
+        "bg"
+        "x-systemd.idle-timeout=600"
+        "x-systemd.mount-timeout=3s"
+      ];
+    };
   };
 
   swapDevices = [

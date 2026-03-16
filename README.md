@@ -11,7 +11,7 @@ Includes NixOS with a Niri Desktop as well as a MacOS and a Raspberry Pi Homelab
 - Niri
 - Helix
 - Nushell
-- ghostty
+- kitty
 - waybar
   - Power Menu
   - Weather

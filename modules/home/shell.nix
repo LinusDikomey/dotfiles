@@ -4,10 +4,14 @@
   config,
   ...
 }: {
-  home.shellAliases = {
+  home.shellAliases = let
+    kitten = args: "${pkgs.kitty}/bin/kitten ${args}";
+  in {
     ":q" = "exit";
     cat = "${pkgs.bat}/bin/bat";
-    icat = "${pkgs.kitty}/bin/kitten icat";
+    icat = kitten "icat";
+    ssh = kitten "ssh";
+    clip = kitten "clipboard";
   };
 
   programs.carapace.enable = true;

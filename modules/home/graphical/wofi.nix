@@ -13,7 +13,7 @@
       hide_scroll = true;
       # lines = 8; # this is broken in wofi
       height = 300;
-      term = "ghostty";
+      term = "kitty";
       line_wrap = "word";
       allow_markup = true;
       always_parse_args = false;

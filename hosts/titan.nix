@@ -56,6 +56,7 @@
     "/export/media" = {
       device = "/media";
       options = ["bind"];
+      fsType = "none";
     };
   };
 

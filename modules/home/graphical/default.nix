@@ -11,8 +11,8 @@ in {
     ./swaync.nix
     ./firefox.nix
     ./gammastep.nix
-    ./ghostty.nix
     ./gtkTheme.nix
+    ./kitty.nix
     ./swaybg.nix
     ./swayidle.nix
     ./swaylock.nix
@@ -63,10 +63,9 @@ in {
     in
       with pkgs;
         [
-          kitty #backup terminal
           config.dotfiles.theme.font.package
 
-          discord
+          vesktop
           krisp-patcher
           obsidian
           spotify

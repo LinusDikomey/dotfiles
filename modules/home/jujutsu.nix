@@ -1,8 +1,4 @@
-{
-  dotfiles,
-  pkgs,
-  ...
-}: {
+{dotfiles, ...}: {
   programs.jujutsu = {
     enable = true;
     settings = {
@@ -10,12 +6,7 @@
         name = dotfiles.user.name;
         email = dotfiles.user.email;
       };
-      ui = {
-        default-command = "log";
-
-        pager = "${pkgs.delta}/bin/delta";
-        diff-formatter = ":git";
-      };
+      ui.default-command = "log";
       aliases.tug = ["bookmark" "move" "--from" "heads(::@- & bookmarks())" "--to" "@-"];
     };
   };
