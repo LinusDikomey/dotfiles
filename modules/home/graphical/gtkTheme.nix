@@ -5,12 +5,8 @@
   ...
 }: let
   inherit (config.dotfiles.theme) variant accent;
-  cfg = config.dotfiles.graphical.gtkTheme;
 in {
-  options.dotfiles.graphical.gtkTheme = {
-    enable = lib.mkEnableOption "Enable GTK theming config";
-  };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (pkgs.stdenv.isLinux && config.dotfiles.graphical.enable) {
     # KDE can override this file so that home manager fails to activate after. It gets regenerated
     # when gtk is enabled here so just delete it
     home.activation.cleargtkrc = lib.hm.dag.entryAfter ["writeBoundary"] ''

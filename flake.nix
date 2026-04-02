@@ -27,17 +27,10 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
     eye = {
       url = "github:LinusDikomey/eyelang";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
       };
     };
     waldbot = {

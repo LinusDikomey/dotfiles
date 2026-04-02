@@ -7,7 +7,6 @@
   imports = [./theme];
 
   nixpkgs.overlays = [
-    inputs.rust-overlay.overlays.default
     inputs.niri.overlays.niri
     (final: prev: {
       inherit (prev.lixPackageSets.latest) nixpkgs-review nix-eval-jobs nix-fast-build colmena;

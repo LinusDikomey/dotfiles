@@ -1,11 +1,11 @@
 {
   lib,
-  config,
   pkgs,
   ...
 }: let
   inherit (lib) types;
   variants = import ./variants.nix;
+  defaults = import ./values.nix pkgs;
 in {
   options.dotfiles.theme = {
     font = lib.mkOption {
@@ -21,25 +21,22 @@ in {
           };
         };
       };
-      default = {
-        package = pkgs.nerd-fonts.iosevka;
-        name = "Iosevka Nerd Font";
-      };
+      default = defaults.theme.font;
     };
     wallpaper = lib.mkOption {
       type = types.path;
-      default = ../../wallpapers/sagittarius_a.png;
+      default = defaults.theme.wallpaper;
     };
     variant = lib.mkOption {
       type = types.enum (builtins.attrNames variants);
-      default = "macchiato";
+      default = defaults.theme.variant;
     };
     accent = lib.mkOption {
       type = types.str;
-      default = "blue";
+      default = defaults.theme.accent;
     };
     colors = lib.mkOption {
-      default = variants.${config.dotfiles.theme.variant};
+      default = defaults.theme.colors;
     };
   };
 }

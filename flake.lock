@@ -54,9 +54,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": [
-          "rust-overlay"
-        ]
+        "rust-overlay": "rust-overlay"
       },
       "locked": {
         "lastModified": 1767543916,
@@ -228,13 +226,13 @@
         "niri": "niri",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
-        "rust-overlay": "rust-overlay",
         "waldbot": "waldbot"
       }
     },
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
+          "eye",
           "nixpkgs"
         ]
       },

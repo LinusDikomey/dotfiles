@@ -31,9 +31,6 @@
         nixd
         nil
         inputs'.eye.packages.default
-        # (rust-bin.stable.latest.default.override {
-        #   extensions = ["rust-analyzer" "rust-src"];
-        # })
         mise
       ]
       ++ lib.optionals pkgs.stdenv.isDarwin [

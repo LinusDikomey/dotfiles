@@ -13,7 +13,6 @@ in {
       desktops = ["niri"];
       enable = true;
       nvidia = true;
-      gtkTheme.enable = true;
       monitors = rec {
         DP-4 = {
           desc = "GIGA-BYTE TECHNOLOGY CO., LTD. M28U 25070B000727";
