@@ -8,6 +8,9 @@
     enable = true;
     settings = {
       font_family = config.dotfiles.theme.font.name;
+      bold_font = "auto";
+      italic_font = "auto";
+      bold_italic_font = "auto";
       font_size = 20;
       theme = "Catppuccin-Mocha";
       background_opacity = 0.8;

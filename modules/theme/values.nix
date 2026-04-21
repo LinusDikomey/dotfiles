@@ -6,7 +6,7 @@ in {
   theme = rec {
     font = {
       package = pkgs.nerd-fonts.iosevka;
-      name = "Iosevka Nerd Font";
+      name = "Iosevka Nerd Font Mono";
     };
     wallpaper = ../../wallpapers/sagittarius_a.png;
     variant = "macchiato";
