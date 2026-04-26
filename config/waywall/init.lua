@@ -15,24 +15,32 @@ local pie_scale = 1
 local remaps = {
 	["mmb"] = "RightShift",
 	["MB5"] = "F3",
-	["MB4"] = "home",
+	["F3"] = "8",
+	["MB4"] = "O",
+	-- ["space"] = "backspace",
 	["delete"] = "backspace",
-	["V"] = "0",
-	["0"] = "v",
-	["t"] = "n",
-	["n"] = "t",
+	-- ["delete"] = "i",
+	-- ["space"] = "backspace",
+	-- ["1"] = "space",
+	-- ["B"] = "0",
 	["LeftAlt"] = "Equal",
+	["Equal"] = "Home",
 	["L"] = "LeftAlt",
-	["A"] = "Y",
-	["Y"] = "A",
-	["F1"] = "6",
-	["6"] = "F1",
-	["F2"] = "7",
-	["7"] = "F2",
 }
 
+function swap(a, b)
+	remaps[a] = b
+	remaps[b] = a
+end
+
+swap("0", "V")
+swap("N", "T")
+swap("A", "Y")
+swap("F1", "6")
+swap("F2", "7")
+
 -- seems to not work (maybe depending on keyboard layout, one of them should always work hopefully)
-local reset_ninbot = "h"
+local reset_ninbot = "m"
 
 -- colors taken from Catppuccin Macchiato theme
 local colors = {
@@ -54,8 +62,8 @@ local config = {
 	},
 	input = {
 		layout = "mc",
-		repeat_rate = 30,
-		repeat_delay = 200,
+		repeat_rate = 40,
+		repeat_delay = 150,
 
 		sensitivity = 4.0,
 		confine_pointer = true,
@@ -408,6 +416,15 @@ local action = function(f)
 		end
 end
 
+local f3_safe = function(f)
+		return function()
+			if not waywall.get_key("F3") then
+				f()
+			end
+			return false
+		end
+end
+
 local rsg_reset = function()
 	if waywall.get_key("RightShift") then
 		clear_ninb()
@@ -421,7 +438,6 @@ end
 waywall.listen("state", function()
 	local screen = waywall.state().screen
 	if screen ~= "inworld" then
-		print("screen is now (disabling): ", screen)
 		waywall.set_resolution(0, 0)
 		generic_disable()
 		clear_ninb()
@@ -431,7 +447,7 @@ end)
 
 
 config.actions = {
-	["*-Equal"] = action(resolutions.wide),
+	["*-b"] = f3_safe(action(resolutions.wide)),
 	["*-P"] = action(resolutions.thin),
 	["*-Alt_l"] = action(resolutions.tall),
 	["Grave"] = action(resolutions.eyezoom),
@@ -439,7 +455,7 @@ config.actions = {
 	["Shift-9"] = action(exec_paceman),
 	["Ctrl-Grave"] = action(toggle_ninb),
 	["o"] = action(oneshot_crosshair),
-	["Ctrl-n"] = toggle_keymap,
+	["Ctrl-b"] = toggle_keymap,
 	["bracketright"] = action(rsg_reset),
 }
 

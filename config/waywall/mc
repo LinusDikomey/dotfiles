@@ -3,13 +3,17 @@ default partial alphanumeric_keys
 xkb_symbols "custom" {
     name[Group1]= "Custom Layout";
 
-    // 1 2 3 4
-    key <AE01> { [ i, T ] };
-    key <AE02> { [ g, G ] };
+    // 1 2 ..
+    key <AE01> { [ t, T] };
+    key <AE02> { [ l, G ] };
+    key <AE03> { [ g, VoidSymbol ] };
+    key <AE04> { [ 4, VoidSymbol ] };
+
+    key <AE08> { [ 8, 8 ] };
 
     // Q W F
-    key <AD01> { [ l, L ] };
-    key <AD02> { [ u, A ] };
+    key <AD01> { [ u, L ] };
+    key <AD02> { [ i, A ] };
     key <AC04> { [ e, H ] };
 
     // A(Y) R S T(N) G M
@@ -17,14 +21,16 @@ xkb_symbols "custom" {
     key <AD04> { [ s, N ] };
     key <AC02> { [ v, B ] };
     key <AB06> { [ p, J ] };
-    key <AC05> { [ aring, Aring] };
-    key <AB07> { [ m, M] };
+    key <AC05> { [ aring, Aring ] };
+
 
     // Z X C D
-    // key <AB01> { [ n, N ] };
-    // key <AB02> { [ i, I ] };
+    key <AB01> { [ h, Y ] };
+    key <AB02> { [ VoidSymbol, E ] };
     key <AB03> { [ oslash, oslash] };
     // key <AC03> { [ d, D ] };
 
-    key <AC06> { [h] };
+    key <AB07> { [ m, M] };
+    key <SPCE> { [Backspace, Backspace] };
+    key <AD08> { [o, O] };
 };
