@@ -70,7 +70,14 @@
       };
       outputs = {
         formatter = pkgs: pkgs.nixpkgs-fmt;
-        packages = import ./homeless;
+        packages = pkgs:
+          (import ./homeless {inherit pkgs;})
+          // {
+            qwerty = import ./homeless {
+              inherit pkgs;
+              qwerty = true;
+            };
+          };
         devShells = pkgs: {
           default = pkgs.mkShellNoCC {
             packages = builtins.attrValues inputs.self.packages.${pkgs.stdenv.hostPlatform.system};
