@@ -43,11 +43,14 @@ in {
       mullvad-vpn.enable = true;
     };
 
-    hardware.enableRedistributableFirmware = true;
-    hardware.bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-      settings.General.Experimental = true;
+    hardware = {
+      enableRedistributableFirmware = true;
+      keyboard.zsa.enable = true;
+      bluetooth = {
+        enable = true;
+        powerOnBoot = true;
+        settings.General.Experimental = true;
+      };
     };
     boot.extraModprobeConfig = ''
       options snd-usb-audio autosuspend=0

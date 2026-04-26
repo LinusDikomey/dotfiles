@@ -7,6 +7,7 @@
 }: {
   imports = [
     inputs.niri.homeModules.niri
+    inputs.noctalia.homeModules.default
 
     ./darwin
     ./gaming.nix

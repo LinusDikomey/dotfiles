@@ -8,20 +8,15 @@
   cfg = config.dotfiles.graphical;
 in {
   imports = [
-    ./swaync.nix
     ./firefox.nix
     ./gammastep.nix
     ./gtkTheme.nix
     ./kitty.nix
-    ./swaybg.nix
-    ./swayidle.nix
-    ./swaylock.nix
-    ./swaync.nix
     ./modkeys.nix
     ./niri.nix
+    ./noctalia.nix
     ./waybar
     ./wlogout
-    ./wofi.nix
     ./zed.nix
   ];
 
@@ -38,55 +33,31 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = let
-      krisp-patcher =
-        pkgs.writers.writePython3Bin "krisp-patcher"
-        {
-          libraries = with pkgs.python3Packages; [
-            capstone
-            pyelftools
-          ];
-          flakeIgnore = [
-            "E501" # line too long (82 > 79 characters)
-            "F403" # 'from module import *' used; unable to detect undefined names
-            "F405" # name may be undefined, or defined from star imports: module
-          ];
-        }
-        (
-          builtins.readFile (
-            pkgs.fetchurl {
-              url = "https://pastebin.com/raw/8tQDsMVd";
-              sha256 = "sha256-IdXv0MfRG1/1pAAwHLS2+1NESFEz2uXrbSdvU9OvdJ8=";
-            }
-          )
-        );
-    in
-      with pkgs;
-        [
-          config.dotfiles.theme.font.package
+    home.packages = with pkgs;
+      [
+        config.dotfiles.theme.font.package
 
-          vesktop
-          krisp-patcher
-          obsidian
-          spotify
-          signal-desktop
-          qbittorrent
-          keymapp
-          # bitwarden-desktop
-        ]
-        ++ lib.optionals pkgs.stdenv.isLinux [
-          wpa_supplicant
-          networkmanagerapplet
-          wl-clipboard
-          nautilus
-          crosspipe
-          lxqt.lxqt-policykit
+        vesktop
+        obsidian
+        spotify
+        signal-desktop
+        qbittorrent
+        keymapp
+        # bitwarden-desktop
+      ]
+      ++ lib.optionals pkgs.stdenv.isLinux [
+        wpa_supplicant
+        networkmanagerapplet
+        wl-clipboard
+        nautilus
+        crosspipe
+        lxqt.lxqt-policykit
 
-          blueman
-          mullvad-vpn
-          vlc
-          kdePackages.kdenlive
-        ];
+        blueman
+        mullvad-vpn
+        vlc
+        kdePackages.kdenlive
+      ];
 
     programs.thunderbird = {
       enable = true;

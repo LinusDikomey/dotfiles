@@ -5,7 +5,7 @@
   ...
 }: {
   config.services.gammastep = lib.mkIf (config.dotfiles.graphical.enable && pkgs.stdenv.isLinux) {
-    enable = true;
+    enable = false;
 
     dawnTime = "5:00-5:30";
     duskTime = "22:00-22:30";

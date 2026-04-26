@@ -9,7 +9,7 @@ in {
       name = "Iosevka Nerd Font Mono";
     };
     wallpaper = ../../wallpapers/sagittarius_a.png;
-    variant = "macchiato";
+    variant = "mocha";
     accent = "blue";
     colors = variants.${variant};
   };

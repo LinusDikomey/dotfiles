@@ -12,7 +12,7 @@ in {
   };
 
   config.programs.waybar = lib.mkIf (cfg.enable && pkgs.stdenv.isLinux) {
-    enable = true;
+    enable = false;
     systemd.enable = true;
     settings = [
       {

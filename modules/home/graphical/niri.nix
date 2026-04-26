@@ -24,6 +24,9 @@ in {
     settings = {
       environment."NIXOS_OZONE_WL" = "1";
       hotkey-overlay.skip-at-startup = true;
+      spawn-at-startup = [
+        {command = ["noctalia-shell"];}
+      ];
       outputs =
         lib.mapAttrs'
         (name: m:
@@ -79,6 +82,9 @@ in {
       binds = let
         playerctl = "${pkgs.playerctl}/bin/playerctl";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
+        noctalia = cmd: {
+          action.spawn = ["noctalia-shell" "ipc" "call"] ++ cmd;
+        };
       in
         {
           "Mod+Shift+q" = {
@@ -131,9 +137,9 @@ in {
 
           # media buttons
           "XF86AudioPlay".action.spawn = [playerctl "play-pause"];
-          "XF86AudioLowerVolume".action.spawn = [pactl "set-sink-volume" "@DEFAULT_SINK@" "-2%"];
-          "XF86AudioRaiseVolume".action.spawn = [pactl "set-sink-volume" "@DEFAULT_SINK@" "+2%"];
-          "XF86AudioMute".action.spawn = [pactl "set-sink-mute" "@DEFAULT_SINK@" "toggle"];
+          "XF86AudioLowerVolume" = noctalia ["volume" "decrease"];
+          "XF86AudioRaiseVolume" = noctalia ["volume" "increase"];
+          "XF86AudioMute" = noctalia ["volume" "muteOutput"];
         }
         // builtins.listToAttrs (builtins.concatLists (builtins.genList (i: [
             {
@@ -182,6 +188,14 @@ in {
         enable = true;
         path = lib.getExe pkgs.xwayland-satellite-unstable;
       };
+      layer-rules = [
+        {
+          matches = [
+            {namespace = "^noctalia-overview*";}
+          ];
+          place-within-backdrop = true;
+        }
+      ];
     };
   };
 }

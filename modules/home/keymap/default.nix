@@ -9,23 +9,14 @@
         inherit default;
         type = lib.types.singleLineStr;
       };
-  in {
-    left = key "h";
-    down = key "j";
-    up = key "k";
-    right = key "l";
-    insert = key "i";
-    match = key "m";
-    next = key "n";
-    end = key "e";
-    above_down = key "u";
-    above_up = key "i";
-
-    layout.colemak_dh = lib.mkOption {
-      description = "Enable Colemak DH default layout";
-      default = true;
-      type = lib.types.bool;
+  in
+    (lib.mapAttrs (name: value: key value) (import ./qwerty.nix))
+    // {
+      layout.colemak_dh = lib.mkOption {
+        description = "Enable Colemak DH default layout";
+        default = true;
+        type = lib.types.bool;
+      };
     };
-  };
   config.dotfiles.keymap = lib.mkIf config.dotfiles.keymap.layout.colemak_dh (import ./colemak_dh.nix);
 }

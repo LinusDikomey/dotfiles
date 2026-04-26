@@ -21,9 +21,14 @@
         if pkgs.stdenv.isDarwin
         then "cmd"
         else "ctrl+shift";
-    in {
-      "${mod}+t" = "new_tab_with_cwd";
-    };
+    in
+      {
+        "${mod}+t" = "new_tab_with_cwd";
+      }
+      // lib.optionalAttrs pkgs.stdenv.isLinux {
+        "ctrl+equal" = "change_font_size all +1.0";
+        "ctrl+minus" = "change_font_size all -1.0";
+      };
     autoThemeFiles = let
       theme = "Catppuccin-${lib.toSentenceCase config.dotfiles.theme.variant}";
     in {

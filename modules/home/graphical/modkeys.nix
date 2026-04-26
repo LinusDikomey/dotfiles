@@ -36,11 +36,14 @@
       inherit desc;
       cmd = ["nu" "-c" cmd];
     };
+    noctalia = desc: cmd: {
+      inherit desc;
+      cmd = ["noctalia-shell" "ipc" "call"] ++ cmd;
+    };
   in
     lib.mkDefault {
       w = "firefox";
       f = "${pkgs.nautilus}/bin/nautilus";
-      b = ["swaync-client" "--toggle-panel"];
       return = "${pkgs.kitty}/bin/kitty";
       Escape = "${pkgs.wlogout}/bin/wlogout";
       R = builtins.listToAttrs (builtins.genList (i: let
@@ -57,18 +60,7 @@
         })
         10);
       space = {
-        space = {
-          cmd = [
-            "${pkgs.wofi}/bin/wofi"
-            "--theme"
-            "launcher"
-            "--modi"
-            "drun,run,window,ssh,filebrowser"
-            "--show"
-            "drun"
-          ];
-          desc = "Search Apps ...";
-        };
+        space = noctalia "Search apps ..." ["launcher" "toggle"];
         d = "vesktop";
         p = "spotify";
         b = {
