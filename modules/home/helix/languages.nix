@@ -82,6 +82,10 @@
       name = "c";
       auto-format = true;
     }
+    {
+      name = "hcl";
+      file-types = ["hcl" "tf" "nomad" "tofu"];
+    }
   ];
 
   grammar = [

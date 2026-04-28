@@ -47,10 +47,8 @@
         inputs.agenix.${modulesName}.default
         ({config, ...}: {
           config = let
-            pkgs = nixpkgs.legacyPackages.${config.nixpkgs.hostPlatform.system};
             extraSpecialArgs = {
               inputs' = lib.mapAttrs (_: lib.mapAttrs (_: v: v.${config.nixpkgs.hostPlatform.system} or v)) inputs;
-              localPkgs = lib.mapAttrs (_: p: pkgs.callPackage p {}) (import ./packages);
             };
           in {
             _module.args =
@@ -63,16 +61,6 @@
               extraSpecialArgs = commonSpecialArgs // extraSpecialArgs;
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.${defaultUser}.imports = [
-                ({config, ...}: {
-                  _module.args = rec {
-                    callHomeless = path:
-                      import path {
-                        inherit lib pkgs config callHomeless inputs;
-                      };
-                  };
-                })
-              ];
             };
 
             networking.hostName = name;

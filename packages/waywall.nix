@@ -14,6 +14,7 @@
   libxkbcommon,
   kdePackages,
   pkg-config,
+  lib,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "waywall";
@@ -42,6 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/bin
     install waywall/waywall $out/bin/
   '';
+
+  meta.platforms = lib.platforms.linux;
 
   src = fetchFromGitHub {
     rev = "783ef2f4a4c59240d0b4570e126466d9ccd675ae";

@@ -76,30 +76,53 @@
           modules = [./hosts/mars.nix];
         };
       };
-      outputs = {
-        formatter = pkgs: pkgs.nixpkgs-fmt;
-        packages = pkgs: let
-          colemak-dh = import ./homeless {inherit pkgs inputs;};
-          qwerty = import ./homeless {
-            inherit pkgs inputs;
-            qwerty = true;
-          };
+      outputs = let
+        packagesCommon = pkgs: rec {
+          callHomelessWith = keymap:
+            rec {
+              callHomeless = let
+                values = import ./modules/theme/values.nix pkgs;
+              in
+                path:
+                  import path {
+                    inherit pkgs callHomeless inputs;
+                    inherit (pkgs) lib;
+                    config.dotfiles = {
+                      inherit (values) theme;
+                      keymap = import keymap;
+                    };
+                  };
+            }.callHomeless;
+          filterCompatible = pkgs.lib.filterAttrs (
+            _: p: pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p
+          );
+          localPkgs = filterCompatible (pkgs.lib.mapAttrs (_: p: pkgs.callPackage p {}) (import ./packages));
+          homelessWith = keymap: filterCompatible (import ./homeless (callHomelessWith keymap));
+          colemak-dh = homelessWith ./modules/home/keymap/colemak_dh.nix;
+          qwerty = homelessWith ./modules/home/keymap/qwerty.nix;
+        };
+      in {
+        formatter = {pkgs, ...}: pkgs.nixpkgs-fmt;
+        packages = {pkgs, ...}: let
+          common = packagesCommon pkgs;
         in
-          colemak-dh
-          // (pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair (name + "-qwerty") value) qwerty);
-        devShells = pkgs: {
+          common.localPkgs
+          // common.colemak-dh
+          // (pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair (name + "-qwerty") value) common.qwerty);
+        devShells = {
+          pkgs,
+          inputs',
+          ...
+        }: let
+          common = packagesCommon pkgs;
+          homePkgs = import ./modules/home/packages.nix {
+            inherit pkgs inputs';
+            config.dotfiles.coding.enable = true;
+          };
+        in {
           default = inputs.self.devShells.${pkgs.stdenv.hostPlatform.system}.colemak-dh;
-          colemak-dh = pkgs.mkShellNoCC {
-            packages = builtins.attrValues (import ./homeless {inherit pkgs;});
-          };
-          qwerty = pkgs.mkShellNoCC {
-            packages = builtins.attrValues (
-              import ./homeless {
-                inherit pkgs;
-                qwerty = true;
-              }
-            );
-          };
+          colemak-dh = pkgs.mkShellNoCC {packages = builtins.attrValues common.colemak-dh ++ homePkgs;};
+          qwerty = pkgs.mkShellNoCC {packages = builtins.attrValues common.qwerty ++ homePkgs;};
         };
       };
     };

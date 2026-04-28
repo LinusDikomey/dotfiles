@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  localPkgs,
   dotfiles,
   inputs',
   ...
@@ -42,11 +41,12 @@ in {
           ];
         }
       )
-      localPkgs.waywall
+      inputs'.self.packages.waywall
+      inputs'.self.packages.paceman-aa-tracker
       inputs'.mcsr.packages.advancely
       inputs'.mcsr.packages.paceman-tracker
       inputs'.mcsr.packages.ninjabrain-bot
-      localPkgs.paceman-aa-tracker
+      inputs'.self.packages.waywall
       olympus
       jemalloc
       xdotool

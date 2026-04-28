@@ -1,10 +1,14 @@
 {
+  lib,
+  config,
   dotfiles,
   inputs,
   pkgs,
-  lib,
+  inputs',
   ...
 }: {
+  options.dotfiles.coding.enable = lib.mkEnableOption "Enable coding packages";
+
   imports = [
     inputs.niri.homeModules.niri
     inputs.noctalia.homeModules.default
@@ -21,35 +25,31 @@
     ./mime.nix
     ./nh.nix
     ./nu.nix
-    ./packages.nix
     ./shell.nix
     ./work.nix
     ./yazi.nix
   ];
 
-  home.username = dotfiles.username;
-  home.homeDirectory = "/${dotfiles.homeFolder}/${dotfiles.username}";
-  home.sessionVariables.XDG_CONFIG_HOME = "/${dotfiles.homeFolder}/${dotfiles.username}/.config";
+  config = {
+    home.username = dotfiles.username;
+    home.homeDirectory = "/${dotfiles.homeFolder}/${dotfiles.username}";
+    home.sessionVariables.XDG_CONFIG_HOME = "/${dotfiles.homeFolder}/${dotfiles.username}/.config";
 
-  fonts.fontconfig.enable = true;
+    fonts.fontconfig.enable = true;
 
-  home.sessionVariables.TERM = "xterm-256color";
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
+      enableJujutsuIntegration = true;
+    };
 
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
-    enableJujutsuIntegration = true;
+    home.packages = import ./packages.nix {inherit pkgs config inputs';};
+
+    home.shellAliases = lib.mkIf config.dotfiles.coding.enable {
+      "objdump" = "objdump -M intel";
+    };
+
+    programs.home-manager.enable = true;
+    home.stateVersion = "26.05";
   };
-  home.packages = [
-    (pkgs.writers.writeNuBin "rgd"
-      #nu
-      ''
-        def --wrapped main [...rest] {
-          ${lib.getExe pkgs.ripgrep} ...$rest --json | ${lib.getExe pkgs.delta}
-        }
-      '')
-  ];
-
-  programs.home-manager.enable = true;
-  home.stateVersion = "26.05";
 }

@@ -1,10 +1,12 @@
 {
   config,
-  callHomeless,
+  lib,
+  pkgs,
+  inputs',
   ...
 }: {
-  programs.noctalia = {
+  programs.noctalia = lib.mkIf (pkgs.stdenv.isLinux && config.dotfiles.graphical.enable) {
     enable = config.dotfiles.graphical.enable;
-    package = callHomeless ../../../homeless/noctalia;
+    package = inputs'.self.packages.noctalia;
   };
 }

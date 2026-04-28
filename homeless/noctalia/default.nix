@@ -20,4 +20,5 @@ in
       wrapProgram $out/bin/noctalia-shell \
         --set NOCTALIA_CONFIG_DIR ${configDir}
     '';
+    meta = pkgs.noctalia-shell.meta;
   }

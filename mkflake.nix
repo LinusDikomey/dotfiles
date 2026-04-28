@@ -38,7 +38,10 @@ in
   }
   // builtins.mapAttrs (name: f:
     forAllSystems (system: let
-      pkgs = import inputs.nixpkgs {inherit system;};
+      args = rec {
+        pkgs = import inputs.nixpkgs {inherit system;};
+        inputs' = lib.mapAttrs (_: lib.mapAttrs (_: v: v.${pkgs.stdenv.hostPlatform.system} or v)) inputs;
+      };
     in
-      f pkgs))
+      f args))
   outputs

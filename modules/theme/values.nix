@@ -11,5 +11,4 @@ in {
     accent = "blue";
     colors = variants.${variant};
   };
-  keymap = import ../home/keymap/colemak_dh.nix;
 }

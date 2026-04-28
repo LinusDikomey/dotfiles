@@ -15,6 +15,7 @@
       theme = "Catppuccin-${lib.toSentenceCase config.dotfiles.theme.variant}";
       background_opacity = 0.8;
       background_blur = 3;
+      scrollback_lines = 10000;
     };
     keybindings = let
       mod =

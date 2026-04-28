@@ -58,6 +58,9 @@ in {
         mullvad-vpn
         vlc
         kdePackages.kdenlive
+      ]
+      ++ lib.optionals pkgs.stdenv.isDarwin [
+        vlc-bin
       ];
 
     programs.thunderbird.enable = true;

@@ -1,7 +1,7 @@
 {
-  pkgs,
   lib,
   config,
+  inputs',
   ...
 }: let
   inherit (config.dotfiles) theme keymap;
@@ -125,7 +125,7 @@ in {
       " ".o = [
         ":sh rm -f /tmp/files2open"
         ":set mouse false"
-        ":insert-output ${pkgs.yazi}/bin/yazi \"%{buffer_name}\" --chooser-file=/tmp/files2open"
+        ":insert-output ${inputs'.self.packages.yazi}/bin/yazi \"%{buffer_name}\" --chooser-file=/tmp/files2open"
         ":redraw"
         ":set mouse true"
         ":open /tmp/files2open"

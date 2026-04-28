@@ -1,13 +1,17 @@
 {
   pkgs,
-  callHomeless,
+  lib,
+  config,
+  inputs',
   ...
 }: {
-  programs.helix = {
+  programs.helix = let
+    callConfig = path: import path {inherit pkgs lib config inputs';};
+  in {
     enable = true;
     defaultEditor = true;
-    settings = callHomeless ./settings.nix;
-    languages = callHomeless ./languages.nix;
+    settings = callConfig ./settings.nix;
+    languages = callConfig ./languages.nix;
   };
   home.file = let
     treeSitterEye = pkgs.fetchFromGitHub {

@@ -19,10 +19,12 @@
 in
   pkgs.symlinkJoin {
     name = "hx";
-    buildInputs = [pkgs.makeWrapper];
+    nativeBuildInputs = [pkgs.makeWrapper];
     paths = [pkgs.helix];
     postBuild = ''
       wrapProgram $out/bin/hx \
         --set XDG_CONFIG_HOME ${configDir}
     '';
+
+    meta = pkgs.helix.meta;
   }

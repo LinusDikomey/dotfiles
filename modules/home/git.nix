@@ -23,6 +23,7 @@ in {
       ignores = [
         ".obsidian"
         ".DS_Store"
+        ".codex"
       ];
       settings = {
         user = {
