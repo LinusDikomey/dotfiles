@@ -7,6 +7,7 @@
     ./gaming.nix
     ./sddm.nix
     ./dyndns.nix
+    ./gitea.nix
     ./ssh.nix
     ./blocky.nix
     ./desktop.nix

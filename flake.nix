@@ -74,17 +74,27 @@
       };
       outputs = {
         formatter = pkgs: pkgs.nixpkgs-fmt;
-        packages = pkgs:
-          (import ./homeless {inherit pkgs;})
-          // {
-            qwerty = import ./homeless {
-              inherit pkgs;
-              qwerty = true;
-            };
+        packages = pkgs: let
+          colemak-dh = import ./homeless {inherit pkgs;};
+          qwerty = import ./homeless {
+            inherit pkgs;
+            qwerty = true;
           };
+        in
+          colemak-dh
+          // (pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair (name + "-qwerty") value) qwerty);
         devShells = pkgs: {
-          default = pkgs.mkShellNoCC {
-            packages = builtins.attrValues inputs.self.packages.${pkgs.stdenv.hostPlatform.system};
+          default = inputs.self.devShells.${pkgs.stdenv.hostPlatform.system}.colemak-dh;
+          colemak-dh = pkgs.mkShellNoCC {
+            packages = builtins.attrValues (import ./homeless {inherit pkgs;});
+          };
+          qwerty = pkgs.mkShellNoCC {
+            packages = builtins.attrValues (
+              import ./homeless {
+                inherit pkgs;
+                qwerty = true;
+              }
+            );
           };
         };
       };
