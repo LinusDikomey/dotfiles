@@ -75,9 +75,9 @@
       outputs = {
         formatter = pkgs: pkgs.nixpkgs-fmt;
         packages = pkgs: let
-          colemak-dh = import ./homeless {inherit pkgs;};
+          colemak-dh = import ./homeless {inherit pkgs inputs;};
           qwerty = import ./homeless {
-            inherit pkgs;
+            inherit pkgs inputs;
             qwerty = true;
           };
         in

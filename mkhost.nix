@@ -51,12 +51,6 @@
             extraSpecialArgs = {
               inputs' = lib.mapAttrs (_: lib.mapAttrs (_: v: v.${config.nixpkgs.hostPlatform.system} or v)) inputs;
               localPkgs = lib.mapAttrs (_: p: pkgs.callPackage p {}) (import ./packages);
-              callHomeless = path:
-                import path {
-                  inherit lib pkgs;
-                  inherit (config.dotfiles) theme;
-                  inherit (config.home-manager.users."${defaultUser}".dotfiles) keymap;
-                };
             };
           in {
             _module.args =
@@ -69,6 +63,16 @@
               extraSpecialArgs = commonSpecialArgs // extraSpecialArgs;
               useGlobalPkgs = true;
               useUserPackages = true;
+              users.${defaultUser}.imports = [
+                ({config, ...}: {
+                  _module.args = rec {
+                    callHomeless = path:
+                      import path {
+                        inherit lib pkgs config callHomeless inputs;
+                      };
+                  };
+                })
+              ];
             };
 
             networking.hostName = name;

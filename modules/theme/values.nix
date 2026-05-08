@@ -1,8 +1,6 @@
 pkgs: let
   variants = import ./variants.nix;
 in {
-  inherit pkgs;
-  inherit (pkgs) lib;
   theme = rec {
     font = {
       package = pkgs.nerd-fonts.iosevka;

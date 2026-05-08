@@ -1,6 +1,7 @@
 {
-  callHomeless,
   pkgs,
+  callHomeless,
+  ...
 }: let
   settings = callHomeless ./../modules/home/helix/settings.nix;
   languages = callHomeless ./../modules/home/helix/languages.nix;

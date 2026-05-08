@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   qwerty ? false,
 }: let
   values =
@@ -8,8 +9,14 @@
       keymap = import ../modules/home/keymap/qwerty.nix;
     };
   callHomeless = path:
-    import path values;
-  importHomeless = path: import path {inherit pkgs callHomeless;};
+    import path {
+      inherit pkgs callHomeless inputs;
+      inherit (pkgs) lib;
+      config.dotfiles = {
+        inherit (values) theme keymap;
+      };
+    };
 in {
-  helix = importHomeless ./helix.nix;
+  helix = callHomeless ./helix.nix;
+  noctalia-shell = callHomeless ./noctalia;
 }

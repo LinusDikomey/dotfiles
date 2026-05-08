@@ -1,9 +1,11 @@
 {
   pkgs,
   lib,
-  theme,
-  keymap,
-}: {
+  config,
+  ...
+}: let
+  inherit (config.dotfiles) theme keymap;
+in {
   theme = "catppuccin_${theme.variant}";
 
   editor = {

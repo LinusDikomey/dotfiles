@@ -75,7 +75,7 @@ in {
     "/" = {
       device = "/dev/disk/by-uuid/66ef51db-c6d0-4da6-a1ad-9ca9d9cd1d69";
       fsType = "ext4";
-      options = ["noatime"];
+      options = ["defaults" "noatime"];
     };
 
     "/boot" = {
@@ -84,10 +84,16 @@ in {
       options = ["fmask=0022" "dmask=0022"];
     };
 
+    "/data" = {
+      device = "/dev/disk/by-uuid/8e8b908d-a7d8-43e4-ac0a-d18ed28c1686";
+      fsType = "ext4";
+      options = ["defaults" "noatime" "barrier=1" "errors=remount-ro" "commit=300" "data=ordered"];
+    };
+
     "/mnt/windows" = {
       device = "/dev/disk/by-uuid/224A39FF4A39CFF1";
       fsType = "ntfs";
-      options = ["nofail" "noatime"];
+      options = ["defaults" "nofail" "noatime"];
     };
 
     "/mnt/media" = {
@@ -104,13 +110,6 @@ in {
       ];
     };
   };
-
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 64 * 1024;
-    }
-  ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
