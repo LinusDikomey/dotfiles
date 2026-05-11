@@ -8,6 +8,11 @@
       };
       ui.default-command = "log";
       aliases.tug = ["bookmark" "move" "--from" "heads(::@- & bookmarks())" "--to" "@-"];
+      signing = {
+        behavior = "own";
+        backend = "ssh";
+        key = dotfiles.user.key;
+      };
     };
   };
 }

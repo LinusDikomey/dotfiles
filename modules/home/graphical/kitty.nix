@@ -12,7 +12,7 @@
       italic_font = "auto";
       bold_italic_font = "auto";
       font_size = 20;
-      theme = "Catppuccin-Mocha";
+      theme = "Catppuccin-${lib.toSentenceCase config.dotfiles.theme.variant}";
       background_opacity = 0.8;
       background_blur = 3;
     };

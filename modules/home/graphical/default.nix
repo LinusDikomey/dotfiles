@@ -59,12 +59,7 @@ in {
         kdePackages.kdenlive
       ];
 
-    programs.thunderbird = {
-      enable = true;
-      profiles.default = {
-        isDefault = true;
-      };
-    };
+    programs.thunderbird.enable = true;
 
     xdg.portal = lib.mkIf pkgs.stdenv.isLinux {
       enable = true;

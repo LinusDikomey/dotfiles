@@ -78,6 +78,10 @@
       formatter.command = "${pkgs.alejandra}/bin/alejandra";
       auto-format = true;
     }
+    {
+      name = "c";
+      auto-format = true;
+    }
   ];
 
   grammar = [

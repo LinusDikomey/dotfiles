@@ -12,10 +12,15 @@ local eye_projector_width = 30
 local ecount_scale = 4
 local pie_scale = 1
 
-local remaps = {
+local essential_remaps = {
 	["mmb"] = "RightShift",
 	["MB5"] = "F3",
+	["F1"] = "6",
+	["F2"] = "7",
 	["F3"] = "8",
+	["6"] = "F1",
+	["7"] = "F2",
+	["8"] = "F3",
 	["MB4"] = "O",
 	-- ["space"] = "backspace",
 	["delete"] = "backspace",
@@ -23,10 +28,22 @@ local remaps = {
 	-- ["space"] = "backspace",
 	-- ["1"] = "space",
 	-- ["B"] = "0",
-	["LeftAlt"] = "Equal",
-	["Equal"] = "Home",
-	["L"] = "LeftAlt",
 }
+
+function shallowCopy(orig)
+    local copy = {}
+
+    for k, v in pairs(orig) do
+        copy[k] = v
+    end
+
+    return copy
+end
+
+local remaps = shallowCopy(essential_remaps)
+remaps["LeftAlt"] = "Equal"
+remaps["Equal"] = "Home"
+remaps["L"] = "LeftAlt"
 
 function swap(a, b)
 	remaps[a] = b
@@ -36,8 +53,6 @@ end
 swap("0", "V")
 swap("N", "T")
 swap("A", "Y")
-swap("F1", "6")
-swap("F2", "7")
 
 -- seems to not work (maybe depending on keyboard layout, one of them should always work hopefully)
 local reset_ninbot = "m"
@@ -62,7 +77,7 @@ local config = {
 	},
 	input = {
 		layout = "mc",
-		repeat_rate = 40,
+		repeat_rate = 50,
 		repeat_delay = 150,
 
 		sensitivity = 4.0,
@@ -389,11 +404,17 @@ local oneshot_crosshair = function()
 	)
 end
 
+local rebindless = false
 local chatting_text = nil
+
 local toggle_keymap = function()
 	if chatting_text then
-		waywall.set_keymap({ layout = "mc" })
-		waywall.set_remaps(remaps)
+		if rebindless then
+			waywall.set_remaps(essential_remaps)
+		else
+			waywall.set_keymap({ layout = "mc" })
+			waywall.set_remaps(remaps)
+		end
 		chatting_text:close()
 		chatting_text = nil
 	else
@@ -405,6 +426,17 @@ local toggle_keymap = function()
 		waywall.set_remaps({})
 	end
 	keymap_toggled = not keymap_toggled
+end
+
+local toggle_rebindless = function()
+	if rebindless then
+		waywall.set_keymap({ layout = "mc" })
+		waywall.set_remaps(remaps)
+	else
+		waywall.set_keymap({ layout = "us" })
+		waywall.set_remaps(essential_remaps)
+	end
+	rebindless = not rebindless
 end
 
 local action = function(f)
@@ -457,6 +489,7 @@ config.actions = {
 	["o"] = action(oneshot_crosshair),
 	["Ctrl-b"] = toggle_keymap,
 	["bracketright"] = action(rsg_reset),
+	["Ctrl-Shift-J"] = toggle_rebindless,
 }
 
 return config

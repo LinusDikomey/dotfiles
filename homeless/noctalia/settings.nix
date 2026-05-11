@@ -20,7 +20,6 @@ in {
       )
     ];
     colorSchemes.predefinedScheme = "Catppuccin";
-    dock.enabled = false;
     widgets = {
       left = [
         {id = "Launcher";}
@@ -56,6 +55,7 @@ in {
       ];
     };
   };
+  dock.enabled = false;
   location.name = config.dotfiles.city or null;
   audio.volumeStep = 2;
   nightLight = {
