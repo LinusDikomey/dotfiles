@@ -10,7 +10,7 @@
 }:
 stdenv.mkDerivation rec {
   name = "Ninjabrain-Bot";
-  version = "1.5.1";
+  version = "1.5.2";
   src = fetchurl {
     url = "https://github.com/Ninjabrain1/Ninjabrain-Bot/releases/download/1.5.2/Ninjabrain-Bot-1.5.2.jar";
     sha256 = "sha256-mAmfYyGpDUrOwTQA6G0F96+NYOVjnC84Qn6WjccUUP8=";
