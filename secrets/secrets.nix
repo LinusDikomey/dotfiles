@@ -3,4 +3,5 @@ let
 in {
   "dyndns-password.age".publicKeys = [linus];
   "waldbot-env.age".publicKeys = [linus];
+  "uni-git.gitconfig".publicKeys = [linus];
 }

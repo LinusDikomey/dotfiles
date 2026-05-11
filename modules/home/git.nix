@@ -18,6 +18,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
+      package = pkgs.gitFull;
       lfs.enable = true;
       ignores = [
         ".obsidian"
@@ -54,5 +55,20 @@ in {
           fi
         '';
     };
+
+    age.secrets.uni-git.file = ../../secrets/uni-git.gitconfig;
+    # can't use the config path directly because it contains an env var substitution for
+    # XDG_RUNTIME_DIR which git doesn't substitute
+    home.activation.gitSecret = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      mkdir -p "$HOME/.config/git"
+      ln -sf "${config.age.secrets.uni-git.path}" \
+        "$HOME/.config/git/uni-git"
+    '';
+    programs.git.includes = [
+      {
+        condition = "gitdir:~/dev/uni/**";
+        path = "~/.config/git/uni-git";
+      }
+    ];
   };
 }

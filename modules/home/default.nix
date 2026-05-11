@@ -8,6 +8,7 @@
   imports = [
     inputs.niri.homeModules.niri
     inputs.noctalia.homeModules.default
+    inputs.agenix.homeManagerModules.default
 
     ./darwin
     ./gaming.nix
