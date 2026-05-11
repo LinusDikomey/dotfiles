@@ -3,6 +3,7 @@
   config,
   pkgs,
   inputs',
+  localPkgs,
   ...
 }: {
   options.dotfiles.coding.enable = lib.mkEnableOption "Enable coding packages";
@@ -32,12 +33,16 @@
         nil
         inputs'.eye.packages.default
         mise
+        localPkgs.zapp
       ]
       ++ lib.optionals pkgs.stdenv.isDarwin [
         vlc-bin
       ]
       ++ lib.optionals (pkgs.stdenv.isLinux && config.dotfiles.coding.enable) [
         wineWow64Packages.stable
+      ]
+      ++ lib.optionals (pkgs.stdenv.isLinux && config.dotfiles.graphical.enable) [
+        kdePackages.kolourpaint
       ]
     );
     home.shellAliases = lib.mkIf config.dotfiles.coding.enable {
