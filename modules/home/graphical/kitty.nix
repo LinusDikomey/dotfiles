@@ -24,6 +24,11 @@
     in
       {
         "${mod}+t" = "new_tab_with_cwd";
+        "${
+          if pkgs.stdenv.isDarwin
+          then "cmd+shift"
+          else "ctrl+alt"
+        }+t" = "new_tab";
       }
       // lib.optionalAttrs pkgs.stdenv.isLinux {
         "ctrl+equal" = "change_font_size all +1.0";

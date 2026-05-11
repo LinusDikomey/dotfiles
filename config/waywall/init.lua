@@ -14,20 +14,18 @@ local pie_scale = 1
 
 local essential_remaps = {
 	["mmb"] = "RightShift",
+	["RightShift"] = "mmb",
 	["MB5"] = "F3",
 	["F1"] = "6",
 	["F2"] = "7",
 	["F3"] = "8",
 	["6"] = "F1",
 	["7"] = "F2",
-	["8"] = "F3",
-	["MB4"] = "O",
-	-- ["space"] = "backspace",
+	["8"] = "MB5",
+	["MB4"] = "F9",
+	["F9"] = "MB4",
 	["delete"] = "backspace",
-	-- ["delete"] = "i",
-	-- ["space"] = "backspace",
-	-- ["1"] = "space",
-	-- ["B"] = "0",
+	["backspace"] = "delete",
 }
 
 function shallowCopy(orig)
@@ -41,9 +39,10 @@ function shallowCopy(orig)
 end
 
 local remaps = shallowCopy(essential_remaps)
+remaps["L"] = "LeftAlt"
 remaps["LeftAlt"] = "Equal"
 remaps["Equal"] = "Home"
-remaps["L"] = "LeftAlt"
+remaps["Home"] = "L"
 
 function swap(a, b)
 	remaps[a] = b
@@ -106,7 +105,7 @@ local ninb_permanent = false
 local thin_size = { w = 315 * pixel_scale, h = 1080 * pixel_scale }
 
 local is_ninb_running = function()
-    local handle = io.popen("pgrep -f 'Ninjabrain.*jar'")
+    local handle = io.popen("pgrep -f 'ninjabrain.*jar'")
     local result = handle:read("*l")
     handle:close()
     return result ~= nil
@@ -116,7 +115,7 @@ local exec_ninb = function()
 	if is_ninb_running() then
 		return
 	end
-	waywall.exec("Ninjabrain-Bot")
+	waywall.exec("ninjabrain-bot")
 end
 
 -- resets and hides ninjabrain bot
@@ -145,7 +144,7 @@ end
 -- end
 
 local exec_paceman = function()
-	waywall.exec("java -jar " .. os.getenv("HOME") .. "/mcsr/paceman-tracker.jar --nogui")
+	waywall.exec("paceman-tracker --nogui")
 end
 
 local make_image = function(path, dst)

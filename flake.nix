@@ -41,6 +41,10 @@
       url = "github:LinusDikomey/waldbot";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mcsr = {
+      url = "https://git.uku3lig.net/uku/mcsr-nixos/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = inputs: let
     mkHost = import ./mkhost.nix {

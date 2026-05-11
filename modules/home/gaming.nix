@@ -4,6 +4,7 @@
   pkgs,
   localPkgs,
   dotfiles,
+  inputs',
   ...
 }: let
   cfg = config.dotfiles.gaming;
@@ -20,8 +21,8 @@ in {
           jdks = [
             jdk8
             jdk21
-            graalvmPackages.graalvm-oracle_17
             jdk25
+            inputs'.mcsr.packages.graalvm-21
           ];
           additionalLibs = [
             libxkbcommon
@@ -42,8 +43,9 @@ in {
         }
       )
       localPkgs.waywall
-      localPkgs.ninjabrain-bot
-      localPkgs.advancely
+      inputs'.mcsr.packages.advancely
+      inputs'.mcsr.packages.paceman-tracker
+      inputs'.mcsr.packages.ninjabrain-bot
       olympus
       jemalloc
       xdotool
