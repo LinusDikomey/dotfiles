@@ -48,7 +48,6 @@ in {
       keyboard.zsa.enable = true;
       bluetooth = {
         enable = true;
-        powerOnBoot = true;
         settings.General.Experimental = true;
       };
     };

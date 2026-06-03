@@ -147,6 +147,10 @@ local exec_paceman = function()
 	waywall.exec("paceman-tracker --nogui")
 end
 
+local exec_paceman_aa = function()
+	waywall.exec("paceman-aa-tracker --nogui")
+end
+
 local make_image = function(path, dst)
 	local this = nil
 
@@ -484,6 +488,7 @@ config.actions = {
 	["Grave"] = action(resolutions.eyezoom),
 	["Shift-7"] = action(exec_ninb),
 	["Shift-9"] = action(exec_paceman),
+	["Shift-0"] = action(exec_paceman_aa),
 	["Ctrl-Grave"] = action(toggle_ninb),
 	["o"] = action(oneshot_crosshair),
 	["Ctrl-b"] = toggle_keymap,

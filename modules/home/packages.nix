@@ -43,6 +43,7 @@
       ]
       ++ lib.optionals (pkgs.stdenv.isLinux && config.dotfiles.graphical.enable) [
         kdePackages.kolourpaint
+        drawy
       ]
     );
     home.shellAliases = lib.mkIf config.dotfiles.coding.enable {

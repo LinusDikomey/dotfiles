@@ -46,6 +46,7 @@ in {
       inputs'.mcsr.packages.advancely
       inputs'.mcsr.packages.paceman-tracker
       inputs'.mcsr.packages.ninjabrain-bot
+      localPkgs.paceman-aa-tracker
       olympus
       jemalloc
       xdotool
