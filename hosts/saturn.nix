@@ -44,6 +44,7 @@ in {
         };
       };
       city = "Aachen";
+      op1w-mouse = true;
     };
   };
 

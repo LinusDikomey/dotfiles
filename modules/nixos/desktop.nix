@@ -10,6 +10,7 @@
     config.home-manager.users;
   enabled = lib.any (graphical: graphical.enable or false) graphicalCfgs;
   desktops = lib.flatten (lib.map (graphical: graphical.desktops or []) graphicalCfgs);
+  op1w = lib.any (graphical: (graphical.enable or false) && (graphical.op1w-mouse or false)) graphicalCfgs;
 in {
   config = lib.mkIf enabled {
     environment.systemPackages = [
@@ -33,6 +34,9 @@ in {
     services = {
       flatpak.enable = true;
       printing.enable = true;
+      udev.extraRules = lib.mkIf op1w ''
+        KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3367", ATTRS{idProduct}=="1970", MODE="0660", GROUP="users", TAG+="uaccess"
+      '';
       pipewire = {
         enable = true;
         pulse.enable = true;

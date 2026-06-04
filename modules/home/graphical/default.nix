@@ -30,6 +30,7 @@ in {
     monitors = lib.mkOption {
       type = types.attrsOf types.attrs;
     };
+    op1w-mouse = lib.mkEnableOption "Enable op1w mouse battery percentage support";
   };
 
   config = lib.mkIf cfg.enable {

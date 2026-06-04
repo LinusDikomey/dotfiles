@@ -1,9 +1,15 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   monitors = config.dotfiles.graphical.monitors or {};
+  op1wBattery = pkgs.writeScriptBin "op1w-battery" ''
+    #!${pkgs.runtimeShell}
+    export PATH=${lib.makeBinPath [pkgs.libnotify]}:$PATH
+    exec ${pkgs.python3}/bin/python3 ${toString ./op1w-battery.py}
+  '';
 in {
   bar = {
     density = "comfortable";
@@ -42,17 +48,39 @@ in {
           showLabelsOnlyWhenOccupied = false;
         }
       ];
-      right = [
-        {id = "Tray";}
-        {id = "NotificationHistory";}
-        {id = "Battery";}
-        {id = "Volume";}
-        {id = "Brightness";}
-        {
-          id = "ControlCenter";
-          useDistroLogo = true;
-        }
-      ];
+      right =
+        [
+          {id = "Tray";}
+          {id = "NotificationHistory";}
+        ]
+        ++ (lib.optional (config.dotfiles.graphical.op1w-mouse or false)
+          {
+            id = "CustomButton";
+            icon = "battery";
+            iconPosition = "left";
+            showIcon = true;
+            textCommand = "${op1wBattery}/bin/op1w-battery";
+            parseJson = true;
+            textIntervalMs = 60000;
+            maxTextLength = {
+              horizontal = 4;
+              vertical = 4;
+            };
+            hideMode = "alwaysExpanded";
+            leftClickUpdateText = true;
+            showExecTooltip = false;
+            showTextTooltip = true;
+            generalTooltipText = "OP1w 4K";
+          })
+        ++ [
+          {id = "Battery";}
+          {id = "Volume";}
+          {id = "Brightness";}
+          {
+            id = "ControlCenter";
+            useDistroLogo = true;
+          }
+        ];
     };
   };
   dock.enabled = false;
