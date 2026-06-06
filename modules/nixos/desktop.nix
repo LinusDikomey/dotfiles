@@ -23,7 +23,10 @@ in {
       hyprland.enable = lib.mkIf (builtins.elem "hyprland" desktops) true;
       obs-studio = {
         enable = true;
-        plugins = with pkgs.obs-studio-plugins; [obs-pipewire-audio-capture];
+        plugins = with pkgs.obs-studio-plugins; [
+          obs-pipewire-audio-capture
+          obs-vkcapture
+        ];
       };
       niri = lib.mkIf (builtins.elem "niri" desktops) {
         enable = true;

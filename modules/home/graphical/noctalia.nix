@@ -3,7 +3,7 @@
   callHomeless,
   ...
 }: {
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = config.dotfiles.graphical.enable;
     package = callHomeless ../../../homeless/noctalia;
   };

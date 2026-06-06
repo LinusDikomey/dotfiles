@@ -32,7 +32,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     eye = {
-      url = "github:LinusDikomey/eyelang";
+      url = "github:LinusDikomey/eye";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };

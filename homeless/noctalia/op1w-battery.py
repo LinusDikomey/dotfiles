@@ -11,8 +11,14 @@ VID_PID_TOKEN = "0003:3367:1970"
 VENDOR_INTERFACE_TOKEN = ":1.1/"
 
 REPORT_ID = 0xA1
-WAKE_COMMAND = [0x0F, 0x0F]
 BATTERY_COMMAND = 0xB4
+READ_SEQUENCES = [
+    ([0x0F, 0x0F], [BATTERY_COMMAND]),
+    ([0x0F, 0x01], [BATTERY_COMMAND]),
+    ([0x0E], [0x0F, 0x0F], [BATTERY_COMMAND]),
+    ([0x0E], [BATTERY_COMMAND]),
+    ([BATTERY_COMMAND],),
+]
 REPORT_LENGTH = 64
 ACK_OFFSET = 1
 BATTERY_OFFSET = 16
@@ -96,19 +102,7 @@ def feature_transaction(fd, payload, delay=0.35):
     return bytes(response)
 
 
-def read_battery_report(path):
-    fd = os.open(path, os.O_RDWR | os.O_CLOEXEC)
-    try:
-        feature_transaction(fd, WAKE_COMMAND)
-        return feature_transaction(fd, [BATTERY_COMMAND])
-    finally:
-        os.close(fd)
-
-
-def read_battery(path):
-    with BatteryLock():
-        response = read_battery_report(path)
-
+def battery_percent_from_response(response):
     if response[ACK_OFFSET] not in (ACK_OK, ACK_STATUS):
         raise BatteryReadError(f"unexpected ack byte: 0x{response[ACK_OFFSET]:02x}")
 
@@ -117,6 +111,28 @@ def read_battery(path):
         raise BatteryReadError(f"unexpected battery byte: 0x{percent:02x}")
 
     return percent
+
+
+def read_battery(path):
+    errors = []
+
+    with BatteryLock():
+        fd = os.open(path, os.O_RDWR | os.O_CLOEXEC)
+        try:
+            for sequence in READ_SEQUENCES:
+                response = None
+                for command in sequence:
+                    response = feature_transaction(fd, command)
+
+                try:
+                    return battery_percent_from_response(response)
+                except BatteryReadError as exc:
+                    errors.append(str(exc))
+        finally:
+            os.close(fd)
+
+    detail = "; ".join(errors[-3:]) if errors else "no response"
+    raise BatteryReadError(f"could not read battery: {detail}")
 
 
 def state_path():
@@ -197,11 +213,13 @@ def print_json(payload):
 
 
 def print_battery_json(percent):
+    tooltip = f"OP1w 4K\nBattery: {percent}%"
+
     print_json(
         {
             "text": f"{percent}%",
             "icon": battery_icon(percent),
-            "tooltip": f"OP1w 4K\nBattery: {percent}%",
+            "tooltip": tooltip,
             "color": color_for_percent(percent),
         }
     )

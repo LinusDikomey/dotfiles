@@ -86,6 +86,7 @@ in {
   dock.enabled = false;
   location.name = config.dotfiles.city or null;
   audio.volumeStep = 2;
+  network.bluetoothAutoConnect = false;
   nightLight = {
     enabled = true;
     manualSunrise = "5:30";

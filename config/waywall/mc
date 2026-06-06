@@ -4,7 +4,7 @@ xkb_symbols "custom" {
     name[Group1]= "Custom Layout";
 
     // 1 2 ..
-    key <AE01> { [ t, T] };
+    key <AE01> { [ t, J] };
     key <AE02> { [ l, G ] };
     key <AE03> { [ g, VoidSymbol ] };
     key <AE04> { [ 4, VoidSymbol ] };
@@ -12,15 +12,15 @@ xkb_symbols "custom" {
     key <AE08> { [ 8, 8 ] };
 
     // Q W F
-    key <AD01> { [ u, L ] };
-    key <AD02> { [ i, A ] };
+    key <AD01> { [ u, A ] };
+    key <AD02> { [ i, L ] };
     key <AC04> { [ e, H ] };
 
     // A(Y) R S T(N) G M
     key <AD06> { [ n, R ] };
     key <AD04> { [ s, N ] };
     key <AC02> { [ v, B ] };
-    key <AB06> { [ p, J ] };
+    key <AB06> { [ p, P ] };
     key <AC05> { [ aring, Aring ] };
 
 
