@@ -1,5 +1,5 @@
-{lib, ...}: let
-  def = lib.mapAttrsToList (on: run: {inherit on run;});
+{pkgs, ...}: let
+  def = pkgs.lib.mapAttrsToList (on: run: {inherit on run;});
 in {
   mgr.prepend_keymap = def {
     "m" = "leave";

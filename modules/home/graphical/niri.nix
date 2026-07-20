@@ -81,7 +81,6 @@ in {
       debug.honor-xdg-activation-with-invalid-serial = true;
       binds = let
         playerctl = "${pkgs.playerctl}/bin/playerctl";
-        pactl = "${pkgs.pulseaudio}/bin/pactl";
         noctalia = cmd: {
           action.spawn = ["noctalia-shell" "ipc" "call"] ++ cmd;
         };
@@ -116,8 +115,8 @@ in {
           "Mod+comma".action.consume-or-expel-window-left = {};
           "Mod+period".action.consume-or-expel-window-right = {};
           "Mod+r".action.switch-preset-column-width = {};
-          "Mod+bracketleft".action.set-column-width = "-${toString (100. / 9.)}%";
-          "Mod+bracketright".action.set-column-width = "+${toString (100. / 9.)}%";
+          "Mod+Shift+bracketleft".action.set-column-width = "-${toString (100. / 9.)}%";
+          "Mod+Shift+bracketright".action.set-column-width = "+${toString (100. / 9.)}%";
           "Mod+x".action.maximize-column = {};
           "Mod+${keymap.match}".action.expand-column-to-available-width = {};
           "Mod+c".action.center-column = {};
@@ -140,6 +139,11 @@ in {
           "XF86AudioLowerVolume" = noctalia ["volume" "decrease"];
           "XF86AudioRaiseVolume" = noctalia ["volume" "increase"];
           "XF86AudioMute" = noctalia ["volume" "muteOutput"];
+          # also allow this, it's nice on my keyboard and plays along with Mod+brackets
+          "Mod+Grave".action.spawn = [playerctl "play-pause"];
+          # media go forward/back 10 seconds
+          "Mod+bracketleft".action.spawn = [playerctl "position" "10-"];
+          "Mod+bracketright".action.spawn = [playerctl "position" "10+"];
         }
         // builtins.listToAttrs (builtins.concatLists (builtins.genList (i: [
             {
@@ -194,6 +198,23 @@ in {
             {namespace = "^noctalia-overview*";}
           ];
           place-within-backdrop = true;
+        }
+      ];
+      window-rules = [
+        # fix steam notifications appearing focused in the center
+        {
+          matches = [
+            {
+              app-id = "steam";
+              title = "^notificationtoasts_\\d+_desktop$";
+            }
+          ];
+          default-floating-position = {
+            x = 0;
+            y = 0;
+            relative-to = "bottom-right";
+          };
+          open-focused = false;
         }
       ];
     };

@@ -1,9 +1,9 @@
 {
-  lib,
   config,
   pkgs,
   ...
 }: let
+  inherit (pkgs) lib;
   monitors = config.dotfiles.graphical.monitors or {};
   op1wBattery = pkgs.writeScriptBin "op1w-battery" ''
     #!${pkgs.runtimeShell}

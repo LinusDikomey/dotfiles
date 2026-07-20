@@ -34,7 +34,7 @@
     };
     nu-cmd = desc: cmd: {
       inherit desc;
-      cmd = ["nu" "-c" cmd];
+      cmd = ["nu" "-c" "'${cmd}'"];
     };
     noctalia = desc: cmd: {
       inherit desc;

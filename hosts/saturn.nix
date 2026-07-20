@@ -53,6 +53,7 @@ in {
   ];
 
   dotfiles.ssh.enable = true;
+  dotfiles.dyndns.enable = true;
 
   age.identityPaths = ["/home/linus/.ssh/id_ed25519"];
 
@@ -65,7 +66,7 @@ in {
   networking = {
     networkmanager.enable = true;
     firewall = {
-      allowedTCPPorts = [22 8000 25565];
+      allowedTCPPorts = [22 25565];
       allowedUDPPorts = [9];
     };
     interfaces.enp4s0.wakeOnLan.enable = true;
